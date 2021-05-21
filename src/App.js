@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Request from "@/utils/request";
 import Loadding from "@/component/loadding";
 import "./App.scss";
@@ -12,9 +12,9 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className="App">
-        <Loadding />
-      </div>
+      <Suspense fallback={<Loadding />}>
+        <div className="App">App_root</div>
+      </Suspense>
     );
   }
 }
