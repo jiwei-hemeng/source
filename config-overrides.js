@@ -1,4 +1,9 @@
-const { override, fixBabelImports, addWebpackAlias } = require("customize-cra");
+const {
+  override,
+  fixBabelImports,
+  addWebpackAlias,
+  addWebpackExternals,
+} = require("customize-cra");
 const { resolve } = require("path");
 module.exports = override(
   fixBabelImports("import", {
@@ -7,5 +12,9 @@ module.exports = override(
   }),
   addWebpackAlias({
     "@": resolve("src"),
+  }),
+  addWebpackExternals({
+    react: "React",
+    "react-dom": "ReactDOM",
   })
 );
