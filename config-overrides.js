@@ -4,6 +4,14 @@ const {
   addWebpackAlias,
   addWebpackExternals,
 } = require("customize-cra");
+// 生产环境下按需加载
+let externalsOption = {};
+if (process.env.NODE_ENV === "production") {
+  externalsOption = {
+    react: "React",
+    "react-dom": "ReactDOM",
+  };
+}
 const { resolve } = require("path");
 module.exports = override(
   fixBabelImports("import", {
@@ -13,8 +21,5 @@ module.exports = override(
   addWebpackAlias({
     "@": resolve("src"),
   }),
-  addWebpackExternals({
-    react: "React",
-    "react-dom": "ReactDOM",
-  })
+  addWebpackExternals(externalsOption)
 );
