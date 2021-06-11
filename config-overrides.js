@@ -4,7 +4,8 @@ const {
   addWebpackAlias,
   addWebpackExternals,
 } = require("customize-cra");
-// 生产环境下按需加载
+const { resolve } = require("path");
+// 生产环境下cdn引入资源
 let externalsOption = {};
 if (process.env.NODE_ENV === "production") {
   externalsOption = {
@@ -14,7 +15,6 @@ if (process.env.NODE_ENV === "production") {
     axios: "axios",
   };
 }
-const { resolve } = require("path");
 module.exports = override(
   fixBabelImports("import", {
     libraryName: "antd-mobile",
