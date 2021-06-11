@@ -10,6 +10,8 @@ if (process.env.NODE_ENV === "production") {
   externalsOption = {
     react: "React",
     "react-dom": "ReactDOM",
+    "react-router-dom": "ReactRouter",
+    axios: "axios",
   };
 }
 const { resolve } = require("path");
