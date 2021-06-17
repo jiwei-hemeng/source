@@ -1,6 +1,7 @@
 import React from "react";
 import Request from "@/utils/request";
 import { connect } from "react-redux";
+import { Button } from "antd-mobile";
 import "./App.scss";
 class App extends React.Component {
   state = {
@@ -14,22 +15,17 @@ class App extends React.Component {
     console.log("lunbotu", data);
   }
   render() {
-    // return (
-    //   <Suspense fallback={<Loadding />}>
-    //     <div className="App">App_root</div>
-    //     <div>4564654654545</div>
-    //   </Suspense>
-    // );
     return (
       <div id="App">
         <div>商品数量：{this.props.num}</div>
-        <button
+        <Button
+          type="primary"
           onClick={() => {
             this.props.add();
           }}
         >
           点我++
-        </button>
+        </Button>
       </div>
     );
   }
