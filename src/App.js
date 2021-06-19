@@ -1,50 +1,17 @@
-import React from "react";
-import Request from "@/utils/request";
-import { connect } from "react-redux";
-import { Button } from "antd-mobile";
-import "./App.scss";
-class App extends React.Component {
-  state = {
-    name: "nkjadsnkj",
-  };
-  async componentDidMount() {
-    const { data } = await Request({
-      url: "xs/getSlideshow",
-      method: "POST",
-    });
-    console.log("lunbotu", data);
-  }
+import React, { Suspense } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Loadding from "@/component/loadding"
+const Index = React.lazy(() => import("./pages/"));
+const Home = React.lazy(() => import("@/pages/home"))
+export default class App extends React.Component {
   render() {
     return (
-      <div id="App">
-        <div>商品数量：{this.props.num}</div>
-        <Button
-          type="primary"
-          onClick={() => {
-            this.props.add();
-          }}
-        >
-          点我++
-        </Button>
-      </div>
+      <BrowserRouter>
+        <Suspense fallback={<Loadding />}>
+          <Route exact path="/" component={Index} />
+          <Route exact path="/home" component={Home} />
+        </Suspense>
+      </BrowserRouter>
     );
   }
 }
-// 获取共享的数据
-const mapStateToProps = (state, ownProps) => {
-  return {
-    num: state.num,
-  };
-};
-// 操作共享的数据
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    add: () => {
-      dispatch({
-        type: "add",
-        value: 1,
-      });
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(App);
