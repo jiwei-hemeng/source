@@ -1,0 +1,32 @@
+.Login {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: url("../static/login/login_bg.jfif") no-repeat center;
+  background-position: cover;
+  box-sizing: border-box;
+  padding: 10px;
+  .form_item {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding-left: 10px;
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    &:nth-child(1) {
+      margin-top: 60px;
+    }
+    .InputItem {
+      width: 80%;
+    }
+  }
+  .submit {
+    width: 80%;
+    margin: 10px auto;
+  }
+}
