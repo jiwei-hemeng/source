@@ -16,7 +16,10 @@ export default class Login extends React.Component {
     })
     if(data.code !== 200) return
     sessionStorage.setItem("token", data.token);
-    this.props.history.push("/home/index")
+    // this.props.history.push("/home/index")
+    this.props.history.push({
+      pathname: "/home/index"
+    })
   }
   render() {
     return (
