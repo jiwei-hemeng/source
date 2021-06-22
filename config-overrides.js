@@ -5,6 +5,8 @@ const {
   addWebpackExternals,
 } = require("customize-cra");
 const { resolve } = require("path");
+const rewirePostcss = require("react-app-rewire-postcss");
+const px2rem = require("postcss-px2rem");
 // 生产环境下cdn引入资源
 let externalsOption = {};
 if (process.env.NODE_ENV === "production") {
@@ -23,5 +25,25 @@ module.exports = override(
   addWebpackAlias({
     "@": resolve("src"),
   }),
-  addWebpackExternals(externalsOption)
+  addWebpackExternals(externalsOption),
+  (config, env) => {
+    // 重写postcss
+    rewirePostcss(config, {
+      plugins: () => [
+        require("postcss-flexbugs-fixes"),
+        require("postcss-preset-env")({
+          autoprefixer: {
+            flexbox: "no-2009",
+          },
+          stage: 3,
+        }),
+        //关键:设置px2rem
+        px2rem({
+          remUnit: 37.5,
+          exclude: /node-modules/,
+        }),
+      ],
+    });
+    return config;
+  }
 );

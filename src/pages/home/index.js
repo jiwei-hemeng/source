@@ -2,6 +2,7 @@ import React from "react";
 import Request from "@/utils/request";
 import { connect } from "react-redux";
 import { Button } from "antd-mobile";
+import "./index.scss";
 class App extends React.Component {
   state = {
     name: "nkjadsnkj",
@@ -16,6 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="App">
+        <div className="test">px2rem适配的配置</div>
         <div>商品数量：{this.props.num}</div>
         <Button
           type="primary"
