@@ -18,9 +18,6 @@
     display: flex;
     margin-bottom: 10px;
     align-items: center;
-    &:nth-child(1) {
-      margin-top: 60px;
-    }
     .InputItem {
       width: 240px;
     }
@@ -29,8 +26,10 @@
     height: 60px;
     line-height: 60px;
     width: 300px;
-    margin: 60px auto 0;
+    margin: 90px auto 0;
     font-size: 20px;
+    text-align: center;
+    color: #fff;
   }
   .submit {
     width: 300px;
