@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
-// import style from "./index.module.scss";
 import { TabBar } from "antd-mobile";
 const Home = React.lazy(() => import("@/pages/home"));
+const Overdue = React.lazy(() => import("@/pages/overdue"))
 class Index extends React.Component {
   state = {
     selectedTab: "order"
@@ -11,6 +11,7 @@ class Index extends React.Component {
     return (
       <>
         <Route exact path="/home/index" component={Home} />
+        <Route exact path="/home/overdue" component={Overdue} />
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
@@ -27,6 +28,10 @@ class Index extends React.Component {
             onPress={() => {
               this.setState({
                 selectedTab: "order",
+              }, () => {
+                this.props.history.push({
+                  pathname: "/home/index"
+                })
               });
             }}
           ></TabBar.Item>
@@ -39,6 +44,10 @@ class Index extends React.Component {
             onPress={() => {
               this.setState({
                 selectedTab: "overdue",
+              }, () => {
+                this.props.history.push({
+                  pathname: "/home/overdue"
+                })
               });
             }}
           />
