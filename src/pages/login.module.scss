@@ -4,7 +4,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background: url("../static/login/login_bg.jfif") no-repeat center;
+  background: url("../static/login/login_bj_02.jpg") no-repeat center;
   background-position: cover;
   box-sizing: border-box;
   padding: 10px;
@@ -24,6 +24,13 @@
     .InputItem {
       width: 240px;
     }
+  }
+  .form_item_title {
+    height: 60px;
+    line-height: 60px;
+    width: 300px;
+    margin: 60px auto 0;
+    font-size: 20px;
   }
   .submit {
     width: 300px;

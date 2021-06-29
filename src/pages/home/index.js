@@ -1,5 +1,5 @@
 import React from "react";
-import Request from "@/utils/request";
+// import Request from "@/utils/request";
 import { connect } from "react-redux";
 import { Button } from "antd-mobile";
 import style from "./index.module.scss";
@@ -8,11 +8,11 @@ class App extends React.Component {
     name: "nkjadsnkj",
   };
   async componentDidMount() {
-    const { data } = await Request({
-      url: "xs/getSlideshow",
-      method: "POST",
-    });
-    console.log("lunbotu", data);
+    // const { data } = await Request({
+    //   url: "xs/getSlideshow",
+    //   method: "POST",
+    // });
+    // console.log("lunbotu", data);
   }
   render() {
     return (

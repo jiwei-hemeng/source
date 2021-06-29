@@ -1,0 +1,23 @@
+.tarbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .tarbar_item {
+    box-sizing: border-box;
+    width: 50%;
+    text-align: center;
+    padding-top: 2px;
+    i {
+      font-size: 20px;
+    }
+    p {
+      margin: 4px 0;
+    }
+  }
+}

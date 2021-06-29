@@ -4,7 +4,8 @@ const {
 module.exports = function (app) {
   app.use(
     createProxyMiddleware("/api", {
-      target: "http://localhost:3006",
+      // target: "http://localhost:3006",
+      target: "http://manage.laotielian.com/",
       changeOrigin: true,
       pathRewrite: {
         "^/api": "",
