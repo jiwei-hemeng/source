@@ -12,8 +12,8 @@ export default class App extends React.Component {
           <Route exact path="/" render={() => {
             return <Redirect to="/home/index"></Redirect>
           }} />
-          <Route path="/home" component={Index} />
-          <Route exact path="/login" component={Login} />
+          <Route path="/home" component={ Index } />
+          <Route exact path="/login" component={ Login } />
         </Suspense>
       </BrowserRouter>
       // <HashRouter>

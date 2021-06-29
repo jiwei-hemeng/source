@@ -2,10 +2,42 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { TabBar } from "antd-mobile";
 const Home = React.lazy(() => import("@/pages/home"));
-const Overdue = React.lazy(() => import("@/pages/overdue"))
+const Overdue = React.lazy(() => import("@/pages/overdue"));
+const tabItems = [
+  { title: '正常订单', icon: "iconfont icon-order", path: "/home/index" },
+  { title: '逾期订单', icon: 'iconfont icon-overdue',path: '/home/overdue' },
+]
 class Index extends React.Component {
   state = {
-    selectedTab: "order"
+    selectedTab: "/home/index"
+  }
+  renderTabBarItem = () => {
+    return tabItems.map(item => {
+      return (
+        <TabBar.Item
+          title={item.title}
+          key={item.path}
+          icon={<i className={item.icon} />}
+          selectedIcon={<i className={item.icon} />}
+          selected={this.state.selectedTab === item.path}
+          onPress={() => {
+            this.setState({
+              selectedTab: item.path,
+            }, () => {
+              this.props.history.push({
+                pathname: item.path
+              })
+            });
+          }}
+        />
+      )
+    })
+  }
+  componentDidMount() {
+    const { location } = this.props
+    this.setState({
+      selectedTab: location.pathname
+    })
   }
   render() {
     return (
@@ -19,38 +51,9 @@ class Index extends React.Component {
           prerenderingSiblingsNumber="0"
           tabBarPosition="bottom"
         >
-          <TabBar.Item
-            title="正常订单"
-            key="order"
-            icon={<i className="iconfont icon-order" />}
-            selectedIcon={<i className="iconfont icon-order" />}
-            selected={this.state.selectedTab === 'order'}
-            onPress={() => {
-              this.setState({
-                selectedTab: "order",
-              }, () => {
-                this.props.history.push({
-                  pathname: "/home/index"
-                })
-              });
-            }}
-          ></TabBar.Item>
-          <TabBar.Item
-            title="逾期订单"
-            key="order"
-            icon={<i className="iconfont icon-overdue" />}
-            selectedIcon={<i className="iconfont icon-overdue" />}
-            selected={this.state.selectedTab === 'overdue'}
-            onPress={() => {
-              this.setState({
-                selectedTab: "overdue",
-              }, () => {
-                this.props.history.push({
-                  pathname: "/home/overdue"
-                })
-              });
-            }}
-          />
+          {
+            this.renderTabBarItem()
+          }
         </TabBar>
       </>
     );
