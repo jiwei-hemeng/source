@@ -1,8 +1,3 @@
-html,
-body,
-#root {
-  width: 100%;
-}
 form {
   padding: 0;
 }
@@ -10,4 +5,13 @@ ul, li {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+// 解决tarbar定位，以及添加以后botton点击无效
+// 点击事件无效的原因TabBar的默认高度100%，TabBar把页面所有的按钮挡住了
+#root .am-tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height:50px;
 }
