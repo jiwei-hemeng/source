@@ -5,6 +5,10 @@ const Reducer = (state, action) => {
       const newState = { ...state };
       newState.num += action.value;
       return newState;
+    case "setToken":
+      const newToken = { ...state };
+      newToken.token = action.value
+      return newToken
     default:
       return state;
   }

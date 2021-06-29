@@ -2,7 +2,8 @@ import React from "react";
 import { InputItem, Button } from 'antd-mobile';
 import style from "./login.module.scss"
 import { login } from "@/api/user"
-export default class Login extends React.Component {
+import { connect } from "react-redux";
+class Login extends React.Component {
   state = {
     username: "admin",
     password: "admin@123"
@@ -16,6 +17,7 @@ export default class Login extends React.Component {
     })
     if(data.code !== 200) return
     sessionStorage.setItem("token", data.token);
+    this.props.setToken(data.token)
     this.props.history.push({
       pathname: "/home/index"
     })
@@ -56,3 +58,19 @@ export default class Login extends React.Component {
     )
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    token: state.token
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setToken: (token) => {
+      dispatch({
+        type: "setToken",
+        value: token,
+      });
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
