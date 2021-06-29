@@ -40,11 +40,16 @@ export default class Login extends React.Component {
         </div>
         <div className={style.form_item}>
           <i className="iconfont icon-password"></i>
-          <InputItem type="password" className={style.InputItem} value={this.state.password} onChange={(val) => {
-            this.setState({
-              password: val
-            })
-          }} />
+          <InputItem 
+            type="password" 
+            className={style.InputItem} 
+            value={this.state.password} 
+            onChange={(val) => {
+              this.setState({
+                password: val
+              })
+            }} 
+          />
         </div>
         <Button className={style.submit} type="primary" onClick={this.login}>登录</Button>
       </form>
