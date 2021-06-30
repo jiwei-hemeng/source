@@ -1,0 +1,67 @@
+.Details {
+  box-sizing: border-box;
+  padding-top: 45px;
+  .NavBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+  }
+  .Card {
+    width: 95%;
+    display: block;
+    margin: 5px auto;
+    .Item {
+      height: 30px;
+      line-height: 30px;
+      box-sizing: border-box;
+      padding-left: 15px;
+      overflow: hidden;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .title {
+        display: inline-block;
+        width: 110px;
+      }
+    }
+    .Idphoto {
+      box-sizing: border-box;
+      padding-left: 15px;
+      .title {
+        display: inline-block;
+        width: 110px;
+      }
+    }
+    .OrderInfo {
+      width: 750px;
+      border-collapse: collapse;
+      th {
+        width: 220px;
+        border: 1px solid #999;
+        background-color: #B5CFD2;
+      }
+      td {
+        border: 1px solid #999;
+        background-color: #DCDDC0;
+        text-align: center;
+      }
+    }
+    .CreditInformation {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      .btn {
+        margin-top: 10px;
+      }
+    }
+    .ReturnVisit {
+      width: 100%;
+      .btn {
+        width: 80%;
+        margin: 10px auto;
+      }
+    }
+  }
+}
