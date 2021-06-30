@@ -6,6 +6,7 @@ const Index = React.lazy(() => import("./pages/"));
 const Login = React.lazy(() => import("@/pages/login"))
 const OverdueDetails = React.lazy(() => import("@/pages/overdue_details"));
 const CreditRecords = React.lazy(() => import("@/pages/CreditRecords"));
+const OverdueSearch = React.lazy(() => import("@/pages/overdueSearch"));
 export default class App extends React.Component {
   render() {
     return (
@@ -18,6 +19,7 @@ export default class App extends React.Component {
           <Route exact path="/login" component={ Login } />
           <Route path="/overduedetails/:id" component={ OverdueDetails } />
           <Route path="/creditrecords" component={ CreditRecords } />
+          <Route path="/overdueSearch" component={ OverdueSearch } />
         </Suspense>
       </BrowserRouter>
       // <HashRouter>

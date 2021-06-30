@@ -243,7 +243,8 @@ export default class OverdueDetails extends React.Component {
           <Button type="primary" size="small" className={style.btn} onClick={() => {
             this.props.history.push({
               pathname: "/creditrecords",
-              query : { id: data.order_number} 
+              // query: { id: data.order_number},
+              state: {id: data.order_number}
             })
           }}>征信信息</Button>
           <Button type="primary" size="small" className={style.btn} onClick={() => {

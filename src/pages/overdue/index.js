@@ -1,6 +1,6 @@
 // 逾期列表
 import React from "react"
-import { Card } from "antd-mobile";
+import { Card, SearchBar } from "antd-mobile";
 
 import style from "./index.module.scss"
 const list = [
@@ -36,9 +36,18 @@ export default class Overdue extends React.Component {
       </Card>
     })
   }
+  componentDidMount() {
+    console.log("收索组件传来的值", this.props.location.state)
+  }
   render() {
     return (
       <div className={style.Overdue}>
+        <SearchBar
+          placeholder="Search"
+          onFocus={() => {
+            this.props.history.push("/overdueSearch")
+          }}
+        />
         {
           this.renderList()
         }
