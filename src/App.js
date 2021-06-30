@@ -5,6 +5,7 @@ import Loadding from "@/component/loadding"
 const Index = React.lazy(() => import("./pages/"));
 const Login = React.lazy(() => import("@/pages/login"))
 const OverdueDetails = React.lazy(() => import("@/pages/overdue_details"));
+const CreditRecords = React.lazy(() => import("@/pages/CreditRecords"));
 export default class App extends React.Component {
   render() {
     return (
@@ -15,7 +16,8 @@ export default class App extends React.Component {
           }} />
           <Route path="/home" component={ Index } />
           <Route exact path="/login" component={ Login } />
-          <Route path="/overduedetails/:id" component={OverdueDetails} />
+          <Route path="/overduedetails/:id" component={ OverdueDetails } />
+          <Route path="/creditrecords" component={ CreditRecords } />
         </Suspense>
       </BrowserRouter>
       // <HashRouter>

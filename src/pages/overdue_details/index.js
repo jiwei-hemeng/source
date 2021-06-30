@@ -240,7 +240,12 @@ export default class OverdueDetails extends React.Component {
       >
         <Card.Header title="征信信息"></Card.Header>
         <Card.Body className={style.CreditInformation}>
-          <Button type="primary" size="small" className={style.btn}>征信信息</Button>
+          <Button type="primary" size="small" className={style.btn} onClick={() => {
+            this.props.history.push({
+              pathname: "/creditrecords",
+              query : { id: data.order_number} 
+            })
+          }}>征信信息</Button>
           <Button type="primary" size="small" className={style.btn} onClick={() => {
             console.log(12323)
             this.setState({
