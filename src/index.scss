@@ -19,3 +19,16 @@ ul, li {
   padding: 0;
   overflow-x: auto;
 }
+.ModalItem {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 10px;
+  span {
+    width: 110px;
+    text-align: left;
+  }
+  .am-list-item {
+    width: 210px !important;
+  }
+}

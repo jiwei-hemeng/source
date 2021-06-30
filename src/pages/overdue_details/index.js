@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem } from "antd-mobile";
+import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem } from "antd-mobile";
 import style from "./index.module.scss"
 const IDImagesdata = [{
   url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
@@ -13,6 +13,7 @@ export default class OverdueDetails extends React.Component {
   state = {
     files: IDImagesdata,
     multiple: false,
+    visible: false,
   }
   renderBasicinformation = () => {
     return (
@@ -240,7 +241,12 @@ export default class OverdueDetails extends React.Component {
         <Card.Header title="征信信息"></Card.Header>
         <Card.Body className={style.CreditInformation}>
           <Button type="primary" size="small" className={style.btn}>征信信息</Button>
-          <Button type="primary" size="small" className={style.btn}>修改逾期金</Button>
+          <Button type="primary" size="small" className={style.btn} onClick={() => {
+            console.log(12323)
+            this.setState({
+              visible: true
+            })
+          }}>修改逾期金</Button>
         </Card.Body>
       </Card>
     )
@@ -279,6 +285,50 @@ export default class OverdueDetails extends React.Component {
         <Button type="primary" size="small" className={style.btn}>提交</Button>
       </Card.Body>
     </Card>
+    )
+  }
+  renderModal = () => {
+    return (
+      <Modal
+        popup
+        visible={this.state.visible}
+        animationType="slide-up"
+        onClose={() => {
+          this.setState({
+            visible: false
+          })
+        }}
+      >
+        <List renderHeader={() => <div>修改逾期金</div>} className="popup-list">
+            <div className="ModalItem">
+              <span>订单编号</span>
+              <InputItem className="InputItem" placeholder="auto focus" value={data.order_number} />
+            </div>
+            <div className="ModalItem">
+              <span>逾期金额</span>
+              <InputItem className="InputItem"  placeholder="auto focus" value={100} />
+            </div>
+            <div className="ModalItem">
+              <span>修改逾期金额</span>
+              <InputItem className="InputItem"  placeholder="请输入修改逾期金额..." />
+            </div>
+            <div className="ModalItem">
+              <span>备注</span>
+              <InputItem className="InputItem"  placeholder="请输入备注..." />
+            </div>
+            <List.Item>
+              <Button 
+                type="primary" 
+                size="small"
+                onClick={() => {
+                  this.setState({
+                    visible: false
+                  })
+                }}
+              >提交</Button>
+            </List.Item>
+          </List>
+      </Modal>
     )
   }
   render() {
@@ -324,6 +374,9 @@ export default class OverdueDetails extends React.Component {
         }
         {
           this.renderReturnVisit()
+        }
+        {
+          this.renderModal()
         }
       </div>
     )
