@@ -19,7 +19,7 @@ class Index extends React.Component {
           key={item.order_number}
         >
           <Card.Header
-            title={item.order_number} 
+            title={<span className={style.CardTitle}>{item.order_number}</span>}
             extra={
               <span className={item.delay_stages === "0"? style.status: style.end }>分期中</span>
             }
