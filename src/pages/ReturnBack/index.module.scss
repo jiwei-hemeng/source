@@ -1,0 +1,48 @@
+.ReturnBack {
+  box-sizing: border-box;
+  padding-top: 45px;
+  .NavBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+  }
+  .Card {
+    width: 98%;
+    margin: 5px auto;
+    box-sizing: border-box;
+    padding-top: 5px;
+    .CardItem {
+      box-sizing: border-box;
+      padding: 5px;
+      display: flex;
+      .title {
+        width: 90px;
+        display: inline-block;
+      }
+    }
+    .btn {
+      width: 80%;
+      margin: 10px auto;
+    }
+  }
+  .Recode{
+    width: 98%;
+    margin: 0 auto;
+    table {
+      width: 750px;
+      border-collapse: collapse;
+      th {
+        width: 220px;
+        border: 1px solid #999;
+        background-color: #B5CFD2;
+      }
+      td {
+        border: 1px solid #999;
+        background-color: #DCDDC0;
+        text-align: center;
+      }
+    }
+  }
+}

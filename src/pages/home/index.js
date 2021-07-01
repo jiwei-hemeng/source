@@ -73,6 +73,12 @@ class Index extends React.Component {
                 className={style.btn} 
                 size="small" 
                 icon={<i className="iconfont icon-returnback" />}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/returnBack",
+                    state: {id: item.order_number}
+                  })
+                }}
               >回访信息</Button>
             </div>
           </Card.Body>

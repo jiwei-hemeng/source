@@ -8,6 +8,7 @@ const OverdueDetails = React.lazy(() => import("@/pages/overdue_details"));
 const CreditRecords = React.lazy(() => import("@/pages/CreditRecords"));
 const OverdueSearch = React.lazy(() => import("@/pages/overdueSearch"));
 const Periodization = React.lazy(() => import("@/pages/periodization"));
+const ReturnBack = React.lazy(() => import("@/pages/ReturnBack"));
 export default class App extends React.Component {
   render() {
     return (
@@ -22,6 +23,7 @@ export default class App extends React.Component {
           <Route path="/creditrecords" component={ CreditRecords } />
           <Route path="/overdueSearch" component={ OverdueSearch } />
           <Route path="/periodization" component={ Periodization } />
+          <Route path="/returnBack" component={ ReturnBack } />
         </Suspense>
       </BrowserRouter>
       // <HashRouter>
