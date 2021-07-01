@@ -1,11 +1,54 @@
 .Periodization {
   box-sizing: border-box;
-  padding-top: 50px;
+  padding-top: 45px;
   .NavBar {
     position: fixed;
     left: 0;
     top: 0;
     right: 0;
     z-index: 999;
+  }
+  .Card {
+    width: 98% !important;
+    margin: 5px auto;
+    .CardTitle {
+      font-size: 15px;
+      color: darkorange;
+    }
+    .status {
+      padding: 2px 4px;
+      border-radius: 3px;
+      background-color: #f00;
+      color: #fff;
+      font-size: 14px;
+    }
+    .end {
+      padding: 2px 4px;
+      border-radius: 3px;
+      background-color: #1AB394;
+      color: #fff;
+      font-size: 14px;
+    }
+    .CardItem {
+      line-height: 30px;
+      box-sizing: border-box;
+      padding-left: 10px;
+      font-size: 14px;
+      .title {
+        display: inline-block;
+        width: 100px;
+      }
+    }
+    .btn_group {
+      height: 40px;
+      box-sizing: border-box;
+      padding-left: 10px;
+      .btn {
+        margin-right: 20px;
+      }
+    }
+  }
+  .ModalItem {
+    height: 40px;
   }
 }
