@@ -51,7 +51,7 @@ export default class Periodization extends React.Component {
           console.log('ok'); 
         } }]}
       >
-        <div style={{ height: 360, overflow: 'scroll' }}>
+        <div style={{ height: 345, overflow: 'scroll' }}>
           <InputItem
             value={this.props.location.state.id}
             placeholder="请输入订单编号..."
