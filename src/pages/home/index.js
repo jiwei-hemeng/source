@@ -51,6 +51,12 @@ class Index extends React.Component {
                 className={style.btn} 
                 size="small" 
                 icon={<i className="iconfont icon-bianzu" />}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/periodization",
+                    state: {id: item.order_number}
+                  })
+                }}
               >分期详情</Button>
               <Button 
                 type="primary" 
