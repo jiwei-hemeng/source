@@ -45,7 +45,10 @@ export default class Overdue extends React.Component {
         <SearchBar
           placeholder="Search"
           onFocus={() => {
-            this.props.history.push("/overdueSearch")
+            this.props.history.push({
+              pathname: "/overdueSearch",
+              state: { type: "overdue"}
+            })
           }}
         />
         {
