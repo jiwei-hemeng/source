@@ -3,16 +3,21 @@
   box-sizing: border-box;
   padding-bottom: 50px;
   .Card {
-    width: 95%;
+    width: 98%;
     margin: 0 auto;
     display: block;
     margin-bottom: 10px;
+    .CardTitle {
+      font-size: 14px;
+      color: darkorange;
+    }
     .status {
       box-sizing: border-box;
       padding: 2px 10px;
       background-color: #1AB394;
       color: #fff;
       border-radius: 5px;
+      font-size: 14px;
     }
     .end {
       box-sizing: border-box;
@@ -20,6 +25,7 @@
       background-color: red;
       color: #fff;
       border-radius: 5px;
+      font-size: 14px;
     }
     .cardItem {
       width: 100%;
