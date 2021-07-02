@@ -1,6 +1,7 @@
 import React from "react";
-import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem } from "antd-mobile";
+import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio } from "antd-mobile";
 import style from "./index.module.scss"
+const RadioItem = Radio.RadioItem;
 const IDImagesdata = [{
   url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
   id: '2121',
@@ -15,7 +16,8 @@ export default class Overduedetails extends React.Component {
     multiple: false,
     visible: false,
     course: false,
-    PerPay: false
+    PerPay: false,
+    AuditStatus: 2, // AuditStatus
   }
   renderBasicinformation = () => {
     return (
@@ -372,16 +374,30 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderAuditStatus = () => {
+    const Radiolist = [
+      { value: 0, label: "待审核" },
+      { value: 1, label: "通过" },
+      { value: 2, label: "拒绝" },
+      { value: 3, label: "等待会员签约" },
+    ];
     return (
       <Card
         className={style.Card}
       >
-        <Card.Header title="审核状态"></Card.Header>
-        <Card.Body className={style.CreditInformation}>
-          <input type="radio" name="AuditStatus" value="0"></input><span>待审核</span>
-          <input type="radio" name="AuditStatus" value="2" checked onChange={(e) => console.log(e)}></input><span>通过</span>
-          <input type="radio" name="AuditStatus" value="3"></input><span>拒绝</span>
-          <input type="radio" name="AuditStatus" value="4"></input><span>等待会员签约</span>
+        <Card.Body>
+          <List renderHeader={() => "审核状态"}>
+            {
+              Radiolist.map(item => {
+                return (
+                  <RadioItem
+                    key={item.value}
+                    checked={item.value === this.state.AuditStatus}
+                    onChange={() => this.setState({AuditStatus: item.value})}
+                  >{item.label}</RadioItem>
+                )
+              })
+            }
+          </List>
         </Card.Body>
       </Card>
     )
