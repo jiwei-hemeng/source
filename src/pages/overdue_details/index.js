@@ -17,7 +17,7 @@ export default class Overduedetails extends React.Component {
     visible: false,
     course: false,
     PerPay: false,
-    AuditStatus: 2, // 审核状态
+    AuditStatus: 1, // 审核状态
   }
   renderBasicinformation = () => {
     return (
