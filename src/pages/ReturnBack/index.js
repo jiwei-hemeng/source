@@ -26,9 +26,23 @@ export default class Returnback extends React.Component {
         <Card.Body>
           <div className={style.CardItem}>
             <span className={style.title}>音频文件</span>
-            <input type="file" accept="audio/*" onChange={e => {
-              this.setState({filelist: e.target.files})
-            }} />
+            <Button
+              className={style.btn}
+              type="primary"
+              icon={<i className="iconfont icon-upload"></i>}
+              onClick={() => {
+                this.fileClick.click()
+              }}
+            >选择文件</Button>
+            <input
+              className={style.fileBtn}
+              type="file"
+              accept="audio/*"
+              onChange={e => {
+                this.setState({filelist: e.target.files})
+              }}
+              ref={ref => this.fileClick = ref}
+            />
           </div>
           <InputItem
             value={this.state.summary}
@@ -40,7 +54,7 @@ export default class Returnback extends React.Component {
             placeholder="请输入备注..."
             onChange={v => this.setState({remark: v})}
           >备注</InputItem>
-          <Button className={style.btn} type="primary" size="small" onClick={ ()=> { this.submit() }}>提交</Button>
+          <Button className={style.btn} type="primary" onClick={ ()=> { this.submit() }}>提交</Button>
         </Card.Body>
       </Card>
     )

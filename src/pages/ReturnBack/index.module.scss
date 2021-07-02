@@ -17,9 +17,18 @@
       box-sizing: border-box;
       padding: 5px;
       display: flex;
+      align-items: center;
       .title {
-        width: 90px;
+        width: 60px;
         display: inline-block;
+      }
+      .btn {
+        width: 240px;
+        height: 35px;
+        line-height: 35px;
+      }
+      .fileBtn {
+        display: none;
       }
     }
     .btn {
