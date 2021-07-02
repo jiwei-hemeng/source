@@ -338,8 +338,8 @@ export default class OverdueDetails extends React.Component {
     )
   }
   render() {
-    const { match, history } = this.props
-    console.log("订单编号", match.params.id)
+    const { history, location } = this.props
+    console.log("订单编号", location.state)
     return (
       <div className={style.Details}>
         <NavBar

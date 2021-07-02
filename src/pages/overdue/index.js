@@ -13,7 +13,8 @@ export default class Overdue extends React.Component {
         key={item.order_number}
         onClick={() => {
           console.log("订单编号", item.order_number, this.props)
-          this.props.history.push("/overduedetails/" + item.order_number);
+          // this.props.history.push("/overduedetails/" + item.order_number);
+          this.props.history.push({ pathname: "/overduedetails", state: {id: item.order_number, type: 2}});
         }}
       >
         <Card.Header

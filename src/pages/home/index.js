@@ -41,7 +41,7 @@ class Index extends React.Component {
                 size="small" 
                 icon={<i className="iconfont icon-dingdanxiangqingxianxing" />}
                 onClick={() => {
-                  this.props.history.push("/overduedetails/" + item.order_number);
+                  this.props.history.push({ pathname: "/overduedetails", state: {id: item.order_number, type: 1}});
                 }}
               >订单详情</Button>
               <Button

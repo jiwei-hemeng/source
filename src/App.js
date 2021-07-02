@@ -21,7 +21,7 @@ export default class App extends React.Component {
           <AuthRoute path="/home" exact={false} Page={ Index } />
           <Route exact path="/login" component={ Login } />
           {/* <Route path="/overduedetails/:id" component={ OverdueDetails } /> */}
-          <AuthRoute path="/overduedetails/:id" exact={false} Page={ OverdueDetails } />
+          <AuthRoute path="/overduedetails" exact={true} Page={ OverdueDetails } />
           {/* <Route path="/creditrecords" component={ CreditRecords } /> */}
           <AuthRoute path="/creditrecords" exact={true} Page={ CreditRecords } />
           {/* <Route path="/overdueSearch" component={ OverdueSearch } /> */}
