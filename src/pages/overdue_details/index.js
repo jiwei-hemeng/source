@@ -323,14 +323,6 @@ export default class Overduedetails extends React.Component {
               placeholder="请输入使用天数..."
             >违约金额</InputItem>
           </List>
-          <Button
-            type="primary"
-            onClick={() => {
-              this.setState({
-                course: false
-              })
-            }}
-          >关闭</Button>
         </div>
       </Modal>
     )
