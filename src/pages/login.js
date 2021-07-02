@@ -16,8 +16,8 @@ class Login extends React.Component {
       ...userInfo
     })
     if(data.code !== 200) return
-    sessionStorage.setItem("token", data.token);
-    this.props.setToken(data.token)
+    sessionStorage.setItem("token", data.data);
+    this.props.setToken(data.data)
     this.props.history.push({
       pathname: "/home/index"
     })
