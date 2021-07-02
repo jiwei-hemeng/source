@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 // 导入获取token的文件
 const isAuth = sessionStorage.getItem("token");
-export default class AuthRoute extends Component {
+export default class Authroute extends Component {
   render() {
     const { path, exact, Page } = this.props
     return (

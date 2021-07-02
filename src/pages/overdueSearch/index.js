@@ -61,7 +61,7 @@ const agentArr = [
     },
   ]
 ]
-export default class OverdueSearch extends React.Component {
+export default class Overduesearch extends React.Component {
   constructor() {
     super()
     this.state = {
