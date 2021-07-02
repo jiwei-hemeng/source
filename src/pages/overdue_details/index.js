@@ -471,39 +471,51 @@ export default class Overduedetails extends React.Component {
           onLeftClick={() => history.goBack()}
         >订单详情页</NavBar>
         {
+          // 基本信息
           this.renderBasicinformation()
         }
         {
+          // 会员还款详情
           this.renderMember()
         }
         {
+          // 商品详情
           this.renderProductDetails()
         }
         {
+          // 用户信用信息
           this.renderUserInfo()
         }
         {
+          // 实名身份信息
           this.renderIdInfo()
         }
         {
+          // 订单详情信息
           this.renderOrderInfo()
         }
         {
+          // 操作记录
           this.renderNotes()
         }
         {
+          // 扣款记录
           this.renderDeductionRecord()
         }
         {
+          // 征信信息
           this.renderCreditInformation()
         }
         {
+          // 审核状态
           this.renderAuditStatus()
         }
         {
+          // 回访记录
           this.renderReturnVisit()
         }
         {
+          // 修改逾期金
           this.renderModal()
         }
         {
@@ -511,6 +523,7 @@ export default class Overduedetails extends React.Component {
           this.rendercourse()
         }
         {
+          // 提前还款计算
           this.renderPerPayModal()
         }
       </div>
