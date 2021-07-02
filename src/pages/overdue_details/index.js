@@ -14,6 +14,7 @@ export default class OverdueDetails extends React.Component {
     files: IDImagesdata,
     multiple: false,
     visible: false,
+    course: false
   }
   renderBasicinformation = () => {
     return (
@@ -240,21 +241,73 @@ export default class OverdueDetails extends React.Component {
       >
         <Card.Header title="征信信息"></Card.Header>
         <Card.Body className={style.CreditInformation}>
+          {
+            this.renderCreditContent()
+          }
+        </Card.Body>
+      </Card>
+    )
+  }
+  renderCreditContent = () => {
+    console.log("审核状态", this.props.location.state)
+    const { type } = this.props.location.state
+    if(type === 1) {
+      return (
+        <>
           <Button type="primary" size="small" className={style.btn} onClick={() => {
             this.props.history.push({
               pathname: "/creditrecords",
-              // query: { id: data.order_number},
               state: {id: data.order_number}
             })
           }}>征信信息</Button>
           <Button type="primary" size="small" className={style.btn} onClick={() => {
-            console.log(12323)
             this.setState({
-              visible: true
+              course: true
             })
-          }}>修改逾期金</Button>
-        </Card.Body>
-      </Card>
+          }}>退课计算</Button>
+          <Button type="primary" size="small" className={style.btn} onClick={() => {
+            
+          }}>提前还款</Button>
+        </>
+      )
+    }
+    return (
+      <>
+        <Button type="primary" size="small" className={style.btn} onClick={() => {
+          this.props.history.push({
+            pathname: "/creditrecords",
+            state: {id: data.order_number}
+          })
+        }}>征信信息</Button>
+        <Button type="primary" size="small" className={style.btn} onClick={() => {
+          this.setState({
+            visible: true
+          })
+        }}>修改逾期金</Button>
+      </>
+    )
+  }
+  // 退课计算Modal
+  rendercourse = () => {
+    return (
+      <Modal
+        popup
+        visible={this.state.course}
+        animationType="slide-up"
+        onClose={() => {
+          this.setState({
+            course: false
+          })
+        }}
+      >
+        <div style={{ height: 345, overflow: 'scroll' }}>
+          <InputItem
+            value={6}
+            placeholder="displayed clear while typing"
+          >使用天数</InputItem>
+          <List renderHeader={() => '使用天数'}></List>
+        </div>
+      </Modal>
     )
   }
   renderAuditStatus = () => {
@@ -383,6 +436,10 @@ export default class OverdueDetails extends React.Component {
         }
         {
           this.renderModal()
+        }
+        {
+          // 退课计算Modal
+          this.rendercourse()
         }
       </div>
     )
