@@ -14,7 +14,8 @@ export default class Overduedetails extends React.Component {
     files: IDImagesdata,
     multiple: false,
     visible: false,
-    course: false
+    course: false,
+    PerPay: false
   }
   renderBasicinformation = () => {
     return (
@@ -266,7 +267,9 @@ export default class Overduedetails extends React.Component {
             })
           }}>退课计算</Button>
           <Button type="primary" size="small" className={style.btn} onClick={() => {
-            
+            this.setState({
+              PerPay: true
+            })
           }}>提前还款</Button>
         </>
       )
@@ -299,13 +302,71 @@ export default class Overduedetails extends React.Component {
             course: false
           })
         }}
+        footer={[{ text: "关闭", onPress: () => {
+          this.setState({course: false})
+        } }]}
       >
-        <div style={{ height: 345, overflow: 'scroll' }}>
-          <InputItem
-            value={6}
-            placeholder="displayed clear while typing"
-          >使用天数</InputItem>
-          <List renderHeader={() => '使用天数'}></List>
+        <div style={{ height: 175, overflow: 'scroll' }}>
+          <List renderHeader={() => "退课信息"}>
+            <InputItem
+              value={6}
+              placeholder="请输入使用天数..."
+            >使用天数</InputItem>
+            <InputItem
+              value={6}
+              placeholder="请输入使用天数..."
+            >剩余未还本金</InputItem>
+            <InputItem
+              value={6}
+              placeholder="请输入使用天数..."
+            >违约金额</InputItem>
+          </List>
+          <Button
+            type="primary"
+            onClick={() => {
+              this.setState({
+                course: false
+              })
+            }}
+          >关闭</Button>
+        </div>
+      </Modal>
+    )
+  }
+  renderPerPayModal = () => {
+    return (
+      <Modal
+        popup
+        visible={this.state.PerPay}
+        animationType="slide-up"
+        onClose={() => {
+          this.setState({
+            PerPay: false
+          })
+        }}
+        footer={[{ text: "关闭", onPress: () => {
+          this.setState({PerPay: false})
+        } }]}
+      >
+        <div style={{ height: 220, overflow: 'scroll' }}>
+          <List renderHeader={() => "提前还款信息"}>
+            <InputItem
+              value={6}
+              placeholder="请输入分期总额..."
+            >分期总额</InputItem>
+            <InputItem
+              value={6}
+              placeholder="请输入剩余未还本金..."
+            >剩余未还本金</InputItem>
+            <InputItem
+              value={6}
+              placeholder="请输入违约金..."
+            >违约金</InputItem>
+            <InputItem
+              value={6}
+              placeholder="请输入应还金额..."
+            >应还金额</InputItem>
+          </List>
         </div>
       </Modal>
     )
@@ -440,6 +501,9 @@ export default class Overduedetails extends React.Component {
         {
           // 退课计算Modal
           this.rendercourse()
+        }
+        {
+          this.renderPerPayModal()
         }
       </div>
     )
