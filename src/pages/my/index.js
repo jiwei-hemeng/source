@@ -1,6 +1,6 @@
 import React from "react";
 import style  from "./index.module.scss"
-// import { Test } from "@/api/user"
+import { Test } from "@/api/user"
 import { List, Button } from 'antd-mobile';
 const appIcon = require("../../static/my/appicon.png");
 console.log("baxbhjass", appIcon)
@@ -10,7 +10,8 @@ export default class My extends React.Component {
     appIcon: require("../../static/my/appicon.png")
   }
   componentDidMount = async () => {
-    // const { data } = await Test()
+    const { data } = await Test()
+    console.log("测试接口", data)
   }
   render() {
     return (
