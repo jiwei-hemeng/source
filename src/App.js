@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
-// import { HashRouter, Route, Redirect } from "react-router-dom";
+import AuthRoute from "@/component/AuthRoute"
 import Loadding from "@/component/loadding"
 const Index = React.lazy(() => import("./pages/"));
 const Login = React.lazy(() => import("@/pages/login"))
@@ -17,13 +17,19 @@ export default class App extends React.Component {
           <Route exact path="/" render={() => {
             return <Redirect to="/home/index"></Redirect>
           }} />
-          <Route path="/home" component={ Index } />
+          {/* <Route path="/home" component={ Index } /> */}
+          <AuthRoute path="/home" exact={false} Page={ Index } />
           <Route exact path="/login" component={ Login } />
-          <Route path="/overduedetails/:id" component={ OverdueDetails } />
-          <Route path="/creditrecords" component={ CreditRecords } />
-          <Route path="/overdueSearch" component={ OverdueSearch } />
-          <Route path="/periodization" component={ Periodization } />
-          <Route path="/returnBack" component={ ReturnBack } />
+          {/* <Route path="/overduedetails/:id" component={ OverdueDetails } /> */}
+          <AuthRoute path="/overduedetails/:id" exact={false} Page={ OverdueDetails } />
+          {/* <Route path="/creditrecords" component={ CreditRecords } /> */}
+          <AuthRoute path="/creditrecords" exact={true} Page={ CreditRecords } />
+          {/* <Route path="/overdueSearch" component={ OverdueSearch } /> */}
+          <AuthRoute path="/overdueSearch" exact={true} Page={ OverdueSearch } />
+          {/* <Route path="/returnBack" component={ ReturnBack } /> */}
+          <AuthRoute path="/returnBack" exact={true} Page={ ReturnBack } />
+          {/* <Route path="/periodization" component={ Periodization } /> */}
+          <AuthRoute path="/periodization" exact={true} Page={ Periodization } />
         </Suspense>
       </BrowserRouter>
       // <HashRouter>
