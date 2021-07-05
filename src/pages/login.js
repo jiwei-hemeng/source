@@ -1,14 +1,14 @@
 import React from "react";
-import { InputItem, Button, Toast } from 'antd-mobile';
-import style from "./login.module.scss"
-import { login } from "@/api/user"
+import { InputItem, Button, Toast } from "antd-mobile";
+import style from "./login.module.scss";
+import { login } from "@/api/user";
 import { connect } from "react-redux";
 class Login extends React.Component {
   constructor() {
     super()
     this.state = {
       username: "",
-      password: ""
+      password: "",
     }
   }
   login = async () => {
@@ -22,10 +22,10 @@ class Login extends React.Component {
       return Toast.success(data.msg, 2)
     }
     sessionStorage.setItem("token", data.data);
-    this.props.setToken(data.data)
+    this.props.setToken(data.data);
     window.location.href ="/"
   }
-  render() {
+  render() { 
     return (
       <form className={style.Login}>
         <div className={style.form_item_title}>
@@ -56,11 +56,7 @@ class Login extends React.Component {
             }} 
           />
         </div>
-        <Button className={style.submit} type="primary" onClick={async (e) => {
-          e.preventDefault();
-          e.stopPropagation()
-          this.login()
-        }}>登录</Button>
+        <Button className={style.submit} type="primary" onClick={this.login}>登录</Button>
       </form>
     )
   }

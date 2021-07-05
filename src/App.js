@@ -4,9 +4,9 @@ import AuthRoute from "@/component/AuthRoute"
 import Loadding from "@/component/loadding"
 const Index = React.lazy(() => import("./pages/"));
 const Login = React.lazy(() => import("@/pages/login"))
-const OverdueDetails = React.lazy(() => import("@/pages/overdue_details"));
+const OverdueDetails = React.lazy(() => import("@/pages/details"));
 const CreditRecords = React.lazy(() => import("@/pages/CreditRecords"));
-const OverdueSearch = React.lazy(() => import("@/pages/overdueSearch"));
+const OverdueSearch = React.lazy(() => import("@/pages/search"));
 const Periodization = React.lazy(() => import("@/pages/periodization"));
 const ReturnBack = React.lazy(() => import("@/pages/ReturnBack"));
 export default class App extends React.Component {
