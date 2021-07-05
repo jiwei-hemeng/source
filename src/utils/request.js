@@ -15,8 +15,8 @@ Request.interceptors.request.use((config) => {
 Request.interceptors.response.use((response) => {
   if (response.data.code === 301 || response.data.code === 302) {
     sessionStorage.clear("token");
-    Toast.success("token过期请重新登录...", 2)
-    window.location.href="/login";
+    Toast.success(response.data.msg, 2);
+    window.location.href = "/login"
   }
   return response;
 });

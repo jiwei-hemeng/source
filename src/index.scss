@@ -41,3 +41,11 @@ ul, li {
     height: auto;
   }
 }
+// 关于分页器的相关样式调整
+.am-pagination {
+  .arrow-align {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+}
