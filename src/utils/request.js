@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "antd-mobile";
 const baseURL = process.env.REACT_APP_URL
 let Request = axios.create({
   baseURL: baseURL,
@@ -12,8 +13,10 @@ Request.interceptors.request.use((config) => {
 });
 // 响应拦截器
 Request.interceptors.response.use((response) => {
-  if (response.data.code === 401) {
-    window.location.href="/login"
+  if (response.data.code === 301 || response.data.code === 302) {
+    sessionStorage.clear("token");
+    Toast.success("token过期请重新登录...", 2)
+    window.location.href="/login";
   }
   return response;
 });
