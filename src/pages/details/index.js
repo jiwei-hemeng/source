@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio } from "antd-mobile";
-import style from "./index.module.scss"
+import style from "./index.module.scss";
 const RadioItem = Radio.RadioItem;
 const IDImagesdata = [{
   url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',

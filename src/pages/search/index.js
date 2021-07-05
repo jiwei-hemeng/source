@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchBar, InputItem, Picker, List, Button } from "antd-mobile";
-import style from "./index.module.scss"
+import style from "./index.module.scss";
 const statusArr = [
   [
     {

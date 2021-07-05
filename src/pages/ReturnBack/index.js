@@ -1,7 +1,7 @@
 import React from "react";
 import { NavBar, Icon, Card, InputItem, Button } from "antd-mobile";
-import style from "./index.module.scss"
-import "./index.scss"
+import style from "./index.module.scss";
+import "./index.scss";
 export default class Returnback extends React.Component {
   state = {
     filelist: [], // 上传文件的文件列表

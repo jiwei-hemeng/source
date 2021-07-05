@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar, Icon } from "antd-mobile";
-import style from "./index.module.scss"
+import style from "./index.module.scss";
 export default class Credit extends React.Component {
   render() {
     const { history, location } = this.props

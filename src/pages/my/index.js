@@ -1,9 +1,8 @@
 import React from "react";
-import style  from "./index.module.scss"
-import { Test } from "@/api/user"
+import style  from "./index.module.scss";
+import { Test } from "@/api/user";
 import { List, Button } from 'antd-mobile';
 const appIcon = require("../../static/my/appicon.png");
-console.log("baxbhjass", appIcon)
 
 export default class My extends React.Component {
   state = {
