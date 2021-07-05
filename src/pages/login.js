@@ -4,9 +4,12 @@ import style from "./login.module.scss"
 import { login } from "@/api/user"
 import { connect } from "react-redux";
 class Login extends React.Component {
-  state = {
-    username: "",
-    password: ""
+  constructor() {
+    super()
+    this.state = {
+      username: "",
+      password: ""
+    }
   }
   login = async () => {
     const userInfo = {
@@ -20,15 +23,11 @@ class Login extends React.Component {
     }
     sessionStorage.setItem("token", data.data);
     this.props.setToken(data.data)
-    window.location.href ="/" 
-    // this.props.history.go(-1)
+    window.location.href ="/"
   }
-
-
-
   render() {
     return (
-      <div className={style.Login}>
+      <form className={style.Login}>
         <div className={style.form_item_title}>
           欢迎登录后台管理系统
         </div>
@@ -57,11 +56,12 @@ class Login extends React.Component {
             }} 
           />
         </div>
-        <Button className={style.submit} type="primary" onClick={e => {
+        <Button className={style.submit} type="primary" onClick={async (e) => {
           e.preventDefault();
+          e.stopPropagation()
           this.login()
         }}>登录</Button>
-      </div>
+      </form>
     )
   }
 }
