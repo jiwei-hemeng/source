@@ -410,7 +410,7 @@ export default class Overduedetails extends React.Component {
             console.log("回访记录", e)
           }}
         />
-        <Button type="primary" size="small" className={style.btn}>提交</Button>
+        <Button type="primary" className={style.btn}>提交</Button>
       </Card.Body>
     </Card>
     )
