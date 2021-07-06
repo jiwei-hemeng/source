@@ -15,7 +15,9 @@ class Index extends React.Component {
   }
   // 加载更多
   loadMoreRows = ({ startIndex, stopIndex }) => {
-    console.log("数据请求中...", startIndex, stopIndex, this.props)
+    const pageNum = startIndex / 10 + 1;
+    console.log("数据请求中...", startIndex, stopIndex, this.props.location.state)
+    console.log("当前请求的页数", pageNum)
     return new Promise(async (resolve, reject) => {
       const newlist = [...this.state.list, ...Listdata]
       const totle = 100;
