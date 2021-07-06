@@ -6,22 +6,15 @@ import PropTypes from "prop-types";
 class Virtualized extends React.Component {
   // 当前数据是否加载完成
   isRowLoaded= ({ index })=> {
-    // !! 表示返回布尔值
-    return !!this.state.list[index];
-  }
-  loadMoreRows =({ startIndex, stopIndex }) => {
-    return new Promise(async (resolve, reject) => {
-      this.props.loadMoreRows({ startIndex, stopIndex })
-      return Promise.resolve()
-    })
+    return !!this.props.list[index];
   }
   render() {
     return (
       <InfiniteLoader
-        isRowLoaded={this.isRowLoaded} // 当前数据加载完成
-        loadMoreRows={this.loadMoreRows} // 加载更多
-        rowCount={this.props.count} // 总条数
-        minimumBatchSize={this.props.minimumBatchSize} // 加载更多时每次加载的数据量
+        isRowLoaded={ this.isRowLoaded } // 当前数据加载完成
+        loadMoreRows={ this.props.loadMoreRows } // 加载更多
+        rowCount={ this.props.count } // 总条数
+        minimumBatchSize={ this.props.minimumBatchSize } // 加载更多时每次加载的数据量
       >
         {({ onRowsRendered, registerChild }) => {
           return (
@@ -66,7 +59,8 @@ class Virtualized extends React.Component {
 Virtualized.propsTypes = {
   count: PropTypes.number,
   minimumBatchSize: PropTypes.number,
-  rowHeight: PropTypes.func,
+  list: PropTypes.array,
+  rowHeight: PropTypes.number,
   rowRenderer: PropTypes.func,
   loadMoreRows: PropTypes.func
 }
@@ -74,6 +68,7 @@ Virtualized.propsTypes = {
 // 设置传参默认值
 Virtualized.defaultProps={
   count: 100,
-  minimumBatchSize: 10
+  minimumBatchSize: 10,
+  list: []
 }
 export default withRouter(Virtualized);

@@ -1,7 +1,6 @@
 import React from "react";
-// import Request from "@/utils/request";
 import { SearchBar, Card, Button, Modal } from "antd-mobile";
-import { AutoSizer, WindowScroller, InfiniteLoader, List } from "react-virtualized";
+import Virtualized from "@/component/virtualized";
 import styles from "./index.module.scss";
 const alert = Modal.alert;
 const Listdata = [
@@ -14,13 +13,8 @@ class Index extends React.Component {
   async componentDidMount() {
     console.log("收索组件传来的值", this.props.location.state)
   }
-  // 当前数据是否加载完成
-  isRowLoaded= ({ index })=> {
-    // !! 表示返回布尔值
-    return !!this.state.list[index];
-  }
   // 加载更多
-  loadMoreRows= ({ startIndex, stopIndex }) => {
+  loadMoreRows = ({ startIndex, stopIndex }) => {
     console.log("数据请求中...", startIndex, stopIndex, this.props)
     return new Promise(async (resolve, reject) => {
       const newlist = [...this.state.list, ...Listdata]
@@ -150,48 +144,14 @@ class Index extends React.Component {
             })
           }}
         />
-        <InfiniteLoader
-          isRowLoaded={this.isRowLoaded} // 当前数据加载完成
-          loadMoreRows={this.loadMoreRows} // 加载更多
-          rowCount={this.state.count} // 总条数
-          minimumBatchSize={10} // 加载更多时每次加载的数据量
-        >
-          {({ onRowsRendered, registerChild }) => {
-            return (
-              <WindowScroller>
-                {({height, isScrolling, onChildScroll, scrollTop}) => {
-                  return (
-                    <AutoSizer>
-                      {({ width }) => {
-                        return (
-                          <>
-                            <List
-                              // InfiniteLoader 的要求
-                              onRowsRendered={onRowsRendered}
-                              ref={registerChild}
-                              // WindowScroller  的要求
-                              autoHeight  // 自适应高度
-                              isScrolling={isScrolling}  // 组件是否滚动
-                              onScroll={ onChildScroll} // 监听让页面一起滚动
-                              scrollTop={scrollTop}
-                              // list 组件的要求
-                              width={ width }
-                              height={ height }
-                              rowCount={this.state.count}   // 数据的总条数
-                              rowHeight={ this.rowHeight }   // 每行的高度
-                              rowRenderer={this.rowRenderer} // 每条数据渲染的函数
-                            /> 
-                            <div className={styles.seat}>&nbsp;</div>
-                          </>
-                        ) 
-                      }}
-                    </AutoSizer>
-                  )
-                }}
-              </WindowScroller>
-            )
-          }}
-        </InfiniteLoader>
+        <Virtualized
+          count={ this.state.count }
+          list={ this.state.list }
+          minimumBatchSize={ 10 }
+          rowHeight={ this.rowHeight }
+          rowRenderer={ this.rowRenderer }
+          loadMoreRows={ this.loadMoreRows }
+        />
       </div>
     );
   }
