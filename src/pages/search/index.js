@@ -210,7 +210,7 @@ export default class Overduesearch extends React.Component {
           onChange={v => this.setState({ agent: v })}
           onOk={v => this.setState({ agent: v })}
         >
-          <List.Item className={style.SearchItem} arrow="horizontal">选择审核状态</List.Item>
+          <List.Item className={style.SearchItem} arrow="horizontal">选择代理人</List.Item>
         </Picker>
         <Button
           className={style.SearchItem} 
