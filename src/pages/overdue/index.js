@@ -10,37 +10,6 @@ export default class Overdue extends React.Component {
     list: [],
     count: 100, // list 总条数
   }
-  // renderList = () => {
-  //   return list.map(item => {
-  //     return <Card
-  //       className={style.Card}
-  //       key={item.order_number}
-  //       onClick={() => {
-  //         console.log("订单编号", item.order_number, this.props)
-  //         // this.props.history.push("/overduedetails/" + item.order_number);
-  //         this.props.history.push({ pathname: "/overduedetails", state: {id: item.order_number, type: 2}});
-  //       }}
-  //     >
-  //       <Card.Header
-  //         title={<span className={style.CardTitle}>{item.order_number}</span>} 
-  //         extra={
-  //           <span className={item.delay_stages === "1"? style.status: style.end }>分期中</span>
-  //         }
-  //       />
-  //       <Card.Body>
-  //         <div className={style.cardItem}>
-  //           <span className={style.title}>卖家姓名</span><span>{item.student_name}</span>
-  //         </div>
-  //         <div className={style.cardItem}>
-  //           <span className={style.title}>代理人姓名</span><span>{item.agentName}</span>
-  //         </div>
-  //         <div className={style.cardItem}>
-  //           <span className={style.title}>下单时间</span><span>{item.set_up_time}</span>
-  //         </div>
-  //       </Card.Body>
-  //     </Card>
-  //   })
-  // }
   componentDidMount() {
     console.log("收索组件传来的值", this.props.location.state)
   }
@@ -131,9 +100,6 @@ export default class Overdue extends React.Component {
             })
           }}
         />
-        {/* {
-          this.renderList()
-        } */}
         <InfiniteLoader
           isRowLoaded={this.isRowLoaded} // 当前数据加载完成
           loadMoreRows={this.loadMoreRows} // 加载更多
@@ -167,7 +133,6 @@ export default class Overdue extends React.Component {
                             /> 
                             <div className={styles.seat}>&nbsp;</div>
                           </>
-                          
                         ) 
                       }}
                     </AutoSizer>

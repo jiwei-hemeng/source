@@ -60,7 +60,7 @@ class Index extends React.Component {
     } else if(clientWidth < 376) {
       return 165
     } else if(clientWidth < 415) {
-      return 185
+      return 183
     } else {
       return 235
     }
@@ -150,20 +150,6 @@ class Index extends React.Component {
             })
           }}
         />
-        {/* {
-          this.renderList()
-        }
-        <Pagination
-          total={5}
-          current={1}
-          locale={{
-            prevText: (<span className="arrow-align"><Icon type="left" />上一页</span>),
-            nextText: (<span className="arrow-align">下一页<Icon type="right" /></span>),
-          }}
-          onChange={(current) => {
-            console.log("current", current)
-          }}
-        /> */}
         <InfiniteLoader
           isRowLoaded={this.isRowLoaded} // 当前数据加载完成
           loadMoreRows={this.loadMoreRows} // 加载更多
@@ -197,7 +183,6 @@ class Index extends React.Component {
                             /> 
                             <div className={styles.seat}>&nbsp;</div>
                           </>
-                          
                         ) 
                       }}
                     </AutoSizer>
