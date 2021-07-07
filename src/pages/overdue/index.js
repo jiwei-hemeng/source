@@ -1,13 +1,13 @@
 // 逾期列表
 import React from "react"
-import { Card, SearchBar } from "antd-mobile";
+import { Card, SearchBar, Toast } from "antd-mobile";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
 import { listOverOrder } from "@/api/overdue";
 export default class Overdue extends React.Component {
   state = {
     list: [],
-    count: 100, // list 总条数
+    count: 1, // list 总条数
   }
   componentDidMount() {
     console.log("收索组件传来的值", this.props.location.state)
@@ -25,15 +25,20 @@ export default class Overdue extends React.Component {
         params.day = state.overTime
         params.truename = state.student_name
       }
+      Toast.loading("正在加载中...", 0, null, false)
       const { data } = await listOverOrder(params)
-      if(data.code !== 200) return
-      const newlist = [...this.state.list, ...data.data]
-      const totle = data.count;
-      this.setState({
-        count: totle,
-        list: newlist
-      })
-      return resolve()
+      Toast.hide()
+      if(data && data.code === 200) {
+        const newlist = [...this.state.list, ...data.data]
+        const totle = data.count;
+        this.setState({
+          count: totle,
+          list: newlist
+        })
+        return resolve()
+      }
+      return reject()
+      
     })
   }
   rowRenderer = ({
