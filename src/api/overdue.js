@@ -16,3 +16,19 @@ export function editOverOrder(params) {
     params
   })
 }
+// 修改逾期金回显
+export function updateOverShow(params) {
+  return Request({
+    url: "overdueOrderController/updateOver",
+    method: "GET",
+    params
+  })
+}
+// 修改逾期金
+export function updateOver(data) {
+  return Request({
+    url: "overdueOrderController/updateOver",
+    method: "POST",
+    data
+  })
+}

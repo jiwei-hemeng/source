@@ -1,35 +1,54 @@
 import React from "react";
 import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio, Toast } from "antd-mobile";
-import { editOverOrder } from "@/api/overdue";
+import { editOverOrder, updateOverShow, updateOver } from "@/api/overdue";
 import style from "./index.module.scss";
 const RadioItem = Radio.RadioItem;
-const IDImagesdata = [{
-  url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-  id: '2121',
-}, {
-  url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-  id: '2122',
-}];
 const data = {"orderId":null,"downOrdersn":null,"loantype":null,"modelname":null,"brandname":null,"specname":null,"color":null,"adminId":null,"agentId":null,"businessId":null,"userId":null,"cuserId":null,"inId":null,"goodsprice":null,"daimoney":null,"fenqiPeriods":null,"downPaymentRate":null,"downPayment":null,"payorderSn":null,"addtime":null,"paytime":null,"status":null,"paymethod":null,"payname":null,"guarantee":null,"lilv":null,"guanlirate":null,"fuwurate":null,"yuegong":null,"contractnum":null,"fqstatus":null,"dijiqi":1,"nexttime":null,"isapply":null,"applytime":null,"isbaddebt":null,"isprepayment":null,"isvalid":null,"delay":null,"repaymethod":null,"cancelpay":null,"dtime":null,"uconfirm":null,"cconfirm":null,"agreetime":null,"itemId":null,"source":null,"istest":null,"surplusTime":null,"supplyImg":null,"isCdel":null,"isUdel":null,"isfree":null,"yqnum":null,"isPlan":null,"planid":null,"isSend":null,"isSign":null,"isChangeAgent":null,"zdStatus":null,"shPassTime":null,"creditCode":null,"isSign2":null,"summary_id":6232,"order_number":"s20210521160721385818","sh_status":1,"student_name":"曹海军","person_phone":"18030113691","merchant_name":null,"truename":null,"fbId":null,"course_name":"女子健身培训","money":6880.00,"dk_money":3000.00,"stages_type":1,"mc_deposit_bl":0.0,"mc_deposit":0.0,"mc_deposit_status":0,"yue_gong":1036.02,"order_status":"0","deposit_status":"1","set_up_time":"2021-05-21 16:07:21","stages_number":3,"name":"翁明芳","down_payment":null,"down_payment_money":0.0,"down_payment_status":null,"admin_status":null,"choiceName":null,"mc_deposit_paytime":null,"mc_deposit_ought_time":null,"mc_deposit_money":null,"weiyue_day":null,"weiyue_money":null,"mc_deposit_return_time":null,"bank_name":null,"card_number":null,"username":null,"mc_deposit_caiwu_out_status":null,"caiwu_bei_zhu":null,"mc_deposit_cash_out_status":null,"delay_stages":"0","syMoney":null,"paidAllMoney":null,"overdueAllMoney":null,"faxi":null,"yq_day":8,"fqUrgent":null,"fqRenzheng":null,"image_front":null,"image_fan":null,"image_hand":null,"desc_text":null,"application_thumb":null,"statusDesc":null,"audio_url":null,"iscardValue":null,"agentName":"林建喜","a001":null,"a002":null,"b003":null,"b004":null,"c001":null,"c003":null,"d001":null,"f001":null,"h001":null,"h003":null};
 export default class Overduedetails extends React.Component {
   state = {
-    files: IDImagesdata,
+    files: [],
     multiple: false,
     visible: false,
     course: false,
     PerPay: false,
     AuditStatus: 1, // 审核状态
-    orderDetails: {}
+    orderDetails: {},
+    OverShow: {}, // 修改逾期金展示的信息
+    pastdueFirst: "", // 修改后的逾期金
+    remark: "", // 修改逾期金的备注
   }
   componentDidMount = async () => {
+    await this.getOrderDetails();
+    await this.updateOverShow();
+  }
+  updateOverShow = async () => {
+    Toast.loading("正在加载中...", 0);
+    const { data } = await updateOverShow({
+      orderId: this.props.location.state.id,
+    })
+    Toast.hide()
+    if(data.code === 200) {
+      console.log("获取也不行啊就啥事", data.data)
+      this.setState({
+        OverShow: data.data
+      })
+    }
+  }
+  getOrderDetails = async () => {
     Toast.loading("正在加载中...", 0);
     const { data } = await editOverOrder({
       orderId: this.props.location.state.id,
     })
     Toast.hide()
-    if(data.code === 200) {
+    if(data.code === 200 && data.data) {
+      const fileList = [
+        { url: data.data.fqOrder.image_front, id: "身份证正面面照片" },
+        { url: data.data.fqOrder.image_fan, id: "身份证国徽面照片" },
+        { url: data.data.fqOrder.image_hand, id: "手持身份证照片" },
+      ]
       this.setState({
-        orderDetails: data.data
+        orderDetails: data.data,
+        files: fileList
       })
     }
   }
@@ -128,6 +147,11 @@ export default class Overduedetails extends React.Component {
   // 实名身份信息
   renderIdInfo = () => {
     const { files } = this.state;
+    let fqRenzheng = {}
+    if(this.state.orderDetails.fqOrder) {
+      fqRenzheng = this.state.orderDetails.fqOrder.fqRenzheng
+    }
+    console.log("实名身份信息", fqRenzheng)
     return (
       <Card
         className={style.Card}
@@ -136,8 +160,8 @@ export default class Overduedetails extends React.Component {
           title="实名身份信息"
         />
         <Card.Body>
-          <div className={style.Item}><span className={style.title}>买家姓名</span><span>曹海军</span></div>
-          <div className={style.Item}><span className={style.title}>性别</span><span>男</span></div>
+          <div className={style.Item}><span className={style.title}>买家姓名</span><span>{fqRenzheng.truename}</span></div>
+          <div className={style.Item}><span className={style.title}>性别</span><span>{fqRenzheng.sex}</span></div>
           <div className={style.Item}><span className={style.title}>身份证号</span><span>372930197507280035</span></div>
           <div className={style.Item}><span className={style.title}>家庭地址</span><span>福建省厦门市海沧区海沧社区横街128号</span></div>
           <div className={style.Idphoto}>
@@ -454,6 +478,7 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderModal = () => {
+    const { OverShow } = this.state
     return (
       <Modal
         popup
@@ -468,25 +493,46 @@ export default class Overduedetails extends React.Component {
         <List renderHeader={() => <div>修改逾期金</div>} className="popup-list">
             <div className="ModalItem">
               <span>订单编号</span>
-              <InputItem className="InputItem" placeholder="auto focus" value={data.order_number} />
+              <InputItem
+                className="InputItem"
+                placeholder="auto focus"
+                value={OverShow.orderSn}
+              />
             </div>
             <div className="ModalItem">
               <span>逾期金额</span>
-              <InputItem className="InputItem"  placeholder="auto focus" value={100} />
+              <InputItem className="InputItem"  placeholder="auto focus" value={OverShow.pastdueFirst} />
             </div>
             <div className="ModalItem">
               <span>修改逾期金额</span>
-              <InputItem className="InputItem"  placeholder="请输入修改逾期金额..." />
+              <InputItem 
+                className="InputItem" 
+                placeholder="请输入修改逾期金额..." 
+                value={this.state.pastdueFirst}
+                onChange={v => {
+                  this.setState({
+                    pastdueFirst: v
+                  })
+                }}
+              />
             </div>
             <div className="ModalItem">
               <span>备注</span>
-              <InputItem className="InputItem"  placeholder="请输入备注..." />
+              <InputItem className="InputItem"  placeholder="请输入备注..." value={this.state.remark} onChange={v => this.setState({remark: v})} />
             </div>
             <List.Item>
               <Button 
                 type="primary" 
                 size="small"
-                onClick={() => {
+                onClick={async () => {
+                  const { data } = await updateOver({
+                    ...OverShow,
+                    pastdueFirst: this.state.pastdueFirst,
+                    remark: this.state.remark,
+                  })
+                  if(data && data.code === 200) {
+                    Toast.success("操作成功", 2)
+                  }
                   this.setState({
                     visible: false
                   })
