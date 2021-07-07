@@ -53,96 +53,108 @@ export default class Overduedetails extends React.Component {
     }
   }
   renderBasicinformation = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="基本信息"
-        />
-        <Card.Body>
-          <div className={style.Item}><span className={style.title}>订单ID</span><span>{data.summary_id}</span></div>
-          <div className={style.Item}><span className={style.title}>订单号</span><span>{data.order_number}</span></div>
-          <div className={style.Item}><span className={style.title}>卖家姓名</span><span>{data.student_name}</span></div>
-          <div className={style.Item}><span className={style.title}>手机号</span><span>{data.person_phone}</span></div>
-          <div className={style.Item}><span className={style.title}>商品价格</span><span>{data.money}</span></div>
-          <div className={style.Item}><span className={style.title}>贷款费用</span><span>{data.dk_money}</span></div>
-          <div className={style.Item}><span className={style.title}>分期状态</span><span>分期中</span></div>
-          <div className={style.Item}><span className={style.title}>下单时间</span><span>{data.set_up_time}</span></div>
-          <div className={style.Item}><span className={style.title}>延期期数</span><span>0000</span></div>
-        </Card.Body>
-      </Card>
-    )
+    const { fqOrder } = this.state.orderDetails;
+    if(fqOrder) {
+      return (
+        <Card
+          className={style.Card}
+        >
+          <Card.Header 
+            title="基本信息"
+          />
+          <Card.Body>
+            <div className={style.Item}><span className={style.title}>订单ID</span><span>{ fqOrder.summary_id }</span></div>
+            <div className={style.Item}><span className={style.title}>订单号</span><span>{ fqOrder.order_number }</span></div>
+            <div className={style.Item}><span className={style.title}>卖家姓名</span><span>{ fqOrder.student_name }</span></div>
+            <div className={style.Item}><span className={style.title}>手机号</span><span>{ fqOrder.person_phone }</span></div>
+            <div className={style.Item}><span className={style.title}>商品价格</span><span>{ fqOrder.money }</span></div>
+            <div className={style.Item}><span className={style.title}>贷款费用</span><span>{ fqOrder.dk_money }</span></div>
+            <div className={style.Item}><span className={style.title}>分期状态</span><span>{ fqOrder.order_status }</span></div>
+            <div className={style.Item}><span className={style.title}>下单时间</span><span>{ fqOrder.set_up_time }</span></div>
+            <div className={style.Item}><span className={style.title}>延期期数</span><span>{ fqOrder.delay_stages }</span></div>
+          </Card.Body>
+        </Card>
+      )
+    }
   }
   renderMember = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="会员还款详情"
-        />
-        <Card.Body>
-          <div className={style.Item}><span className={style.title}>剩余本金</span><span>0.0001</span></div>
-          <div className={style.Item}><span className={style.title}>已还本息</span><span>999999</span></div>
-          <div className={style.Item}><span className={style.title}>逾期本息</span><span>999999</span></div>
-          <div className={style.Item}><span className={style.title}>罚息</span><span>0.0001</span></div>
-          <div className={style.Item}><span className={style.title}>逾期天数</span><span>2</span></div>
-        </Card.Body>
-      </Card>
-    )
+    const { fqOrder } = this.state.orderDetails;
+    if(fqOrder) {
+      return (
+        <Card
+          className={style.Card}
+        >
+          <Card.Header 
+            title="会员还款详情"
+          />
+          <Card.Body>
+            <div className={style.Item}><span className={style.title}>剩余本金</span><span>{ fqOrder.syMoney }</span></div>
+            <div className={style.Item}><span className={style.title}>已还本息</span><span>{ fqOrder.paidAllMoney }</span></div>
+            <div className={style.Item}><span className={style.title}>逾期本息</span><span>{ fqOrder.overdueAllMoney }</span></div>
+            <div className={style.Item}><span className={style.title}>罚息</span><span>{ fqOrder.faxi }</span></div>
+            <div className={style.Item}><span className={style.title}>逾期天数</span><span>{ fqOrder.yq_day }</span></div>
+          </Card.Body>
+        </Card>
+      )
+    }
   }
   renderProductDetails = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="商品详情"
-        />
-        <Card.Body>
-          <div className={style.Item}><span className={style.title}>商品名称</span><span>星辰美鼻</span></div>
-          <div className={style.Item}><span className={style.title}>期数</span><span>12</span></div>
-          <div className={style.Item}><span className={style.title}>月供</span><span>1866.89</span></div>
-          <div className={style.Item}><span className={style.title}>下期还款期数</span><span>0.0001</span></div>
-          <div className={style.Item}><span className={style.title}>下期应还款时间</span><span>2</span></div>
-          <div className={style.Item}><span className={style.title}>商家是否担保</span><span>是</span></div>
-          <div className={style.Item}><span className={style.title}>机构名称</span><span>厦门慕一医疗美容门诊有限公司</span></div>
-        </Card.Body>
-      </Card>
-    )
+    const { fqOrder } = this.state.orderDetails;
+    if(fqOrder) {
+      return (
+        <Card
+          className={style.Card}
+        >
+          <Card.Header 
+            title="商品详情"
+          />
+          <Card.Body>
+            <div className={style.Item}><span className={style.title}>商品名称</span><span>{ fqOrder.course_name }</span></div>
+            <div className={style.Item}><span className={style.title}>期数</span><span>{ fqOrder.stages_number }</span></div>
+            <div className={style.Item}><span className={style.title}>月供</span><span>{ fqOrder.yue_gong }</span></div>
+            <div className={style.Item}><span className={style.title}>下期还款期数</span><span>{ fqOrder.dijiqi }</span></div>
+            <div className={style.Item}><span className={style.title}>下期应还款时间</span><span>{ fqOrder.nexttime }</span></div>
+            <div className={style.Item}><span className={style.title}>商家是否担保</span><span>{ fqOrder.deposit_status === 1 ? "是": "否" }</span></div>
+            <div className={style.Item}><span className={style.title}>机构名称</span><span>{ fqOrder.merchant_name }</span></div>
+          </Card.Body>
+        </Card>
+      )
+    }
   }
   renderUserInfo = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="用户信用信息"
-        />
-        <Card.Body>
-          <div className={style.Item}><span className={style.title}>买家姓名</span><span>曹海军</span></div>
-          <div className={style.Item}><span className={style.title}>买家手机号</span><span>18030113691</span></div>
-          <div className={style.Item}><span className={style.title}>现居住地址</span><span>福建省 厦门市 集美区 软件园三期百通科技园</span></div>
-          <div className={style.Item}><span className={style.title}>下期还款期数</span><span>0.0001</span></div>
-          <div className={style.Item}><span className={style.title}>月收入额</span><span>10000</span></div>
-          <div className={style.Item}><span className={style.title}>公司名称</span><span>12123</span></div>
-          <div className={style.Item}><span className={style.title}>任职部门</span><span>厦门慕一医疗美容门诊有限公司</span></div>
-          <div className={style.Item}><span className={style.title}>公司地址</span><span>厦门慕一医疗美容门诊有限公司</span></div>
-          <div className={style.Item}><span className={style.title}>公司座机</span><span>010-110</span></div>
-          <div className={style.Item}><span className={style.title}>亲属姓名</span><span>曹先生</span></div>
-          <div className={style.Item}><span className={style.title}>关系</span><span>6</span></div>
-          <div className={style.Item}><span className={style.title}>电话</span><span>18030113692</span></div>
-          <div className={style.Item}><span className={style.title}>婚姻</span><span>18030113692</span></div>
-          <div className={style.Item}><span className={style.title}>配偶</span><span>18030113692</span></div>
-          <div className={style.Item}><span className={style.title}>配偶电话</span><span>18030113692</span></div>
-          <div className={style.Item}><span className={style.title}>社会联系人</span><span>吴老二</span></div>
-          <div className={style.Item}><span className={style.title}>电话</span><span>电话</span></div>
-          <div className={style.Item}><span className={style.title}>公司联系人</span><span>曾经是</span></div>
-          <div className={style.Item}><span className={style.title}>电话</span><span>10086</span></div>
-        </Card.Body>
-      </Card>
-    )
+    const { fqOrder } = this.state.orderDetails;
+    if(fqOrder) {
+      return (
+        <Card
+          className={style.Card}
+        >
+          <Card.Header 
+            title="用户信用信息"
+          />
+          <Card.Body>
+            <div className={style.Item}><span className={style.title}>买家姓名</span><span>{ fqOrder.student_name }</span></div>
+            <div className={style.Item}><span className={style.title}>买家手机号</span><span>{ fqOrder.person_phone }</span></div>
+            <div className={style.Item}><span className={style.title}>现居住地址</span><span>{ fqOrder.fqUrgent.myaddress }</span></div>
+            <div className={style.Item}><span className={style.title}>下期还款期数</span><span>{ fqOrder.dijiqi }</span></div>
+            <div className={style.Item}><span className={style.title}>月收入额</span><span>{ fqOrder.fqUrgent.money }</span></div>
+            <div className={style.Item}><span className={style.title}>公司名称</span><span>{ fqOrder.fqUrgent.mycompany }</span></div>
+            <div className={style.Item}><span className={style.title}>任职部门</span><span>{ fqOrder.fqUrgent.mybumen }</span></div>
+            <div className={style.Item}><span className={style.title}>公司地址</span><span>{ fqOrder.fqUrgent.companyAddress }</span></div>
+            <div className={style.Item}><span className={style.title}>公司座机</span><span>{ fqOrder.fqUrgent.companyPhone }</span></div>
+            <div className={style.Item}><span className={style.title}>亲属姓名</span><span>{ fqOrder.fqUrgent.fmname }</span></div>
+            <div className={style.Item}><span className={style.title}>关系</span><span>{ fqOrder.fqUrgent.guanxi }</span></div>
+            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.fmmobile }</span></div>
+            <div className={style.Item}><span className={style.title}>婚姻</span><span>{ fqOrder.fqUrgent.hunyin }</span></div>
+            <div className={style.Item}><span className={style.title}>配偶</span><span>{ fqOrder.fqUrgent.duixiang }</span></div>
+            <div className={style.Item}><span className={style.title}>配偶电话</span><span>{ fqOrder.fqUrgent.dxmobile }</span></div>
+            <div className={style.Item}><span className={style.title}>社会联系人</span><span>{ fqOrder.fqUrgent.friendname }</span></div>
+            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.friendmobile }</span></div>
+            <div className={style.Item}><span className={style.title}>公司联系人</span><span>{ fqOrder.fqUrgent.companyContacts }</span></div>
+            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.contactsMobile }</span></div>
+          </Card.Body>
+        </Card>
+      )
+    }
   }
   // 实名身份信息
   renderIdInfo = () => {
@@ -151,7 +163,6 @@ export default class Overduedetails extends React.Component {
     if(this.state.orderDetails.fqOrder) {
       fqRenzheng = this.state.orderDetails.fqOrder.fqRenzheng
     }
-    console.log("实名身份信息", fqRenzheng)
     return (
       <Card
         className={style.Card}
@@ -160,10 +171,10 @@ export default class Overduedetails extends React.Component {
           title="实名身份信息"
         />
         <Card.Body>
-          <div className={style.Item}><span className={style.title}>买家姓名</span><span>{fqRenzheng.truename}</span></div>
-          <div className={style.Item}><span className={style.title}>性别</span><span>{fqRenzheng.sex}</span></div>
-          <div className={style.Item}><span className={style.title}>身份证号</span><span>372930197507280035</span></div>
-          <div className={style.Item}><span className={style.title}>家庭地址</span><span>福建省厦门市海沧区海沧社区横街128号</span></div>
+          <div className={style.Item}><span className={style.title}>买家姓名</span><span>{ fqRenzheng.truename }</span></div>
+          <div className={style.Item}><span className={style.title}>性别</span><span>{ fqRenzheng.sex }</span></div>
+          <div className={style.Item}><span className={style.title}>身份证号</span><span>{ fqRenzheng.idcard }</span></div>
+          <div className={style.Item}><span className={style.title}>家庭地址</span><span>{ fqRenzheng.address }</span></div>
           <div className={style.Idphoto}>
             <div className={style.title}>身份证照片</div>
             <ImagePicker 
@@ -267,37 +278,46 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderDeductionRecord = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header title="扣款记录"></Card.Header>
-        <Card.Body>
-          <table className={style.OrderInfo}>
-            <thead>
-              <tr>
-                <th width="120px">编号</th>
-                <th width="120px">订单编号</th>
-                <th width="120px">支付商单号</th>
-                <th width="120px">扣款是否成功</th>
-                <th width="120px">信息</th>
-                <th width="120px">扣款时间</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>xinshen2</td>
-              <td>2021-05-21 16:05:21</td>
-              <td>是</td>
-              <td>12332	</td>
-              <td>12332	</td>
-              <td>12332	</td>
-            </tr>
-            </tbody>
-          </table>
-        </Card.Body>
-      </Card>
-    )
+    const { fqApilogdks } = this.state.orderDetails;
+    if(fqApilogdks) {
+      return (
+        <Card
+          className={style.Card}
+        >
+          <Card.Header title="扣款记录"></Card.Header>
+          <Card.Body>
+            <table className={style.OrderInfo}>
+              <thead>
+                <tr>
+                  <th width="120px">编号</th>
+                  <th width="120px">订单编号</th>
+                  <th width="120px">支付商单号</th>
+                  <th width="120px">扣款是否成功</th>
+                  <th width="120px">信息</th>
+                  <th width="120px">扣款时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  fqApilogdks.map(item => {
+                    return (
+                      <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.orderSn}</td>
+                        <td>{item.payorderSn}</td>
+                        <td>{item.isLokstr}</td>
+                        <td>{item.message}</td>
+                        <td>{item.timeString}</td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+          </Card.Body>
+        </Card>
+      )
+    }
   }
   renderCreditInformation = () => {
     return (
@@ -340,12 +360,12 @@ export default class Overduedetails extends React.Component {
     }
     return (
       <>
-        <Button type="primary" size="small" className={style.btn} onClick={() => {
+        {/* <Button type="primary" size="small" className={style.btn} onClick={() => {
           this.props.history.push({
             pathname: "/creditrecords",
             state: {id: data.order_number}
           })
-        }}>征信信息</Button>
+        }}>征信信息</Button> */}
         <Button type="primary" size="small" className={style.btn} onClick={() => {
           this.setState({
             visible: true
@@ -432,8 +452,14 @@ export default class Overduedetails extends React.Component {
       { value: 0, label: "待审核" },
       { value: 1, label: "通过" },
       { value: 2, label: "拒绝" },
-      { value: 3, label: "等待会员签约" },
+      { value: 4, label: "等待会员签约" },
     ];
+    const { fqOrder } = this.state.orderDetails
+    if(!fqOrder) {
+      return (
+        <div></div>
+      )
+    }
     return (
       <Card
         className={style.Card}
@@ -445,8 +471,7 @@ export default class Overduedetails extends React.Component {
                 return (
                   <RadioItem
                     key={item.value}
-                    checked={item.value === this.state.AuditStatus}
-                    onChange={() => this.setState({AuditStatus: item.value})}
+                    checked={item.value === fqOrder.sh_status}
                   >{item.label}</RadioItem>
                 )
               })
@@ -527,7 +552,7 @@ export default class Overduedetails extends React.Component {
                 onClick={async () => {
                   const { data } = await updateOver({
                     ...OverShow,
-                    pastdueFirst: this.state.pastdueFirst,
+                    pastdueBack: this.state.pastdueFirst,
                     remark: this.state.remark,
                   })
                   if(data && data.code === 200) {
