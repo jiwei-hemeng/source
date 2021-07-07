@@ -19,20 +19,16 @@ const statusArr = [
 ]
 const shenheArr = [[
   {
-    label: '选择审核状态',
+    label: '审核中',
     value: '0',
   },
   {
-    label: '审核中',
+    label: '审核通过',
     value: '1',
   },
   {
-    label: '审核通过',
-    value: '2',
-  },
-  {
     label: '审核未通过',
-    value: '3',
+    value: '2',
   },
   {
     label: '等待签约',
