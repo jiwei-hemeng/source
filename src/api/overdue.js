@@ -9,3 +9,10 @@ export function listOverOrder(params) {
   })
 }
 // 获取订单详细信息
+export function editOverOrder(params) {
+  return Request({
+    url: "overdueOrderController/editOverOrder",
+    method: "GET",
+    params
+  })
+}

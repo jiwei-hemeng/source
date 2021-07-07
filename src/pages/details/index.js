@@ -1,5 +1,6 @@
 import React from "react";
-import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio } from "antd-mobile";
+import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio, Toast } from "antd-mobile";
+import { editOverOrder } from "@/api/overdue";
 import style from "./index.module.scss";
 const RadioItem = Radio.RadioItem;
 const IDImagesdata = [{
@@ -18,6 +19,19 @@ export default class Overduedetails extends React.Component {
     course: false,
     PerPay: false,
     AuditStatus: 1, // 审核状态
+    orderDetails: {}
+  }
+  componentDidMount = async () => {
+    Toast.loading("正在加载中...", 0);
+    const { data } = await editOverOrder({
+      orderId: this.props.location.state.id,
+    })
+    Toast.hide()
+    if(data.code === 200) {
+      this.setState({
+        orderDetails: data.data
+      })
+    }
   }
   renderBasicinformation = () => {
     return (
@@ -139,6 +153,12 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderOrderInfo = () => {
+    const { fqOrderList } = this.state.orderDetails;
+    if(!fqOrderList) {
+      return (
+        <div>加载中....</div>
+      )
+    }
     return (
       <Card
         className={style.Card}
@@ -160,15 +180,21 @@ export default class Overduedetails extends React.Component {
               </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>f20210513125437280223</td>
-              <td>1</td>
-              <td>未支付</td>
-              <td>2021-06-13 12:54:37	</td>
-              <td>2021-06-13 12:54:37</td>
-              <td>2375.93</td>
-              <td>189.00</td>
-            </tr>
+              {
+                fqOrderList.map(item => {
+                  return (
+                    <tr key={ item.id }>
+                      <td>{item.orderSn}</td>
+                      <td>{item.dijiqi}</td>
+                      <td>{item.payStatus}</td>
+                      <td>{item.payDate}</td>
+                      <td>{item.truePayDate}</td>
+                      <td>{item.yuegong}</td>
+                      <td>{item.yqmoney}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </Card.Body>

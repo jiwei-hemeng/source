@@ -19,11 +19,9 @@ export default class Overdue extends React.Component {
     return new Promise(async (resolve, reject) => {
       let params = {
         page: pageNum,
-        size: 10
-      }
-      if(state) {
-        params.day = state.overTime
-        params.truename = state.student_name
+        size: 10,
+        day: state ? state.overTime : undefined,
+        truename: state ? state.student_name : undefined,
       }
       Toast.loading("正在加载中...", 0, null, false)
       const { data } = await listOverOrder(params)
@@ -60,14 +58,13 @@ export default class Overdue extends React.Component {
           className={styles.Card}
           key={item.order_number}
           onClick={() => {
-            console.log("订单编号", item.order_number, this.props)
-            this.props.history.push({ pathname: "/overduedetails", state: {id: item.order_number, type: 2}});
+            this.props.history.push({ pathname: "/overduedetails", state: {id: item.summary_id, type: 2}});
           }}
         >
           <Card.Header
             title={<span className={styles.CardTitle}>{ item.order_number }</span>} 
             extra={
-              <span className={item.delay_stages === "1"? styles.status: styles.end }>分期中</span>
+              <span className={item.order_status === "1"? styles.status: styles.end }>{item.order_status === "0"?"分期中": "已还清"}</span>
             }
           />
           <Card.Body>

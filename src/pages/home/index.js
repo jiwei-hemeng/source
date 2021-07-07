@@ -8,7 +8,7 @@ const Listdata = [
 class Index extends React.Component {
   state = {
     list: [],
-    count: 100, // list 总条数
+    count: 1, // list 总条数
   };
   async componentDidMount() {
     console.log("收索组件传来的值", this.props.location.state)
@@ -16,10 +16,13 @@ class Index extends React.Component {
   // 加载更多
   loadMoreRows = ({ startIndex, stopIndex }) => {
     const pageNum = startIndex / 10 + 1;
-    console.log("数据请求中...", startIndex, stopIndex, this.props.location.state)
-    console.log("当前请求的页数", pageNum)
     const { state } = this.props.location
-    console.log("state", state)
+    let params = {
+      page: pageNum,
+      size: 10,
+      truename: state ? state.student_name: undefined,
+    }
+    console.log("state", state, params)
     return new Promise(async (resolve, reject) => {
       const newlist = [...this.state.list, ...Listdata]
       const totle = 100;
