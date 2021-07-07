@@ -202,6 +202,12 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderNotes = () => {
+    const { fqOrderActionList } = this.state.orderDetails;
+    if(!fqOrderActionList) {
+      return (
+        <div>加载中...</div>
+      )
+    }
     return (
       <Card
         className={style.Card}
@@ -218,12 +224,18 @@ export default class Overduedetails extends React.Component {
               </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>xinshen2</td>
-              <td>2021-05-21 16:05:21</td>
-              <td>是</td>
-              <td>12332	</td>
-            </tr>
+              {
+                fqOrderActionList.map(item => {
+                  return (
+                    <tr key={item.actionId}>
+                      <td>{item.actionUsername}</td>
+                      <td>{item.timeString}</td>
+                      <td>{item.guarantees}</td>
+                      <td>{item.statusDesc}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </Card.Body>
