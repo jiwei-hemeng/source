@@ -32,3 +32,11 @@ export function updateOver(data) {
     data
   })
 }
+// 提交回访记录
+export function updateReturn(data) {
+  return Request({
+    url: "overdueOrderController/updateReturn",
+    method: "POST",
+    data
+  })
+}

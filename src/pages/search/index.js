@@ -4,16 +4,12 @@ import style from "./index.module.scss";
 const statusArr = [
   [
     {
-      label: '选择分期状态',
+      label: '分期中',
       value: '0',
     },
     {
-      label: '分期中',
-      value: '1',
-    },
-    {
       label: '已还请',
-      value: '2',
+      value: '1',
     },
   ]
 ]
@@ -35,18 +31,18 @@ const shenheArr = [[
     value: '4',
   },
 ]]
-const agentArr = [
-  [
-    {
-      label: '李明',
-      value: '0',
-    },
-    {
-      label: '小红',
-      value: '1',
-    },
-  ]
-]
+// const agentArr = [
+//   [
+//     {
+//       label: '李明',
+//       value: '0',
+//     },
+//     {
+//       label: '小红',
+//       value: '1',
+//     },
+//   ]
+// ]
 export default class Overduesearch extends React.Component {
   constructor() {
     super()
@@ -135,9 +131,10 @@ export default class Overduesearch extends React.Component {
           placeholder="请输入卖家姓名" 
           onChange={(e) => {
             this.setState({
-              keykeyword: e
+              student_name: e
             })
           }} 
+          value={this.state.student_name}
           ref={ref => this.manualFocusInst = ref}
         />
         <InputItem
@@ -166,10 +163,10 @@ export default class Overduesearch extends React.Component {
           className={style.SearchItem}
           type="text"
           placeholder="请输入商家姓名..."
-          value={this.state.orderID}
+          value={this.state.merchant}
           onChange={(e) => {
             this.setState({
-              orderID: e
+              merchant: e
             })
           }}
         />
@@ -193,7 +190,7 @@ export default class Overduesearch extends React.Component {
         >
           <List.Item className={style.SearchItem} arrow="horizontal">选择审核状态</List.Item>
         </Picker>
-        <Picker
+        {/* <Picker
           data={agentArr}
           title="选择代理人"
           cascade={false}
@@ -202,7 +199,7 @@ export default class Overduesearch extends React.Component {
           onOk={v => this.setState({ agent: v })}
         >
           <List.Item className={style.SearchItem} arrow="horizontal">选择代理人</List.Item>
-        </Picker>
+        </Picker> */}
         <div>
           <Button
             className={style.SearchItem} 
@@ -215,8 +212,8 @@ export default class Overduesearch extends React.Component {
                   moblie: this.state.moblie, // 卖家手机号
                   orderID: this.state.orderID, // 订单编号
                   merchant: this.state.merchant, // 商家姓名
-                  fenqiStatus: this.state.fenqiStatus,
-                  shenheStatus: this.state.shenheStatus,
+                  fenqiStatus: this.state.fenqiStatus[0],
+                  shenheStatus: this.state.shenheStatus[0],
                   agent: this.state.agent
                 }
               })

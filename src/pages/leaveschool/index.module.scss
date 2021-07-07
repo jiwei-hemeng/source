@@ -1,0 +1,33 @@
+.leaveschool {
+  box-sizing: border-box;
+  padding-top: 45px;
+  .NavBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+  }
+  .Card {
+    width: 98%;
+    margin: 5px auto;
+    .baseInfo {
+      box-sizing: border-box;
+      padding-left: 10px;
+      display: flex;
+      line-height: 30px;
+      .title {
+        width: 110px;
+        font-size: 14px;
+        text-align: left;
+      }
+      .content {
+        font-size: 14px;
+      }
+    }
+    .special {
+      box-sizing: border-box;
+      padding-left: 10px;
+    }
+  }
+}

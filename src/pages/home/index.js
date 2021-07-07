@@ -1,9 +1,8 @@
 import React from "react";
-import { SearchBar, Card, Button, Modal, Toast } from "antd-mobile";
+import { SearchBar, Card, Button, Toast } from "antd-mobile";
 import Virtualized from "@/component/virtualized";
 import styles from "./index.module.scss";
 import { getList } from "@/api/order";
-const alert = Modal.alert;
 class Index extends React.Component {
   state = {
     list: [],
@@ -86,7 +85,11 @@ class Index extends React.Component {
         <Card.Header
           title={<span className={styles.CardTitle}>{item.order_number}</span>}
           extra={
-            <span className={item.delay_stages === "0"? styles.status: styles.end }>分期中</span>
+            <span
+              className={item.order_status === "0"? styles.status: styles.end }
+            >
+              {item.order_status === 0 ? "分期中": "已还清"}
+            </span>
           }
         />
         <Card.Body>
@@ -106,7 +109,7 @@ class Index extends React.Component {
               size="small" 
               icon={<i className="iconfont icon-dingdanxiangqingxianxing" />}
               onClick={() => {
-                this.props.history.push({ pathname: "/overduedetails", state: {id: item.order_number, type: 1}});
+                this.props.history.push({ pathname: "/overduedetails", state: {id: item.summary_id, type: 1}});
               }}
             >订单详情</Button>
             <Button
@@ -115,10 +118,7 @@ class Index extends React.Component {
               size="small" 
               icon={<i className="iconfont icon-tuike" />}
               onClick={() => {
-                alert("退课提醒", "您确认要退课吗~", [
-                  { text: "取消", onPress: () => console.log('cancel') },
-                  { text: "确认", onPress: () => console.log('ok') },
-                ])
+                this.props.history.push("/leaveschool")
               }}
             >退课</Button>
             <Button 
