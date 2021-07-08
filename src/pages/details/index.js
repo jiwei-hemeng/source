@@ -314,43 +314,45 @@ export default class Overduedetails extends React.Component {
     }
   }
   renderCreditInformation = () => {
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header title="征信信息"></Card.Header>
-        <Card.Body className={style.CreditInformation}>
-          {
-            this.renderCreditContent()
-          }
-        </Card.Body>
-      </Card>
-    )
-  }
-  renderCreditContent = () => {
-    const { type } = this.props.location.state
-    if(type === 1) {
+    if(this.props.location.state.type === 2) {
       return (
-        <>
-          <Button type="primary" size="small" className={style.btn} onClick={() => {
-            this.props.history.push({
-              pathname: "/creditrecords",
-              state: {id: this.props.location.state.id}
-            })
-          }}>征信信息</Button>
-          <Button type="primary" size="small" className={style.btn} onClick={() => {
-            this.setState({
-              course: true
-            })
-          }}>退课计算</Button>
-          <Button type="primary" size="small" className={style.btn} onClick={() => {
-            this.setState({
-              PerPay: true
-            })
-          }}>提前还款</Button>
-        </>
+        <Card
+          className={style.Card}
+        >
+          <Card.Header title="征信信息"></Card.Header>
+          <Card.Body className={style.CreditInformation}>
+            {
+              this.renderCreditContent()
+            }
+          </Card.Body>
+        </Card>
       )
     }
+  }
+  renderCreditContent = () => {
+    // const { type } = this.props.location.state
+    // if(type === 1) {
+    //   return (
+    //     <>
+    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
+    //         this.props.history.push({
+    //           pathname: "/creditrecords",
+    //           state: {id: this.props.location.state.id}
+    //         })
+    //       }}>征信信息</Button>
+    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
+    //         this.setState({
+    //           course: true
+    //         })
+    //       }}>退课计算</Button>
+    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
+    //         this.setState({
+    //           PerPay: true
+    //         })
+    //       }}>提前还款</Button>
+    //     </>
+    //   )
+    // }
     return (
       <>
         {/* <Button type="primary" size="small" className={style.btn} onClick={() => {
