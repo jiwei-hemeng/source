@@ -189,93 +189,87 @@ export default class Overduedetails extends React.Component {
   }
   renderOrderInfo = () => {
     const { fqOrderList } = this.state.orderDetails;
-    if(!fqOrderList) {
+    if(fqOrderList) {
       return (
-        <div>加载中....</div>
+        <Card
+          className={style.Card}
+        >
+          <Card.Header 
+            title="订单详情信息"
+          />
+          <Card.Body>
+            <table className={style.OrderInfo}>
+              <thead>
+                <tr>
+                  <th width="120px">订单编号</th>
+                  <th width="120px">第几期</th>
+                  <th width="120px">付款状态</th>
+                  <th width="120px">应付款时间</th>
+                  <th width="120px">实际支付时间</th>
+                  <th width="120px">月供</th>
+                  <th width="120px">逾期金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  fqOrderList.map(item => {
+                    return (
+                      <tr key={ item.id }>
+                        <td>{item.orderSn}</td>
+                        <td>{item.dijiqi}</td>
+                        <td>{item.payStatus}</td>
+                        <td>{item.payDate}</td>
+                        <td>{item.truePayDate}</td>
+                        <td>{item.yuegong}</td>
+                        <td>{item.yqmoney}</td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+          </Card.Body>
+        </Card>
       )
     }
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="订单详情信息"
-        />
-        <Card.Body>
-          <table className={style.OrderInfo}>
-            <thead>
-              <tr>
-                <th width="120px">订单编号</th>
-                <th width="120px">第几期</th>
-                <th width="120px">付款状态</th>
-                <th width="120px">应付款时间</th>
-                <th width="120px">实际支付时间</th>
-                <th width="120px">月供</th>
-                <th width="120px">逾期金额</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                fqOrderList.map(item => {
-                  return (
-                    <tr key={ item.id }>
-                      <td>{item.orderSn}</td>
-                      <td>{item.dijiqi}</td>
-                      <td>{item.payStatus}</td>
-                      <td>{item.payDate}</td>
-                      <td>{item.truePayDate}</td>
-                      <td>{item.yuegong}</td>
-                      <td>{item.yqmoney}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-        </Card.Body>
-      </Card>
-    )
   }
   renderNotes = () => {
     const { fqOrderActionList } = this.state.orderDetails;
-    if(!fqOrderActionList) {
+    if(fqOrderActionList) {
       return (
-        <div>加载中...</div>
+        <Card
+          className={style.Card}
+        >
+          <Card.Header title="操作记录"></Card.Header>
+          <Card.Body>
+            <table className={style.OrderInfo}>
+              <thead>
+                <tr>
+                  <th width="120px">操作人</th>
+                  <th width="120px">操作时间</th>
+                  <th width="120px">商家担保</th>
+                  <th width="120px">备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  fqOrderActionList.map(item => {
+                    return (
+                      <tr key={item.actionId}>
+                        <td>{item.actionUsername}</td>
+                        <td>{item.timeString}</td>
+                        <td>{item.guarantees}</td>
+                        <td>{item.statusDesc}</td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+          </Card.Body>
+        </Card>
       )
     }
-    return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header title="操作记录"></Card.Header>
-        <Card.Body>
-          <table className={style.OrderInfo}>
-            <thead>
-              <tr>
-                <th width="120px">操作人</th>
-                <th width="120px">操作时间</th>
-                <th width="120px">商家担保</th>
-                <th width="120px">备注</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                fqOrderActionList.map(item => {
-                  return (
-                    <tr key={item.actionId}>
-                      <td>{item.actionUsername}</td>
-                      <td>{item.timeString}</td>
-                      <td>{item.guarantees}</td>
-                      <td>{item.statusDesc}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-        </Card.Body>
-      </Card>
-    )
   }
   renderDeductionRecord = () => {
     const { fqApilogdks } = this.state.orderDetails;
