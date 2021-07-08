@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+// import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { HashRouter, Route, Redirect } from "react-router-dom";
 import AuthRoute from "@/component/AuthRoute"
 import Loadding from "@/component/loadding"
 const Index = React.lazy(() => import("./pages/"));
@@ -13,7 +14,7 @@ const leaveschool = React.lazy(() => import("@/pages/leaveschool"));
 export default class App extends React.Component {
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Suspense fallback={<Loadding />}>
           <Route exact path="/" render={() => {
             return <Redirect to="/home/index"></Redirect>
@@ -33,16 +34,7 @@ export default class App extends React.Component {
           <AuthRoute path="/periodization" exact={true} Page={ Periodization } />
           <AuthRoute path="/leaveschool" exact={true} Page={ leaveschool } />
         </Suspense>
-      </BrowserRouter>
-      // <HashRouter>
-      //   <Suspense fallback={<Loadding />}>
-      //     <Route exact path="/" render={() => {
-      //       return <Redirect to="/home/index"></Redirect>
-      //     }} />
-      //     <Route path="/home" component={Index} />
-      //     <Route exact path="/login" component={Login} />
-      //   </Suspense>
-      // </HashRouter>
+      </HashRouter>
     );
   }
 }
