@@ -546,7 +546,8 @@ export default class Overduedetails extends React.Component {
                 type="money"
                 moneyKeyboardAlign="left"
                 className="InputItem" 
-                placeholder="请输入修改逾期金额..." 
+                placeholder="请输入修改逾期金额..."
+                autoAdjustHeight
                 value={this.state.pastdueFirst}
                 onChange={v => {
                   this.setState({
