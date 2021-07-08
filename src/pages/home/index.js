@@ -49,11 +49,6 @@ class Index extends React.Component {
     style        // 重点属性：一定要给每一个行数添加该样式
   }) => {
     let item = this.state.list[index]
-    // if(!item){
-    //   return (
-    //     <div key={key} style={style}>正在加载中...</div>
-    //   )
-    // }
     if(item) {
       return (
         <div key={key} style={style}>
