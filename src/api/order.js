@@ -20,3 +20,21 @@ export function removeCourse(orderId) {
     url: `/order/removeCourse/${orderId}`,
   })
 }
+// 退课的接口
+export function removeCourseAdd(data) {
+  return Request({
+    url: "/order/removeCourseAdd",
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    data,
+  })
+}
+// 分期详情
+export function repayList(orderId) {
+  return Request({
+    url: `/order/removeCourse/${orderId}`,
+  })
+}
+

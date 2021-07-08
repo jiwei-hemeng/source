@@ -1,5 +1,6 @@
 import React from "react";
-import { NavBar, Icon, Card, InputItem, Button } from "antd-mobile";
+import { NavBar, Icon, Card, InputItem, Button, Toast } from "antd-mobile";
+import { backInfo } from "@/api/order";
 import style from "./index.module.scss";
 import "./index.scss";
 export default class Returnback extends React.Component {
@@ -7,9 +8,17 @@ export default class Returnback extends React.Component {
     filelist: [], // 上传文件的文件列表
     summary: "", // 音频文件说明
     remark: "", // 备注
+    backInfo: []
   }
-  componentDidMount() {
-    console.log(this.props.location.state)
+  async componentDidMount() {
+    Toast.loading("正在加载中...", 0);
+    const { data } = await backInfo(this.props.location.state.id)
+    Toast.hide();
+    if(data && data.code === 200) {
+      this.setState({
+        backInfo: data.data
+      })
+    }
   }
   submit = () => {
     let fd = new FormData();
@@ -60,6 +69,7 @@ export default class Returnback extends React.Component {
     )
   }
   rendreRecode = () => {
+    const { backInfo } = this.state
     return (
       <Card className={style.Recode}>
         <Card.Header title="操作记录"></Card.Header>
@@ -79,17 +89,23 @@ export default class Returnback extends React.Component {
               </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>f20210513125437280223</td>
-              <td>1</td>
-              <td>未支付</td>
-              <td>2021-06-13 12:54:37	</td>
-              <td>2021-06-13 12:54:37</td>
-              <td>2375.93</td>
-              <td>189.00</td>
-              <td>189.00</td>
-              <td>189.00</td>
-            </tr>
+              {
+                backInfo.map(item => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.orderId}</td>
+                      <td>{item.visitNum}</td>
+                      <td>{item.audioDesc}</td>
+                      <td>{item.adminId}</td>
+                      <td>{item.adminUsername}</td>
+                      <td>{item.soundUrl}</td>
+                      <td>{item.descText}</td>
+                      <td>{item.addtime}</td>
+                      <td>{item.scene}</td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </Card.Body>

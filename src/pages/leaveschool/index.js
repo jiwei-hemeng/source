@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, Toast } from "antd-mobile";
-import { removeCourse } from "@/api/order";
+import { removeCourse, removeCourseAdd } from "@/api/order";
 import styles from "./index.module.scss";
 const alert = Modal.alert;
 export default class leaveschool extends React.Component {
@@ -129,12 +129,28 @@ export default class leaveschool extends React.Component {
           onClick={() => {
             alert("取消订单提示", <div>您确认要取消订单吗~</div>, [
               { text: '取消', onPress: () => console.log('第0个按钮被点击了') },
-              { text: '确认', onPress: () => console.log('第1个按钮被点击了') }
+              { text: '确认', onPress: () => this.submit() }
             ])
           }}
         >取消订单</Button>
       </>
     )
+  }
+  submit = async () => {
+    const fd = new FormData();
+    fd.append("file", this.state.files[0].file);
+    const obj = {
+      ...this.state.backInfo,
+      desc_text: this.state.remark
+    }
+    fd.append("removeCourse", JSON.stringify(obj));
+    Toast.loading("正在加载中...", 0);
+    const { data } = await removeCourseAdd(fd)
+    Toast.hide();
+    if(data && data.code === 200) {
+      Toast.success("操作成功", 2);
+      this.props.history.push("/")
+    }
   }
   renderStoreInfo = () => {
     return (
