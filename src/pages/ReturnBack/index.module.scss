@@ -40,8 +40,9 @@
     width: 98%;
     margin: 0 auto;
     table {
-      width: 750px;
+      width: 1200px;
       border-collapse: collapse;
+      table-layout:fixed;
       th {
         width: 220px;
         border: 1px solid #999;
@@ -51,6 +52,8 @@
         border: 1px solid #999;
         background-color: #DCDDC0;
         text-align: center;
+        word-wrap:break-word;
+        height: 60px;
       }
     }
   }

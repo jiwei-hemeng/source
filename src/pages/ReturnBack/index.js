@@ -89,7 +89,7 @@ export default class Returnback extends React.Component {
                 <th>音频文件说明</th>
                 <th>审核人id</th>
                 <th>审核人姓名</th>
-                <th>音频地址</th>
+                <th width="230">音频地址</th>
                 <th>回访说明</th>
                 <th>操作时间</th>
                 <th>操作</th>
@@ -105,7 +105,7 @@ export default class Returnback extends React.Component {
                       <td>{item.audioDesc}</td>
                       <td>{item.adminId}</td>
                       <td>{item.adminUsername}</td>
-                      <td>{item.soundUrl}</td>
+                      <td width="30%">{item.soundUrl}</td>
                       <td>{item.descText}</td>
                       <td>{item.addtime}</td>
                       <td>{item.scene}</td>
