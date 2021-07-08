@@ -45,7 +45,7 @@ export function removeCourseAdd(data) {
 // 分期详情
 export function repayList(orderId) {
   return Request({
-    url: `/order/removeCourse/${orderId}`,
+    url: `/order/repayList/${orderId}`,
   })
 }
 
