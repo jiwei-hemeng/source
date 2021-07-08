@@ -329,7 +329,6 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderCreditContent = () => {
-    console.log("审核状态", this.props.location.state)
     const { type } = this.props.location.state
     if(type === 1) {
       return (
@@ -499,10 +498,13 @@ export default class Overduedetails extends React.Component {
           type="primary"
           className={style.btn}
           onClick={async () => {
+            Toast.loading("正在加载中...", 0);
             const { data } = await updateReturn({
-              ...this.state.orderDetails,
-              record: this.state.record,
+              summary_id: this.state.orderDetails.fqOrder.summary_id,
+              sh_status: this.state.orderDetails.fqOrder.sh_status,
+              statusDesc: this.state.record,
             })
+            Toast.hide()
             if(data && data.code === 200) {
               console.log("请求成功了")
             }
@@ -540,7 +542,9 @@ export default class Overduedetails extends React.Component {
             </div>
             <div className="ModalItem">
               <span>修改逾期金额</span>
-              <InputItem 
+              <InputItem
+                type="money"
+                moneyKeyboardAlign="left"
                 className="InputItem" 
                 placeholder="请输入修改逾期金额..." 
                 value={this.state.pastdueFirst}
@@ -579,8 +583,7 @@ export default class Overduedetails extends React.Component {
     )
   }
   render() {
-    const { history, location } = this.props
-    console.log("订单编号", location.state)
+    const { history } = this.props
     return (
       <div className={style.Details}>
         <NavBar
