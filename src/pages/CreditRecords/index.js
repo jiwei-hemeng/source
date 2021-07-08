@@ -3,8 +3,7 @@ import { NavBar, Icon } from "antd-mobile";
 import style from "./index.module.scss";
 export default class Credit extends React.Component {
   render() {
-    const { history, location } = this.props
-    console.log("上级路由传来的参数", location.state)
+    const { history } = this.props
     return (
       <div className={style.Credit}>
         <NavBar
