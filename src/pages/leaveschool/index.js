@@ -1,51 +1,63 @@
 import React from "react";
-import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal } from "antd-mobile";
-// import {  } from "@/api/order";
+import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, Toast } from "antd-mobile";
+import { removeCourse } from "@/api/order";
 import styles from "./index.module.scss";
 const alert = Modal.alert;
 export default class leaveschool extends React.Component {
   state = {
     files: [],
-    remark: ""
+    remark: "",
+    backInfo: {}
+  }
+  componentDidMount = async () => {
+    Toast.loading("正在加载中...", 0);
+    const { data } = await removeCourse(this.props.location.state.id);
+    Toast.hide();
+    if(data && data.code === 200) {
+      this.setState({
+        backInfo: data.data
+      })
+    }
   }
   renderBaseinfo = () => {
+    const { backInfo } = this.state
     return (
       <>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>订单总Id</div>
-          <div className={ styles.content }>6248</div>
+          <div className={ styles.content }>{backInfo.summary_id}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>订单号</div>
-          <div className={ styles.content }>s20210619142718751860</div>
+          <div className={ styles.content }>{backInfo.order_number}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>买家姓名</div>
-          <div className={ styles.content }>侯嘉琪</div>
+          <div className={ styles.content }>{backInfo.student_name}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>手机号</div>
-          <div className={ styles.content }>17634504335</div>
+          <div className={ styles.content }>{backInfo.person_phone}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>商品价格</div>
-          <div className={ styles.content }>6980.00</div>
+          <div className={ styles.content }>{backInfo.money}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>贷款费用</div>
-          <div className={ styles.content }>5980.00</div>
+          <div className={ styles.content }>{backInfo.dk_money}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>分期状态</div>
-          <div className={ styles.content }>分期中</div>
+          <div className={ styles.content }>{backInfo.order_status}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>下单时间</div>
-          <div className={ styles.content }>2021-06-19 02:27:18</div>
+          <div className={ styles.content }>{backInfo.set_up_time}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>延期期数</div>
-          <div className={ styles.content }>0</div>
+          <div className={ styles.content }>{backInfo.delay_stages}</div>
         </div>
       </>
     )
@@ -71,27 +83,28 @@ export default class leaveschool extends React.Component {
     });
   }
   renderStoreinfo = () => {
+    const { backInfo } = this.state
     return (
       <>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>商品名称</div>
-          <div className={ styles.content }>淘宝初级美工</div>
+          <div className={ styles.content }>{backInfo.course_name}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>月供</div>
-          <div className={ styles.content }>996.67</div>
+          <div className={ styles.content }>{backInfo.yue_gong}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>下期还款期数</div>
-          <div className={ styles.content }>2</div>
+          <div className={ styles.content }>{backInfo.dijiqi}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>下期应还款时间</div>
-          <div className={ styles.content }>2021-06-19 02:27:18</div>
+          <div className={ styles.content }>{backInfo.nexttime}</div>
         </div>
         <div className={ styles.baseInfo }>
           <div className={ styles.title }>商家是否担保</div>
-          <div className={ styles.content }>是</div>
+          <div className={ styles.content }>{backInfo.deposit_status}</div>
         </div>
         <div className={ styles.special }>
           <div className={ styles.title }>退课申请表</div>

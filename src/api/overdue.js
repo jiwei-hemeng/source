@@ -3,7 +3,7 @@ import Request from "@/utils/request";
 // 获取违约订单列表
 export function listOverOrder(params) {
   return Request({
-    url: "move/overdueOrderController/listOverOrder",
+    url: "/overdueOrderController/listOverOrder",
     method: "GET",
     params
   })
@@ -11,7 +11,7 @@ export function listOverOrder(params) {
 // 获取订单详细信息
 export function editOverOrder(params) {
   return Request({
-    url: "move/overdueOrderController/editOverOrder",
+    url: "/overdueOrderController/editOverOrder",
     method: "GET",
     params
   })
@@ -19,7 +19,7 @@ export function editOverOrder(params) {
 // 修改逾期金回显
 export function updateOverShow(params) {
   return Request({
-    url: "move/overdueOrderController/updateOver",
+    url: "/overdueOrderController/updateOver",
     method: "GET",
     params
   })
@@ -27,7 +27,7 @@ export function updateOverShow(params) {
 // 修改逾期金
 export function updateOver(data) {
   return Request({
-    url: "move/overdueOrderController/updateOver",
+    url: "/overdueOrderController/updateOver",
     method: "POST",
     data
   })
@@ -35,7 +35,7 @@ export function updateOver(data) {
 // 提交回访记录
 export function updateReturn(data) {
   return Request({
-    url: "move/overdueOrderController/updateReturn",
+    url: "/overdueOrderController/updateReturn",
     method: "POST",
     data
   })

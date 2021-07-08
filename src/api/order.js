@@ -3,8 +3,20 @@ import Request from "@/utils/request";
 // 测试接口
 export function getList(data) {
   return Request({
-    url: "move/order/list",
+    url: "/order/list",
     method: "POST",
     data
+  })
+}
+// 获取回访信息
+export function backInfo(orderId) {
+  return Request({
+    url: `/order/backInfo/${orderId}`,
+  })
+}
+// 退课信息
+export function removeCourse(orderId) {
+  return Request({
+    url: `/order/removeCourse/${orderId}`,
   })
 }

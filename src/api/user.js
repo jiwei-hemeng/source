@@ -2,7 +2,7 @@ import Request from "@/utils/request";
 // 登录系统
 export function login(data) {
   return Request({
-    url: "move/loginController/login",
+    url: "/loginController/login",
     method: "POST",
     data
   })
@@ -10,7 +10,7 @@ export function login(data) {
 // 测试接口
 export function Test() {
   return Request({
-    url: "move/loginController/test",
+    url: "/loginController/test",
     method: "GET",
   })
 }
