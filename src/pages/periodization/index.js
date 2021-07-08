@@ -48,7 +48,6 @@ export default class Periodization extends React.Component {
         title="线下还款"
         footer={[{ text: '提交', onPress: () => {
           this.setState({modal: false})
-          console.log('ok'); 
         } }]}
       >
         <div style={{ height: 345, overflow: 'scroll' }}>
@@ -127,8 +126,7 @@ export default class Periodization extends React.Component {
     })
   }
   render() {
-    const { history, location } = this.props
-    console.log("传来的参数", location.state)
+    const { history } = this.props
     return (
       <div className={style.Periodization}>
         <NavBar

@@ -77,7 +77,6 @@ export default class leaveschool extends React.Component {
     )
   }
   onChange = (files, type, index) => {
-    console.log(files, type, index);
     this.setState({
       files,
     });
@@ -128,7 +127,7 @@ export default class leaveschool extends React.Component {
           className={styles.uploadbtn}
           onClick={() => {
             alert("取消订单提示", <div>您确认要取消订单吗~</div>, [
-              { text: '取消', onPress: () => console.log('第0个按钮被点击了') },
+              { text: '取消', onPress: () => {} },
               { text: '确认', onPress: () => this.submit() }
             ])
           }}

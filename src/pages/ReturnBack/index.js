@@ -26,7 +26,6 @@ export default class Returnback extends React.Component {
     fd.append("fileDesc", this.state.summary);
     fd.append("descript", this.state.remark);
     fd.append("orderId", this.props.location.state.id);
-    console.log("FormData", fd)
     Toast.loading("正在加载中...", 0);
     const { data } = await saveProof(fd);
     Toast.hide();

@@ -9,8 +9,7 @@ export default class My extends React.Component {
     appIcon: require("../../static/my/appicon.png")
   }
   componentDidMount = async () => {
-    const { data } = await Test()
-    console.log("测试接口", data)
+    await Test()
   }
   render() {
     return (

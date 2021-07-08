@@ -9,9 +9,6 @@ export default class Overdue extends React.Component {
     list: [],
     count: 1, // list 总条数
   }
-  componentDidMount() {
-    console.log("收索组件传来的值", this.props.location.state)
-  }
   // 加载更多
   loadMoreRows= ({ startIndex, stopIndex }) => {
     const pageNum = startIndex / 10 + 1;

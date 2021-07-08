@@ -7,9 +7,6 @@ class Index extends React.Component {
   state = {
     list: [],
     count: 1, // list 总条数
-  };
-  async componentDidMount() {
-    console.log("收索组件传来的值", this.props.location.state)
   }
   // 加载更多
   loadMoreRows = ({ startIndex, stopIndex }) => {
