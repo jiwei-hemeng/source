@@ -113,7 +113,10 @@ class Index extends React.Component {
               size="small" 
               icon={<i className="iconfont icon-tuike" />}
               onClick={() => {
-                this.props.history.push("/leaveschool")
+                this.props.history.push({
+                  pathname: "/leaveschool",
+                  state: { id: item.summary_id }
+                })
               }}
             >退课</Button>
             <Button 
