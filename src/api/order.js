@@ -3,7 +3,7 @@ import Request from "@/utils/request";
 // 测试接口
 export function getList(data) {
   return Request({
-    url: "/order/list",
+    url: "move/order/list",
     method: "POST",
     data
   })

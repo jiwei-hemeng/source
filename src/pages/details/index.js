@@ -506,7 +506,7 @@ export default class Overduedetails extends React.Component {
             })
             Toast.hide()
             if(data && data.code === 200) {
-              console.log("请求成功了")
+              Toast.success("操作成功", 2)
             }
           }}
         >提交</Button>
