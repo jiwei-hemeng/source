@@ -127,7 +127,7 @@ class Index extends React.Component {
               onClick={() => {
                 this.props.history.push({
                   pathname: "/periodization",
-                  state: {id: item.order_number}
+                  state: {id: item.summary_id}
                 })
               }}
             >分期详情</Button>
@@ -139,7 +139,7 @@ class Index extends React.Component {
               onClick={() => {
                 this.props.history.push({
                   pathname: "/returnBack",
-                  state: {id: item.order_number}
+                  state: {id: item.summary_id}
                 })
               }}
             >回访信息</Button>

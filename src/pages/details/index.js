@@ -29,7 +29,6 @@ export default class Overduedetails extends React.Component {
     })
     Toast.hide()
     if(data.code === 200) {
-      console.log("获取也不行啊就啥事", data.data)
       this.setState({
         OverShow: data.data
       })
@@ -547,7 +546,7 @@ export default class Overduedetails extends React.Component {
                 moneyKeyboardAlign="left"
                 className="InputItem" 
                 placeholder="请输入修改逾期金额..."
-                autoAdjustHeight
+                autoAdjustHeight={true}
                 value={this.state.pastdueFirst}
                 onChange={v => {
                   this.setState({
@@ -562,8 +561,7 @@ export default class Overduedetails extends React.Component {
             </div>
             <List.Item>
               <Button 
-                type="primary" 
-                size="small"
+                type="primary"
                 onClick={async () => {
                   const { data } = await updateOver({
                     ...OverShow,
