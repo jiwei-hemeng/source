@@ -16,6 +16,7 @@ export default class Overduedetails extends React.Component {
     OverShow: {}, // 修改逾期金展示的信息
     pastdueFirst: "", // 修改后的逾期金
     remark: "", // 修改逾期金的备注
+    record: "", // 回访记录
   }
   componentDidMount = async () => {
     await this.getOrderDetails();
@@ -484,11 +485,14 @@ export default class Overduedetails extends React.Component {
       <Card.Body className={style.ReturnVisit}>
         <TextareaItem 
           rows={5}
-          placeholder="fixed number of lines"
+          placeholder="请输入回访记录..."
           autoHeight
           labelNumber={5}
+          value={ this.state.record }
           onChange={(e) => {
-            console.log("回访记录", e)
+            this.setState({
+              record: e
+            })
           }}
         />
         <Button
@@ -497,6 +501,7 @@ export default class Overduedetails extends React.Component {
           onClick={async () => {
             const { data } = await updateReturn({
               ...this.state.orderDetails,
+              record: this.state.record,
             })
             if(data && data.code === 200) {
               console.log("请求成功了")
