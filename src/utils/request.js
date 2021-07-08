@@ -13,7 +13,7 @@ Request.interceptors.request.use((config) => {
 });
 // 响应拦截器
 Request.interceptors.response.use((response) => {
-  if (response.data.code === 301 || response.data.code === 302) {
+  if (response.data.code === 301 || response.data.code === 302 || response.data.code === 303) {
     sessionStorage.clear("token");
     Toast.success(response.data.msg, 2);
     window.location.href = "/login"
