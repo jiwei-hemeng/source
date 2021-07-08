@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar, Icon, Card, InputItem, Button, Toast } from "antd-mobile";
-import { backInfo } from "@/api/order";
+import { backInfo, saveProof } from "@/api/order";
 import style from "./index.module.scss";
 import "./index.scss";
 export default class Returnback extends React.Component {
@@ -12,7 +12,7 @@ export default class Returnback extends React.Component {
   }
   async componentDidMount() {
     Toast.loading("正在加载中...", 0);
-    const { data } = await backInfo(this.props.location.state.id)
+    const { data } = await backInfo(this.props.location.state.id);
     Toast.hide();
     if(data && data.code === 200) {
       this.setState({
@@ -20,12 +20,19 @@ export default class Returnback extends React.Component {
       })
     }
   }
-  submit = () => {
+  submit = async () => {
     let fd = new FormData();
-    fd.append("file", this.state.filelist);
-    fd.append("summary", this.state.summary);
-    fd.append("remark", this.state.remark);
+    fd.append("file", this.state.filelist[0]);
+    fd.append("fileDesc", this.state.summary);
+    fd.append("descript", this.state.remark);
+    fd.append("orderId", this.props.location.state.id);
     console.log("FormData", fd)
+    Toast.loading("正在加载中...", 0);
+    const { data } = await saveProof(fd);
+    Toast.hide();
+    if(data && data.code === 200) {
+      Toast.success("操作成功", 2);
+    }
   }
   renderCard = () => {
     return (

@@ -1,5 +1,6 @@
 import React from "react";
 import { NavBar, Icon, Card, Button, Modal, InputItem, Radio, List } from "antd-mobile";
+import { backInfo } from "@/api/order";
 import style from "./index.module.scss";
 const alert = Modal.alert;
 const RadioItem = Radio.RadioItem;

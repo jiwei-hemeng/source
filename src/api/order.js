@@ -14,6 +14,17 @@ export function backInfo(orderId) {
     url: `/order/backInfo/${orderId}`,
   })
 }
+// 上传回访信息
+export function saveProof(data) {
+  return Request({
+    url: "/order/saveProof",
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    data
+  })
+}
 // 退课信息
 export function removeCourse(orderId) {
   return Request({
