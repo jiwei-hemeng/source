@@ -1,0 +1,17 @@
+.Card {
+  width: 98%;
+  margin: 5px auto;
+  .body {
+    .iinput {
+      display: none;
+    }
+    .Button {
+      width: 30%;
+      margin-right: 5px;
+      margin-top: 5px;
+      &:first-child {
+        margin-left: 5px;
+      }
+    }
+  }
+}

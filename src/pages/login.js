@@ -66,7 +66,8 @@ export default withFormik({
   },
   // 用于表单验证，会将错误消息传给this.props
   validationSchema: Yup.object().shape({
-    username: Yup.string().required('用户名必须填写').matches(/^[a-zA-Z_\d]{5,8}$/,'用户名长度5-8位'),
-    password: Yup.string().required('密码必须填写').matches(/^[a-z@A-Z_\d]{5,16}$/,'密码长度5-16')
+    // username: Yup.string().required('用户名必须填写').matches(/^[a-zA-Z_\d]{5,8}$/,'用户名长度5-8位'),
+    username: Yup.string().required('用户名必须填写'),
+    password: Yup.string().required('密码必须填写')
   })
 })(Login)
