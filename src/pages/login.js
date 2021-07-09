@@ -1,79 +1,72 @@
-import React from "react";
-import { InputItem, Button, Toast } from "antd-mobile";
-import style from "./login.module.scss";
+import React, { Component } from "react";
+import { WingBlank, Toast } from "antd-mobile";
+import styles from "./index.module.css";
 import { login } from "@/api/user";
-import { connect } from "react-redux";
-class Login extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      username: "",
-      password: "",
-    }
-  }
-  login = async () => {
-    const userInfo = {
-      ...this.state
-    }
-    const { data } = await login({
-      ...userInfo
-    })
-    if(data.code !== 200) {
-      return Toast.success(data.msg, 2)
-    }
-    sessionStorage.setItem("token", data.data);
-    this.props.setToken(data.data);
-    window.location.href ="/"
-  }
-  render() { 
+import { withFormik, ErrorMessage, Form, Field } from "formik";
+// 导入yup
+import * as Yup from 'yup'
+class Login extends Component {
+  render() {
+    let { errors } = this.props
     return (
-      <form className={style.Login}>
-        <div className={style.form_item_title}>
-          欢迎登录后台管理系统
-        </div>
-        <div className={style.form_item}>
-          <i className="iconfont icon-userName"></i>
-          <InputItem 
-            className={style.InputItem} 
-            value={this.state.username} 
-            clear
-            onChange={(val) => {
-            this.setState({
-              username: val
-            })
-          }} />
-        </div>
-        <div className={style.form_item}>
-          <i className="iconfont icon-password"></i>
-          <InputItem 
-            type="password" 
-            className={style.InputItem} 
-            value={this.state.password} 
-            onChange={(val) => {
-              this.setState({
-                password: val
-              })
-            }} 
-          />
-        </div>
-        <Button className={style.submit} type="primary" onClick={this.login}>登录</Button>
-      </form>
+      <div className={styles.root}>
+        <WingBlank>
+          <Form>
+            <div className={styles.formItem}>
+              <i className="iconfont icon-userName"></i>
+              <Field type="text" name="username" className={styles.input} placeholder="请输入账号"/>
+            </div>
+            {
+              errors.username ? <ErrorMessage component="div" name="username" className={styles.error} /> : null
+            }
+            <div className={styles.formItem}>
+              <i className="iconfont icon-password"></i>
+              <Field type="password" name="password" className={styles.input} placeholder="请输入密码"/>
+            </div>
+            {
+              errors.password ? <ErrorMessage component="div" name="password" className={styles.error} /> : null
+            }
+            <div className={styles.formSubmit}>
+              <button className={styles.submit} type="submit">
+                登 录
+              </button>
+            </div>
+          </Form>
+        </WingBlank>
+      </div>
     )
   }
 }
-const mapStateToProps = (state, ownProps) => {
-  return {
-    token: state.token
-  }
-}
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    setToken: (token) => {
-      dispatch({
-        type: "setToken",
-        value: token,
-      });
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default withFormik({
+  // 相当于state
+  mapPropsToValues: ()=>{
+    return {
+      username: '',
+      password: ''
+    }
+  },
+  // 默认相当于提交事件
+  handleSubmit: async (value, { props })=>{
+    Toast.loading('正在登录中...', 0);
+    const { data } = await login({
+      username: value.username,
+      password: value.password
+    })
+    Toast.hide()
+    if(data.code === 200){
+      Toast.success('登录成功哦~~', 2);
+      sessionStorage.setItem('token', data.data);
+      console.log("cnjskd", props.history)
+      window.location.href="/"
+      
+    }else{
+      Toast.fail('登录失败~~', 2)
+    }
+  },
+  // 用于表单验证，会将错误消息传给this.props
+  validationSchema: Yup.object().shape({
+    username: Yup.string().required('用户名必须填写').matches(/^[a-zA-Z_\d]{5,8}$/,'用户名长度5-8位'),
+    password: Yup.string().required('密码必须填写').matches(/^[a-z@A-Z_\d]{5,16}$/,'密码长度5-16')
+  })
+})(Login)
