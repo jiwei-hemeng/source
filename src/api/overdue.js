@@ -48,3 +48,11 @@ export function orderReview(data) {
     data
   })
 }
+// 更新回访记录
+export function updateReturnInfo(data) {
+  return Request({
+    url: "order/updateReturnInfo",
+    method: "POST",
+    data
+  })
+}
