@@ -471,7 +471,7 @@ export default class Overduedetails extends React.Component {
                     key={item.value}
                     checked={item.value === fqOrder.sh_status}
                     onChange={() => {
-                      if(fqOrder.sh_status === 0) {
+                      if(fqOrder.sh_status === 0 || fqOrder.sh_status === 1) {
                         let obj = fqOrder;
                         obj.sh_status = item.value;
                         this.setState({
@@ -489,43 +489,46 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderReturnVisit = () => {
-    return (
-      <Card
-      className={style.Card}
-    >
-      <Card.Header title="回访记录"></Card.Header>
-      <Card.Body className={style.ReturnVisit}>
-        <TextareaItem 
-          rows={5}
-          placeholder="请输入回访记录..."
-          autoHeight
-          labelNumber={5}
-          value={ this.state.record }
-          onChange={(e) => {
-            this.setState({
-              record: e
-            })
-          }}
-        />
-        <Button
-          type="primary"
-          className={style.btn}
-          onClick={async () => {
-            Toast.loading("正在加载中...", 0);
-            const { data } = await updateReturn({
-              summary_id: this.state.orderDetails.fqOrder.summary_id,
-              sh_status: this.state.orderDetails.fqOrder.sh_status,
-              statusDesc: this.state.record,
-            })
-            Toast.hide()
-            if(data && data.code === 200) {
-              Toast.success("操作成功", 2)
-            }
-          }}
-        >提交</Button>
-      </Card.Body>
-    </Card>
-    )
+    const { fqOrder } = this.state.orderDetails
+    if(fqOrder && fqOrder.sh_status) {
+      return (
+        <Card
+        className={style.Card}
+      >
+        <Card.Header title={fqOrder.sh_status === 0 ? "备注":"回访记录"}></Card.Header>
+        <Card.Body className={style.ReturnVisit}>
+          <TextareaItem 
+            rows={5}
+            placeholder="请输入回访记录..."
+            autoHeight
+            labelNumber={5}
+            value={ this.state.record }
+            onChange={(e) => {
+              this.setState({
+                record: e
+              })
+            }}
+          />
+          <Button
+            type="primary"
+            className={style.btn}
+            onClick={async () => {
+              Toast.loading("正在加载中...", 0);
+              const { data } = await updateReturn({
+                summary_id: this.state.orderDetails.fqOrder.summary_id,
+                sh_status: this.state.orderDetails.fqOrder.sh_status,
+                statusDesc: this.state.record,
+              })
+              Toast.hide()
+              if(data && data.code === 200) {
+                Toast.success("操作成功", 2)
+              }
+            }}
+          >提交</Button>
+        </Card.Body>
+      </Card>
+      )
+    }
   }
   renderModal = () => {
     const { OverShow } = this.state
@@ -596,9 +599,8 @@ export default class Overduedetails extends React.Component {
     )
   }
   renderIdCardQualified = () => {
-    console.log(this.props.location.state.type === 1 ? "正常订单": "逾期订单")
-    const { fqOrder } = this.state.orderDetails
-    if(fqOrder && fqOrder.sh_status === "0") {
+    const { fqOrder } = this.state.orderDetails;
+    if(fqOrder && fqOrder.sh_status === 0) {
       return (
         <IdCardQualified Qualified={this.state.Qualified} onChange={v => {
           this.setState({
@@ -609,9 +611,12 @@ export default class Overduedetails extends React.Component {
     }
   }
   renderChangeIdCard = () => {
-    return (
-      <ChangeIdCard />
-    )
+    const { fqOrder } = this.state.orderDetails
+    if(fqOrder && fqOrder.sh_status === 0) {
+      return (
+        <ChangeIdCard />
+      )
+    }
   }
   renderUploadAudio= () =>{
     const { fqOrder } = this.state.orderDetails
