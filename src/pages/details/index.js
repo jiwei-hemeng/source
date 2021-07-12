@@ -471,7 +471,7 @@ export default class Overduedetails extends React.Component {
                     key={item.value}
                     checked={item.value === fqOrder.sh_status}
                     onChange={() => {
-                      if(fqOrder.sh_status === 0 || fqOrder.sh_status === 1) {
+                      if(fqOrder.sh_status === 0) {
                         let obj = fqOrder;
                         obj.sh_status = item.value;
                         this.setState({
