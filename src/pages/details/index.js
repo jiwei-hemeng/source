@@ -51,7 +51,8 @@ export default class Overduedetails extends React.Component {
       ]
       this.setState({
         orderDetails: data.data,
-        files: fileList
+        files: fileList,
+        AuditStatus: data.data.fqOrder.sh_status
       })
     }
   }
@@ -469,13 +470,16 @@ export default class Overduedetails extends React.Component {
                 return (
                   <RadioItem
                     key={item.value}
-                    checked={item.value === fqOrder.sh_status}
+                    checked={item.value === this.state.AuditStatus}
                     onChange={() => {
                       if(fqOrder.sh_status === 0) {
-                        let obj = fqOrder;
-                        obj.sh_status = item.value;
+                        // let obj = fqOrder;
+                        // obj.sh_status = item.value;
+                        // this.setState({
+                        //   fqOrder: obj
+                        // })
                         this.setState({
-                          fqOrder: obj
+                          AuditStatus: item.value
                         })
                       }
                     }}
@@ -490,7 +494,7 @@ export default class Overduedetails extends React.Component {
   }
   renderReturnVisit = () => {
     const { fqOrder } = this.state.orderDetails
-    if(fqOrder && fqOrder.sh_status) {
+    if(fqOrder) {
       return (
         <Card
         className={style.Card}
@@ -499,7 +503,7 @@ export default class Overduedetails extends React.Component {
         <Card.Body className={style.ReturnVisit}>
           <TextareaItem 
             rows={5}
-            placeholder="请输入回访记录..."
+            placeholder={fqOrder.sh_status === 0 ? "请输入备注...":"请输入回访记录..."}
             autoHeight
             labelNumber={5}
             value={ this.state.record }
@@ -514,11 +518,17 @@ export default class Overduedetails extends React.Component {
             className={style.btn}
             onClick={async () => {
               Toast.loading("正在加载中...", 0);
-              const { data } = await updateReturn({
-                summary_id: this.state.orderDetails.fqOrder.summary_id,
-                sh_status: this.state.orderDetails.fqOrder.sh_status,
-                statusDesc: this.state.record,
-              })
+              let data = null
+              if(fqOrder.sh_status === 0) {
+
+              } else {
+                const res = await updateReturn({
+                  summary_id: this.state.orderDetails.fqOrder.summary_id,
+                  sh_status: this.state.AuditStatus,
+                  statusDesc: this.state.record,
+                })
+                data = res.data;
+              }
               Toast.hide()
               if(data && data.code === 200) {
                 Toast.success("操作成功", 2)
