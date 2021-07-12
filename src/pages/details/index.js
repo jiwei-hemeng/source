@@ -1,10 +1,11 @@
 import React from "react";
 import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio, Toast } from "antd-mobile";
-import { editOverOrder, updateOverShow, updateOver, updateReturn } from "@/api/overdue";
+import { editOverOrder, updateOverShow, updateOver, updateReturn, orderReview } from "@/api/overdue";
 import IdCardQualified from "./component/idCardQualified"
 import UploadAudio from "./component/uploadAudio"
 import ChangeIdCard from "./component/changeIdCard"
 import style from "./index.module.scss";
+import axios from "axios";
 const RadioItem = Radio.RadioItem;
 export default class Overduedetails extends React.Component {
   state = {
@@ -20,6 +21,10 @@ export default class Overduedetails extends React.Component {
     remark: "", // 修改逾期金的备注
     record: "", // 回访记录
     Qualified: 0, // 身份证是否合格
+    UploadAudioObj: {}, // 上传的音频文件
+    image_fan: {}, // 身份证正面照片
+    image_front: {}, // 身份证反面照片
+    image_hand: {}, // 手持身份证照片
   }
   componentDidMount = async () => {
     await this.getOrderDetails();
@@ -520,7 +525,26 @@ export default class Overduedetails extends React.Component {
               Toast.loading("正在加载中...", 0);
               let data = null
               if(fqOrder.sh_status === 0) {
+                const formData = new FormData();
+                formData.append("file", this.state.UploadAudioObj[0])
+                const RES = await axios({
+                  url: "http://101.200.63.68:6008//img/upLoadImg",
+                  method: "POST",
 
+                  headers: {
+                    "Content-Type": "multipart/form-data"
+                  },
+                  data: formData
+                })
+                if(RES && RES.data && RES.data.code !== 200) return Toast.fail(RES.data.msg, 2);
+                const { data } = await orderReview({
+                  ...this.state.orderDetails.fqOrder,
+                  audio_url: RES.data.data,
+                  sh_status: this.state.AuditStatus,
+                  iscardValue: this.state.Qualified,
+                  statusDesc: this.state.record
+                })
+                console.log(data)
               } else {
                 const res = await updateReturn({
                   summary_id: this.state.orderDetails.fqOrder.summary_id,
@@ -624,7 +648,23 @@ export default class Overduedetails extends React.Component {
     const { fqOrder } = this.state.orderDetails
     if(fqOrder && fqOrder.sh_status === 0) {
       return (
-        <ChangeIdCard />
+        <ChangeIdCard
+          ChangeIdCard={e => {
+            this.setState({
+              image_fan: e
+            })
+          }} 
+          ChangeIdCard1={e => {
+            this.setState({
+              image_front: e
+            })
+          }}
+          ChangeIdCard2={e => {
+            this.setState({
+              image_hand: e
+            })
+          }}
+        />
       )
     }
   }
@@ -634,7 +674,9 @@ export default class Overduedetails extends React.Component {
       return (
         <UploadAudio 
           files={e => {
-            console.log("上传的音频文件", e)
+            this.setState({
+              UploadAudioObj: e
+            })
           }} 
         />
       )

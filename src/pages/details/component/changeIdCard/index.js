@@ -31,6 +31,7 @@ export default class ChangeIdCard extends React.Component {
             ref={ref => this.fileClick = ref}
             onChange={e => {
               this.setState({files1: e.target.files})
+              this.props.ChangeIdCard(e.target.files[0])
             }} 
           />
           <Button
@@ -46,6 +47,7 @@ export default class ChangeIdCard extends React.Component {
             ref={ref => this.fileClick1 = ref}
             onChange={e => {
               this.setState({files2: e.target.files})
+              this.props.ChangeIdCard1(e.target.files[0])
             }}  
           />
           <Button
@@ -61,6 +63,7 @@ export default class ChangeIdCard extends React.Component {
             ref={ref => this.fileClick2 = ref}
             onChange={e => {
               this.setState({files2: e.target.files})
+              this.props.ChangeIdCard2(e.target.files[0])
             }}
           />
         </Card.Body>

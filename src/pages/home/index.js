@@ -80,7 +80,7 @@ class Index extends React.Component {
             <span
               className={item.order_status === "0"? styles.status: styles.end }
             >
-              {item.order_status === 0 ? "分期中": "已还清"}
+              {item.order_status === "0" ? "分期中": "已还清"}
             </span>
           }
         />

@@ -48,4 +48,3 @@ export function repayList(orderId) {
     url: `/order/repayList/${orderId}`,
   })
 }
-
