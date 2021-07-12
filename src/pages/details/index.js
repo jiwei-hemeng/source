@@ -533,16 +533,14 @@ export default class Overduedetails extends React.Component {
                   data: formData
                 })
                 if(RES && RES.data && RES.data.code !== 200) return Toast.fail(RES.data.msg, 2);
-                const { data } = await orderReview({
+                const res = await orderReview({
                   ...this.state.orderDetails.fqOrder,
                   audio_url: RES.data.data,
                   sh_status: this.state.AuditStatus,
                   iscardValue: this.state.Qualified,
                   statusDesc: this.state.record
                 })
-                if(data && data.code === 200) {
-                  Toast.success("操作成功", 2)
-                }
+                data = res.data
               } else if(type === 1 && fqOrder.sh_status === 1) {
                 const res = await updateReturnInfo({
                   orderId: this.state.orderDetails.fqOrder.summary_id,
@@ -559,8 +557,10 @@ export default class Overduedetails extends React.Component {
               }
               Toast.hide()
               if(data && data.code === 200) {
-                Toast.success("操作成功", 2)
+                Toast.success(data.msg, 2)
                 this.props.history.push("/")
+              } else {
+                Toast.fail(data.msg, 2)
               }
             }}
           >提交</Button>
