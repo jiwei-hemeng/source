@@ -478,11 +478,6 @@ export default class Overduedetails extends React.Component {
                     checked={item.value === this.state.AuditStatus}
                     onChange={() => {
                       if(fqOrder.sh_status === 0) {
-                        // let obj = fqOrder;
-                        // obj.sh_status = item.value;
-                        // this.setState({
-                        //   fqOrder: obj
-                        // })
                         this.setState({
                           AuditStatus: item.value
                         })
@@ -523,8 +518,9 @@ export default class Overduedetails extends React.Component {
             className={style.btn}
             onClick={async () => {
               Toast.loading("正在加载中...", 0);
-              let data = null
-              if(fqOrder.sh_status === 0) {
+              let data = null;
+              const { type } = this.props.location.state;
+              if(type === 1 && fqOrder.sh_status === 0) {
                 const formData = new FormData();
                 formData.append("file", this.state.UploadAudioObj[0])
                 const RES = await axios({
@@ -544,8 +540,12 @@ export default class Overduedetails extends React.Component {
                   iscardValue: this.state.Qualified,
                   statusDesc: this.state.record
                 })
-                console.log(data)
-              } else {
+                if(data && data.code === 200) {
+                  Toast.success("操作成功", 2)
+                }
+              } else if(type === 1 && fqOrder.sh_status === 1) {
+                console.log("4544645")
+              } else if(type === 2){
                 const res = await updateReturn({
                   summary_id: this.state.orderDetails.fqOrder.summary_id,
                   sh_status: this.state.AuditStatus,

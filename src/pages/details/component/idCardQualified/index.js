@@ -3,8 +3,8 @@ import { Card, List, Radio } from "antd-mobile";
 import styles from "./index.module.scss";
 const RadioItem = Radio.RadioItem;
 const isQualified = [
-  { value: 0, label: '合格' },
-  { value: 1, label: '不合格' },
+  { value: 1, label: '合格' },
+  { value: 0, label: '不合格' },
 ];
 export default class IdCardQualified extends React.Component {
   render() {

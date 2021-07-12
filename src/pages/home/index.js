@@ -17,7 +17,7 @@ class Index extends React.Component {
       size: 10,
       username: state ? state.student_name: undefined, // 买家姓名
       mobile: state ? state.moblie : undefined, // 买家手机号
-      order_number: state ? state.orderID : undefined, 
+      downOrdersn: state ? state.orderID : undefined, 
       truename: state ? state.merchant : undefined, // 商家姓名
       fqstatus: state ? state.fenqiStatus : undefined, // 分期状态
       isvalid: state ? state.shenheStatus : undefined, // 审核状态
