@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { WingBlank, Toast } from "antd-mobile";
 import styles from "./index.module.css";
 import { login } from "@/api/user";
+import { connect } from "react-redux";
 import { withFormik, ErrorMessage, Form, Field } from "formik";
 // 导入yup
-import * as Yup from 'yup'
+import * as Yup from "yup";
 class Login extends Component {
   render() {
     let { errors } = this.props
@@ -38,7 +39,23 @@ class Login extends Component {
   }
 }
 
-export default withFormik({
+const mapStateToProps = (state, ownProps) => {
+  return {
+    token: state.token
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setToken: (token) => {
+      dispatch({
+        type: "setToken",
+        value: token,
+      });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)( withFormik({
   // 相当于state
   mapPropsToValues: ()=>{
     return {
@@ -57,9 +74,8 @@ export default withFormik({
     if(data.code === 200){
       Toast.success('登录成功哦~~', 2);
       sessionStorage.setItem('token', data.data);
-      console.log("cnjskd", props.history)
-      window.location.href="/"
-      
+      props.setToken(data.data);
+      window.location.href="/" 
     }else{
       Toast.fail('登录失败~~', 2)
     }
@@ -70,4 +86,4 @@ export default withFormik({
     username: Yup.string().required('用户名必须填写'),
     password: Yup.string().required('密码必须填写')
   })
-})(Login)
+})(Login));

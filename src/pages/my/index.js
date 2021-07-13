@@ -1,10 +1,11 @@
 import React from "react";
 import style  from "./index.module.scss";
 import { Test } from "@/api/user";
-import { List, Button } from 'antd-mobile';
+import { List, Button } from "antd-mobile";
+import { connect } from "react-redux";
 const appIcon = require("../../static/my/appicon.png");
 
-export default class My extends React.Component {
+class My extends React.Component {
   state = {
     appIcon: require("../../static/my/appicon.png")
   }
@@ -54,6 +55,7 @@ export default class My extends React.Component {
           type="primary"
           onClick={() => {
             sessionStorage.removeItem("token");
+            this.props.setToken("")
             this.props.history.push({
               pathname: "/login"
             })
@@ -63,3 +65,19 @@ export default class My extends React.Component {
     )
   }
 }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    token: state.token
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setToken: (token) => {
+      dispatch({
+        type: "setToken",
+        value: token,
+      });
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(My);
