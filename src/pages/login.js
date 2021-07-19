@@ -75,7 +75,7 @@ export default connect(mapStateToProps, mapDispatchToProps)( withFormik({
       Toast.success('登录成功哦~~', 2);
       sessionStorage.setItem('token', data.data);
       props.setToken(data.data);
-      window.location.href="/" 
+      props.history.push("/");
     }else{
       Toast.fail('登录失败~~', 2)
     }
