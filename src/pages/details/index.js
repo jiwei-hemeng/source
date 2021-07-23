@@ -45,6 +45,11 @@ export default class Overduedetails extends React.Component {
     // image_front: {}, // 身份证反面照片
     // image_hand: {}, // 手持身份证照片
   };
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
   componentDidMount = async () => {
     await this.getOrderDetails();
     await this.updateOverShow();

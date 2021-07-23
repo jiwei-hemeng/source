@@ -23,7 +23,7 @@ class Index extends React.Component {
       isvalid: state ? state.shenheStatus : undefined, // 审核状态
     };
     return new Promise(async (resolve, reject) => {
-      Toast.loading("正在加载中...", 0, null, false);
+      Toast.loading("正在加载中...", 0, null, true);
       const { data } = await getList(params);
       Toast.hide();
       if (data && data.code === 200) {
@@ -53,6 +53,11 @@ class Index extends React.Component {
         </div>
       );
     }
+  };
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
   };
   rowHeight = () => {
     const clientWidth = document.body.clientWidth;

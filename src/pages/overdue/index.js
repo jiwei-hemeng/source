@@ -35,6 +35,11 @@ export default class Overdue extends React.Component {
       return reject();
     });
   };
+  componentWillUnmount = () => {
+    this.setState = (state, callback) => {
+      return;
+    };
+  };
   rowRenderer = ({
     key, // Unique key within array of rows
     index, // 索引号
