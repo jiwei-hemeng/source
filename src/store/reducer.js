@@ -7,8 +7,8 @@ const Reducer = (state, action) => {
       return newState;
     case "setToken":
       const newToken = { ...state };
-      newToken.token = action.value
-      return newToken
+      newToken.token = action.value;
+      return newToken;
     default:
       return state;
   }

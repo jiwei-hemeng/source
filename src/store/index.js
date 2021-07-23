@@ -1,8 +1,9 @@
-import {
-  createStore
-} from "redux";
+import { createStore } from "redux";
 import Reducer from "./reducer.js";
-const token = sessionStorage.getItem("token") === null ? "": sessionStorage.getItem("token");
+const token =
+  sessionStorage.getItem("token") === null
+    ? ""
+    : sessionStorage.getItem("token");
 let state = {
   num: 10,
   token,

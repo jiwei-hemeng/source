@@ -22,7 +22,7 @@
   margin-bottom: 9px;
   display: flex;
   align-items: center;
-  background-color: #E8F0FE;
+  background-color: #e8f0fe;
   height: 40px;
   box-sizing: border-box;
   padding-left: 10px;
@@ -31,7 +31,7 @@
 }
 
 .formItem::after {
-  content: '';
+  content: "";
   position: absolute;
   background-color: #ddd;
   display: block;

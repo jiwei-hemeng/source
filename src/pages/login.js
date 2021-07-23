@@ -8,25 +8,43 @@ import { withFormik, ErrorMessage, Form, Field } from "formik";
 import * as Yup from "yup";
 class Login extends Component {
   render() {
-    let { errors } = this.props
+    let { errors } = this.props;
     return (
       <div className={styles.root}>
         <WingBlank>
           <Form>
             <div className={styles.formItem}>
               <i className="iconfont icon-userName"></i>
-              <Field type="text" name="username" className={styles.input} placeholder="请输入账号"/>
+              <Field
+                type="text"
+                name="username"
+                className={styles.input}
+                placeholder="请输入账号"
+              />
             </div>
-            {
-              errors.username ? <ErrorMessage component="div" name="username" className={styles.error} /> : null
-            }
+            {errors.username ? (
+              <ErrorMessage
+                component="div"
+                name="username"
+                className={styles.error}
+              />
+            ) : null}
             <div className={styles.formItem}>
               <i className="iconfont icon-password"></i>
-              <Field type="password" name="password" className={styles.input} placeholder="请输入密码"/>
+              <Field
+                type="password"
+                name="password"
+                className={styles.input}
+                placeholder="请输入密码"
+              />
             </div>
-            {
-              errors.password ? <ErrorMessage component="div" name="password" className={styles.error} /> : null
-            }
+            {errors.password ? (
+              <ErrorMessage
+                component="div"
+                name="password"
+                className={styles.error}
+              />
+            ) : null}
             <div className={styles.formSubmit}>
               <button className={styles.submit} type="submit">
                 登 录
@@ -35,15 +53,15 @@ class Login extends Component {
           </Form>
         </WingBlank>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    token: state.token
-  }
-}
+    token: state.token,
+  };
+};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setToken: (token) => {
@@ -53,37 +71,42 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       });
     },
   };
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)( withFormik({
-  // 相当于state
-  mapPropsToValues: ()=>{
-    return {
-      username: '',
-      password: ''
-    }
-  },
-  // 默认相当于提交事件
-  handleSubmit: async (value, { props })=>{
-    Toast.loading('正在登录中...', 0);
-    const { data } = await login({
-      username: value.username,
-      password: value.password
-    })
-    Toast.hide()
-    if(data.code === 200){
-      Toast.success('登录成功哦~~', 2);
-      sessionStorage.setItem('token', data.data);
-      props.setToken(data.data);
-      props.history.push("/");
-    }else{
-      Toast.fail('登录失败~~', 2)
-    }
-  },
-  // 用于表单验证，会将错误消息传给this.props
-  validationSchema: Yup.object().shape({
-    // username: Yup.string().required('用户名必须填写').matches(/^[a-zA-Z_\d]{5,8}$/,'用户名长度5-8位'),
-    username: Yup.string().required('用户名必须填写'),
-    password: Yup.string().required('密码必须填写')
-  })
-})(Login));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withFormik({
+    // 相当于state
+    mapPropsToValues: () => {
+      return {
+        username: "",
+        password: "",
+      };
+    },
+    // 默认相当于提交事件
+    handleSubmit: async (value, { props }) => {
+      Toast.loading("正在登录中...", 0);
+      const { data } = await login({
+        username: value.username,
+        password: value.password,
+      });
+      Toast.hide();
+      if (data.code === 200) {
+        Toast.success("登录成功哦~~", 2);
+        sessionStorage.setItem("token", data.data);
+        props.setToken(data.data);
+        props.history.push("/");
+      } else {
+        Toast.fail("登录失败~~", 2);
+      }
+    },
+    // 用于表单验证，会将错误消息传给this.props
+    validationSchema: Yup.object().shape({
+      // username: Yup.string().required('用户名必须填写').matches(/^[a-zA-Z_\d]{5,8}$/,'用户名长度5-8位'),
+      username: Yup.string().required("用户名必须填写"),
+      password: Yup.string().required("密码必须填写"),
+    }),
+  })(Login)
+);

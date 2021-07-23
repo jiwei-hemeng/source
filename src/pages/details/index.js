@@ -1,8 +1,27 @@
 import React from "react";
-import { NavBar, Icon, Card, ImagePicker, Button, TextareaItem, Modal, List, InputItem, Radio, Toast } from "antd-mobile";
-import { editOverOrder, updateOverShow, updateOver, updateReturn, orderReview, updateReturnInfo } from "@/api/overdue";
-import IdCardQualified from "./component/idCardQualified"
-import UploadAudio from "./component/uploadAudio"
+import {
+  NavBar,
+  Icon,
+  Card,
+  ImagePicker,
+  Button,
+  TextareaItem,
+  Modal,
+  List,
+  InputItem,
+  Radio,
+  Toast,
+} from "antd-mobile";
+import {
+  editOverOrder,
+  updateOverShow,
+  updateOver,
+  updateReturn,
+  orderReview,
+  updateReturnInfo,
+} from "@/api/overdue";
+import IdCardQualified from "./component/idCardQualified";
+import UploadAudio from "./component/uploadAudio";
 // import ChangeIdCard from "./component/changeIdCard"
 import style from "./index.module.scss";
 import axios from "axios";
@@ -25,187 +44,291 @@ export default class Overduedetails extends React.Component {
     // image_fan: {}, // 身份证正面照片
     // image_front: {}, // 身份证反面照片
     // image_hand: {}, // 手持身份证照片
-  }
+  };
   componentDidMount = async () => {
     await this.getOrderDetails();
     await this.updateOverShow();
-  }
+  };
   updateOverShow = async () => {
     Toast.loading("正在加载中...", 0);
     const { data } = await updateOverShow({
       orderId: this.props.location.state.id,
-    })
-    Toast.hide()
-    if(data.code === 200) {
+    });
+    Toast.hide();
+    if (data.code === 200) {
       this.setState({
-        OverShow: data.data
-      })
+        OverShow: data.data,
+      });
     }
-  }
+  };
   getOrderDetails = async () => {
     Toast.loading("正在加载中...", 0);
     const { data } = await editOverOrder({
       orderId: this.props.location.state.id,
-    })
-    Toast.hide()
-    if(data.code === 200 && data.data) {
+    });
+    Toast.hide();
+    if (data.code === 200 && data.data) {
       const fileList = [
         { url: data.data.fqOrder.image_front, id: "身份证正面面照片" },
         { url: data.data.fqOrder.image_fan, id: "身份证国徽面照片" },
         { url: data.data.fqOrder.image_hand, id: "手持身份证照片" },
-      ]
+      ];
       this.setState({
         orderDetails: data.data,
         files: fileList,
-        AuditStatus: data.data.fqOrder.sh_status
-      })
+        AuditStatus: data.data.fqOrder.sh_status,
+      });
     }
-  }
+  };
   renderBasicinformation = () => {
     const { fqOrder } = this.state.orderDetails;
-    if(fqOrder) {
+    if (fqOrder) {
       return (
-        <Card
-          className={style.Card}
-        >
-          <Card.Header 
-            title="基本信息"
-          />
+        <Card className={style.Card}>
+          <Card.Header title="基本信息" />
           <Card.Body>
-            <div className={style.Item}><span className={style.title}>订单ID</span><span>{ fqOrder.summary_id }</span></div>
-            <div className={style.Item}><span className={style.title}>订单号</span><span>{ fqOrder.order_number }</span></div>
-            <div className={style.Item}><span className={style.title}>卖家姓名</span><span>{ fqOrder.student_name }</span></div>
-            <div className={style.Item}><span className={style.title}>手机号</span><span>{ fqOrder.person_phone }</span></div>
-            <div className={style.Item}><span className={style.title}>商品价格</span><span>{ fqOrder.money }</span></div>
-            <div className={style.Item}><span className={style.title}>贷款费用</span><span>{ fqOrder.dk_money }</span></div>
-            <div className={style.Item}><span className={style.title}>分期状态</span><span>{ fqOrder.order_status }</span></div>
-            <div className={style.Item}><span className={style.title}>下单时间</span><span>{ fqOrder.set_up_time }</span></div>
-            <div className={style.Item}><span className={style.title}>延期期数</span><span>{ fqOrder.delay_stages }</span></div>
+            <div className={style.Item}>
+              <span className={style.title}>订单ID</span>
+              <span>{fqOrder.summary_id}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>订单号</span>
+              <span>{fqOrder.order_number}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>卖家姓名</span>
+              <span>{fqOrder.student_name}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>手机号</span>
+              <span>{fqOrder.person_phone}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>商品价格</span>
+              <span>{fqOrder.money}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>贷款费用</span>
+              <span>{fqOrder.dk_money}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>分期状态</span>
+              <span>{fqOrder.order_status}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>下单时间</span>
+              <span>{fqOrder.set_up_time}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>延期期数</span>
+              <span>{fqOrder.delay_stages}</span>
+            </div>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderMember = () => {
     const { fqOrder } = this.state.orderDetails;
-    if(fqOrder) {
+    if (fqOrder) {
       return (
-        <Card
-          className={style.Card}
-        >
-          <Card.Header 
-            title="会员还款详情"
-          />
+        <Card className={style.Card}>
+          <Card.Header title="会员还款详情" />
           <Card.Body>
-            <div className={style.Item}><span className={style.title}>剩余本金</span><span>{ fqOrder.syMoney }</span></div>
-            <div className={style.Item}><span className={style.title}>已还本息</span><span>{ fqOrder.paidAllMoney }</span></div>
-            <div className={style.Item}><span className={style.title}>逾期本息</span><span>{ fqOrder.overdueAllMoney }</span></div>
-            <div className={style.Item}><span className={style.title}>罚息</span><span>{ fqOrder.faxi }</span></div>
-            <div className={style.Item}><span className={style.title}>逾期天数</span><span>{ fqOrder.yq_day }</span></div>
+            <div className={style.Item}>
+              <span className={style.title}>剩余本金</span>
+              <span>{fqOrder.syMoney}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>已还本息</span>
+              <span>{fqOrder.paidAllMoney}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>逾期本息</span>
+              <span>{fqOrder.overdueAllMoney}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>罚息</span>
+              <span>{fqOrder.faxi}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>逾期天数</span>
+              <span>{fqOrder.yq_day}</span>
+            </div>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderProductDetails = () => {
     const { fqOrder } = this.state.orderDetails;
-    if(fqOrder) {
+    if (fqOrder) {
       return (
-        <Card
-          className={style.Card}
-        >
-          <Card.Header 
-            title="商品详情"
-          />
+        <Card className={style.Card}>
+          <Card.Header title="商品详情" />
           <Card.Body>
-            <div className={style.Item}><span className={style.title}>商品名称</span><span>{ fqOrder.course_name }</span></div>
-            <div className={style.Item}><span className={style.title}>期数</span><span>{ fqOrder.stages_number }</span></div>
-            <div className={style.Item}><span className={style.title}>月供</span><span>{ fqOrder.yue_gong }</span></div>
-            <div className={style.Item}><span className={style.title}>下期还款期数</span><span>{ fqOrder.dijiqi }</span></div>
-            <div className={style.Item}><span className={style.title}>下期应还款时间</span><span>{ fqOrder.nexttime }</span></div>
-            <div className={style.Item}><span className={style.title}>商家是否担保</span><span>{ fqOrder.deposit_status === 1 ? "是": "否" }</span></div>
-            <div className={style.Item}><span className={style.title}>机构名称</span><span>{ fqOrder.merchant_name }</span></div>
+            <div className={style.Item}>
+              <span className={style.title}>商品名称</span>
+              <span>{fqOrder.course_name}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>期数</span>
+              <span>{fqOrder.stages_number}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>月供</span>
+              <span>{fqOrder.yue_gong}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>下期还款期数</span>
+              <span>{fqOrder.dijiqi}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>下期应还款时间</span>
+              <span>{fqOrder.nexttime}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>商家是否担保</span>
+              <span>{fqOrder.deposit_status === 1 ? "是" : "否"}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>机构名称</span>
+              <span>{fqOrder.merchant_name}</span>
+            </div>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderUserInfo = () => {
     const { fqOrder } = this.state.orderDetails;
-    if(fqOrder) {
+    if (fqOrder) {
       return (
-        <Card
-          className={style.Card}
-        >
-          <Card.Header 
-            title="用户信用信息"
-          />
+        <Card className={style.Card}>
+          <Card.Header title="用户信用信息" />
           <Card.Body>
-            <div className={style.Item}><span className={style.title}>买家姓名</span><span>{ fqOrder.student_name }</span></div>
-            <div className={style.Item}><span className={style.title}>买家手机号</span><span>{ fqOrder.person_phone }</span></div>
-            <div className={style.Item}><span className={style.title}>现居住地址</span><span>{ fqOrder.fqUrgent.myaddress }</span></div>
-            <div className={style.Item}><span className={style.title}>下期还款期数</span><span>{ fqOrder.dijiqi }</span></div>
-            <div className={style.Item}><span className={style.title}>月收入额</span><span>{ fqOrder.fqUrgent.money }</span></div>
-            <div className={style.Item}><span className={style.title}>公司名称</span><span>{ fqOrder.fqUrgent.mycompany }</span></div>
-            <div className={style.Item}><span className={style.title}>任职部门</span><span>{ fqOrder.fqUrgent.mybumen }</span></div>
-            <div className={style.Item}><span className={style.title}>公司地址</span><span>{ fqOrder.fqUrgent.companyAddress }</span></div>
-            <div className={style.Item}><span className={style.title}>公司座机</span><span>{ fqOrder.fqUrgent.companyPhone }</span></div>
-            <div className={style.Item}><span className={style.title}>亲属姓名</span><span>{ fqOrder.fqUrgent.fmname }</span></div>
-            <div className={style.Item}><span className={style.title}>关系</span><span>{ fqOrder.fqUrgent.guanxi }</span></div>
-            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.fmmobile }</span></div>
-            <div className={style.Item}><span className={style.title}>婚姻</span><span>{ fqOrder.fqUrgent.hunyin }</span></div>
-            <div className={style.Item}><span className={style.title}>配偶</span><span>{ fqOrder.fqUrgent.duixiang }</span></div>
-            <div className={style.Item}><span className={style.title}>配偶电话</span><span>{ fqOrder.fqUrgent.dxmobile }</span></div>
-            <div className={style.Item}><span className={style.title}>社会联系人</span><span>{ fqOrder.fqUrgent.friendname }</span></div>
-            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.friendmobile }</span></div>
-            <div className={style.Item}><span className={style.title}>公司联系人</span><span>{ fqOrder.fqUrgent.companyContacts }</span></div>
-            <div className={style.Item}><span className={style.title}>电话</span><span>{ fqOrder.fqUrgent.contactsMobile }</span></div>
+            <div className={style.Item}>
+              <span className={style.title}>买家姓名</span>
+              <span>{fqOrder.student_name}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>买家手机号</span>
+              <span>{fqOrder.person_phone}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>现居住地址</span>
+              <span>{fqOrder.fqUrgent.myaddress}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>下期还款期数</span>
+              <span>{fqOrder.dijiqi}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>月收入额</span>
+              <span>{fqOrder.fqUrgent.money}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>公司名称</span>
+              <span>{fqOrder.fqUrgent.mycompany}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>任职部门</span>
+              <span>{fqOrder.fqUrgent.mybumen}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>公司地址</span>
+              <span>{fqOrder.fqUrgent.companyAddress}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>公司座机</span>
+              <span>{fqOrder.fqUrgent.companyPhone}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>亲属姓名</span>
+              <span>{fqOrder.fqUrgent.fmname}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>关系</span>
+              <span>{fqOrder.fqUrgent.guanxi}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>电话</span>
+              <span>{fqOrder.fqUrgent.fmmobile}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>婚姻</span>
+              <span>{fqOrder.fqUrgent.hunyin}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>配偶</span>
+              <span>{fqOrder.fqUrgent.duixiang}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>配偶电话</span>
+              <span>{fqOrder.fqUrgent.dxmobile}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>社会联系人</span>
+              <span>{fqOrder.fqUrgent.friendname}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>电话</span>
+              <span>{fqOrder.fqUrgent.friendmobile}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>公司联系人</span>
+              <span>{fqOrder.fqUrgent.companyContacts}</span>
+            </div>
+            <div className={style.Item}>
+              <span className={style.title}>电话</span>
+              <span>{fqOrder.fqUrgent.contactsMobile}</span>
+            </div>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   // 实名身份信息
   renderIdInfo = () => {
     const { files } = this.state;
-    let fqRenzheng = {}
-    if(this.state.orderDetails.fqOrder) {
-      fqRenzheng = this.state.orderDetails.fqOrder.fqRenzheng
+    let fqRenzheng = {};
+    if (this.state.orderDetails.fqOrder) {
+      fqRenzheng = this.state.orderDetails.fqOrder.fqRenzheng;
     }
     return (
-      <Card
-        className={style.Card}
-      >
-        <Card.Header 
-          title="实名身份信息"
-        />
+      <Card className={style.Card}>
+        <Card.Header title="实名身份信息" />
         <Card.Body>
-          <div className={style.Item}><span className={style.title}>买家姓名</span><span>{ fqRenzheng.truename }</span></div>
-          <div className={style.Item}><span className={style.title}>性别</span><span>{ fqRenzheng.sex }</span></div>
-          <div className={style.Item}><span className={style.title}>身份证号</span><span>{ fqRenzheng.idcard }</span></div>
-          <div className={style.Item}><span className={style.title}>家庭地址</span><span>{ fqRenzheng.address }</span></div>
+          <div className={style.Item}>
+            <span className={style.title}>买家姓名</span>
+            <span>{fqRenzheng.truename}</span>
+          </div>
+          <div className={style.Item}>
+            <span className={style.title}>性别</span>
+            <span>{fqRenzheng.sex}</span>
+          </div>
+          <div className={style.Item}>
+            <span className={style.title}>身份证号</span>
+            <span>{fqRenzheng.idcard}</span>
+          </div>
+          <div className={style.Item}>
+            <span className={style.title}>家庭地址</span>
+            <span>{fqRenzheng.address}</span>
+          </div>
           <div className={style.Idphoto}>
             <div className={style.title}>身份证照片</div>
-            <ImagePicker 
-              files={files} 
-              selectable={false}
-              disableDelete
-            />
+            <ImagePicker files={files} selectable={false} disableDelete />
           </div>
         </Card.Body>
       </Card>
-    )
-  }
+    );
+  };
   renderOrderInfo = () => {
     const { fqOrderList } = this.state.orderDetails;
-    if(fqOrderList) {
+    if (fqOrderList) {
       return (
-        <Card
-          className={style.Card}
-        >
-          <Card.Header 
-            title="订单详情信息"
-          />
+        <Card className={style.Card}>
+          <Card.Header title="订单详情信息" />
           <Card.Body>
             <table className={style.OrderInfo}>
               <thead>
@@ -220,35 +343,31 @@ export default class Overduedetails extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {
-                  fqOrderList.map(item => {
-                    return (
-                      <tr key={ item.id }>
-                        <td>{item.orderSn}</td>
-                        <td>{item.dijiqi}</td>
-                        <td>{item.payStatus}</td>
-                        <td>{item.payDate}</td>
-                        <td>{item.truePayDate}</td>
-                        <td>{item.yuegong}</td>
-                        <td>{item.yqmoney}</td>
-                      </tr>
-                    )
-                  })
-                }
+                {fqOrderList.map((item) => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.orderSn}</td>
+                      <td>{item.dijiqi}</td>
+                      <td>{item.payStatus}</td>
+                      <td>{item.payDate}</td>
+                      <td>{item.truePayDate}</td>
+                      <td>{item.yuegong}</td>
+                      <td>{item.yqmoney}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderNotes = () => {
     const { fqOrderActionList } = this.state.orderDetails;
-    if(fqOrderActionList) {
+    if (fqOrderActionList) {
       return (
-        <Card
-          className={style.Card}
-        >
+        <Card className={style.Card}>
           <Card.Header title="操作记录"></Card.Header>
           <Card.Body>
             <table className={style.OrderInfo}>
@@ -261,32 +380,28 @@ export default class Overduedetails extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {
-                  fqOrderActionList.map(item => {
-                    return (
-                      <tr key={item.actionId}>
-                        <td>{item.actionUsername}</td>
-                        <td>{item.timeString}</td>
-                        <td>{item.guarantees}</td>
-                        <td>{item.statusDesc}</td>
-                      </tr>
-                    )
-                  })
-                }
+                {fqOrderActionList.map((item) => {
+                  return (
+                    <tr key={item.actionId}>
+                      <td>{item.actionUsername}</td>
+                      <td>{item.timeString}</td>
+                      <td>{item.guarantees}</td>
+                      <td>{item.statusDesc}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderDeductionRecord = () => {
     const { fqApilogdks } = this.state.orderDetails;
-    if(fqApilogdks) {
+    if (fqApilogdks) {
       return (
-        <Card
-          className={style.Card}
-        >
+        <Card className={style.Card}>
           <Card.Header title="扣款记录"></Card.Header>
           <Card.Body>
             <table className={style.OrderInfo}>
@@ -301,43 +416,37 @@ export default class Overduedetails extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {
-                  fqApilogdks.map(item => {
-                    return (
-                      <tr key={item.id}>
-                        <td>{item.id}</td>
-                        <td>{item.orderSn}</td>
-                        <td>{item.payorderSn}</td>
-                        <td>{item.isLokstr}</td>
-                        <td>{item.message}</td>
-                        <td>{item.timeString}</td>
-                      </tr>
-                    )
-                  })
-                }
+                {fqApilogdks.map((item) => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.orderSn}</td>
+                      <td>{item.payorderSn}</td>
+                      <td>{item.isLokstr}</td>
+                      <td>{item.message}</td>
+                      <td>{item.timeString}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderCreditInformation = () => {
-    if(this.props.location.state.type === 2) {
+    if (this.props.location.state.type === 2) {
       return (
-        <Card
-          className={style.Card}
-        >
+        <Card className={style.Card}>
           <Card.Header title="征信信息"></Card.Header>
           <Card.Body className={style.CreditInformation}>
-            {
-              this.renderCreditContent()
-            }
+            {this.renderCreditContent()}
           </Card.Body>
         </Card>
-      )
+      );
     }
-  }
+  };
   renderCreditContent = () => {
     // const { type } = this.props.location.state
     // if(type === 1) {
@@ -370,14 +479,21 @@ export default class Overduedetails extends React.Component {
             state: {id: data.order_number}
           })
         }}>征信信息</Button> */}
-        <Button type="primary" size="small" className={style.btn} onClick={() => {
-          this.setState({
-            visible: true
-          })
-        }}>修改逾期金</Button>
+        <Button
+          type="primary"
+          size="small"
+          className={style.btn}
+          onClick={() => {
+            this.setState({
+              visible: true,
+            });
+          }}
+        >
+          修改逾期金
+        </Button>
       </>
-    )
-  }
+    );
+  };
   // 退课计算Modal
   rendercourse = () => {
     return (
@@ -387,32 +503,34 @@ export default class Overduedetails extends React.Component {
         animationType="slide-up"
         onClose={() => {
           this.setState({
-            course: false
-          })
+            course: false,
+          });
         }}
-        footer={[{ text: "关闭", onPress: () => {
-          this.setState({course: false})
-        } }]}
+        footer={[
+          {
+            text: "关闭",
+            onPress: () => {
+              this.setState({ course: false });
+            },
+          },
+        ]}
       >
-        <div style={{ height: 175, overflow: 'scroll' }}>
+        <div style={{ height: 175, overflow: "scroll" }}>
           <List renderHeader={() => "退课信息"}>
-            <InputItem
-              value={6}
-              placeholder="请输入使用天数..."
-            >使用天数</InputItem>
-            <InputItem
-              value={6}
-              placeholder="请输入使用天数..."
-            >剩余未还本金</InputItem>
-            <InputItem
-              value={6}
-              placeholder="请输入使用天数..."
-            >违约金额</InputItem>
+            <InputItem value={6} placeholder="请输入使用天数...">
+              使用天数
+            </InputItem>
+            <InputItem value={6} placeholder="请输入使用天数...">
+              剩余未还本金
+            </InputItem>
+            <InputItem value={6} placeholder="请输入使用天数...">
+              违约金额
+            </InputItem>
           </List>
         </div>
       </Modal>
-    )
-  }
+    );
+  };
   renderPerPayModal = () => {
     return (
       <Modal
@@ -421,36 +539,37 @@ export default class Overduedetails extends React.Component {
         animationType="slide-up"
         onClose={() => {
           this.setState({
-            PerPay: false
-          })
+            PerPay: false,
+          });
         }}
-        footer={[{ text: "关闭", onPress: () => {
-          this.setState({PerPay: false})
-        } }]}
+        footer={[
+          {
+            text: "关闭",
+            onPress: () => {
+              this.setState({ PerPay: false });
+            },
+          },
+        ]}
       >
-        <div style={{ height: 220, overflow: 'scroll' }}>
+        <div style={{ height: 220, overflow: "scroll" }}>
           <List renderHeader={() => "提前还款信息"}>
-            <InputItem
-              value={6}
-              placeholder="请输入分期总额..."
-            >分期总额</InputItem>
-            <InputItem
-              value={6}
-              placeholder="请输入剩余未还本金..."
-            >剩余未还本金</InputItem>
-            <InputItem
-              value={6}
-              placeholder="请输入违约金..."
-            >违约金</InputItem>
-            <InputItem
-              value={6}
-              placeholder="请输入应还金额..."
-            >应还金额</InputItem>
+            <InputItem value={6} placeholder="请输入分期总额...">
+              分期总额
+            </InputItem>
+            <InputItem value={6} placeholder="请输入剩余未还本金...">
+              剩余未还本金
+            </InputItem>
+            <InputItem value={6} placeholder="请输入违约金...">
+              违约金
+            </InputItem>
+            <InputItem value={6} placeholder="请输入应还金额...">
+              应还金额
+            </InputItem>
           </List>
         </div>
       </Modal>
-    )
-  }
+    );
+  };
   renderAuditStatus = () => {
     const Radiolist = [
       { value: 0, label: "待审核" },
@@ -458,119 +577,120 @@ export default class Overduedetails extends React.Component {
       { value: 2, label: "拒绝" },
       { value: 4, label: "等待会员签约" },
     ];
-    const { fqOrder } = this.state.orderDetails
-    if(!fqOrder) {
-      return (
-        <div></div>
-      )
+    const { fqOrder } = this.state.orderDetails;
+    if (!fqOrder) {
+      return <div></div>;
     }
     return (
-      <Card
-        className={style.Card}
-      >
+      <Card className={style.Card}>
         <Card.Body>
           <List renderHeader={() => "审核状态"}>
-            {
-              Radiolist.map(item => {
-                return (
-                  <RadioItem
-                    key={item.value}
-                    checked={item.value === this.state.AuditStatus}
-                    onChange={() => {
-                      if(fqOrder.sh_status === 0) {
-                        this.setState({
-                          AuditStatus: item.value
-                        })
-                      }
-                    }}
-                  >{item.label}</RadioItem>
-                )
-              })
-            }
+            {Radiolist.map((item) => {
+              return (
+                <RadioItem
+                  key={item.value}
+                  checked={item.value === this.state.AuditStatus}
+                  onChange={() => {
+                    if (fqOrder.sh_status === 0) {
+                      this.setState({
+                        AuditStatus: item.value,
+                      });
+                    }
+                  }}
+                >
+                  {item.label}
+                </RadioItem>
+              );
+            })}
           </List>
         </Card.Body>
       </Card>
-    )
-  }
+    );
+  };
   renderReturnVisit = () => {
-    const { fqOrder } = this.state.orderDetails
-    if(fqOrder) {
+    const { fqOrder } = this.state.orderDetails;
+    if (fqOrder) {
       return (
-        <Card
-        className={style.Card}
-      >
-        <Card.Header title={fqOrder.sh_status === 0 ? "备注":"回访记录"}></Card.Header>
-        <Card.Body className={style.ReturnVisit}>
-          <TextareaItem 
-            rows={5}
-            placeholder={fqOrder.sh_status === 0 ? "请输入备注...":"请输入回访记录..."}
-            autoHeight
-            labelNumber={5}
-            value={ this.state.record }
-            onChange={(e) => {
-              this.setState({
-                record: e
-              })
-            }}
-          />
-          <Button
-            type="primary"
-            className={style.btn}
-            onClick={async () => {
-              Toast.loading("正在加载中...", 0);
-              let data = null;
-              const { type } = this.props.location.state;
-              if(type === 1 && fqOrder.sh_status === 0) {
-                const formData = new FormData();
-                formData.append("file", this.state.UploadAudioObj[0])
-                const RES = await axios({
-                  url: "http://101.200.63.68:6008//img/upLoadImg",
-                  method: "POST",
+        <Card className={style.Card}>
+          <Card.Header
+            title={fqOrder.sh_status === 0 ? "备注" : "回访记录"}
+          ></Card.Header>
+          <Card.Body className={style.ReturnVisit}>
+            <TextareaItem
+              rows={5}
+              placeholder={
+                fqOrder.sh_status === 0 ? "请输入备注..." : "请输入回访记录..."
+              }
+              autoHeight
+              labelNumber={5}
+              value={this.state.record}
+              onChange={(e) => {
+                this.setState({
+                  record: e,
+                });
+              }}
+            />
+            <Button
+              type="primary"
+              className={style.btn}
+              onClick={async () => {
+                Toast.loading("正在加载中...", 0);
+                let data = null;
+                const { type } = this.props.location.state;
+                if (type === 1 && fqOrder.sh_status === 0) {
+                  const formData = new FormData();
+                  formData.append("file", this.state.UploadAudioObj[0]);
+                  const RES = await axios({
+                    url: "http://101.200.63.68:6008//img/upLoadImg",
+                    method: "POST",
 
-                  headers: {
-                    "Content-Type": "multipart/form-data"
-                  },
-                  data: formData
-                })
-                if(RES && RES.data && RES.data.code !== 200) return Toast.fail(RES.data.msg, 2);
-                const res = await orderReview({
-                  ...this.state.orderDetails.fqOrder,
-                  audio_url: RES.data.data,
-                  sh_status: this.state.AuditStatus,
-                  iscardValue: this.state.Qualified,
-                  statusDesc: this.state.record
-                })
-                data = res.data
-              } else if(type === 1 && fqOrder.sh_status === 1) {
-                const res = await updateReturnInfo({
-                  orderId: this.state.orderDetails.fqOrder.summary_id,
-                  statusDesc: this.state.record
-                })
-                data = res.data
-              } else if(type === 2){
-                const res = await updateReturn({
-                  summary_id: this.state.orderDetails.fqOrder.summary_id,
-                  sh_status: this.state.AuditStatus,
-                  statusDesc: this.state.record,
-                })
-                data = res.data;
-              }
-              Toast.hide()
-              if(data && data.code === 200) {
-                Toast.success(data.msg, 2)
-                this.props.history.push("/")
-              } else {
-                Toast.fail(data.msg, 2)
-              }
-            }}
-          >提交</Button>
-        </Card.Body>
-      </Card>
-      )
+                    headers: {
+                      "Content-Type": "multipart/form-data",
+                    },
+                    data: formData,
+                  });
+                  if (RES && RES.data && RES.data.code !== 200)
+                    return Toast.fail(RES.data.msg, 2);
+                  const res = await orderReview({
+                    ...this.state.orderDetails.fqOrder,
+                    audio_url: RES.data.data,
+                    sh_status: this.state.AuditStatus,
+                    iscardValue: this.state.Qualified,
+                    statusDesc: this.state.record,
+                  });
+                  data = res.data;
+                } else if (type === 1 && fqOrder.sh_status === 1) {
+                  const res = await updateReturnInfo({
+                    orderId: this.state.orderDetails.fqOrder.summary_id,
+                    statusDesc: this.state.record,
+                  });
+                  data = res.data;
+                } else if (type === 2) {
+                  const res = await updateReturn({
+                    summary_id: this.state.orderDetails.fqOrder.summary_id,
+                    sh_status: this.state.AuditStatus,
+                    statusDesc: this.state.record,
+                  });
+                  data = res.data;
+                }
+                Toast.hide();
+                if (data && data.code === 200) {
+                  Toast.success(data.msg, 2);
+                  this.props.history.push("/");
+                } else {
+                  Toast.fail(data.msg, 2);
+                }
+              }}
+            >
+              提交
+            </Button>
+          </Card.Body>
+        </Card>
+      );
     }
-  }
+  };
   renderModal = () => {
-    const { OverShow } = this.state
+    const { OverShow } = this.state;
     return (
       <Modal
         popup
@@ -578,77 +698,91 @@ export default class Overduedetails extends React.Component {
         animationType="slide-up"
         onClose={() => {
           this.setState({
-            visible: false
-          })
+            visible: false,
+          });
         }}
       >
         <List renderHeader={() => <div>修改逾期金</div>} className="popup-list">
-            <div className="ModalItem">
-              <span>订单编号</span>
-              <InputItem
-                className="InputItem"
-                placeholder="auto focus"
-                value={OverShow.orderSn}
-              />
-            </div>
-            <div className="ModalItem">
-              <span>逾期金额</span>
-              <InputItem className="InputItem"  placeholder="auto focus" value={OverShow.pastdueFirst} />
-            </div>
-            <div className="ModalItem">
-              <span>修改逾期金额</span>
-              <InputItem
-                type="money"
-                moneyKeyboardAlign="left"
-                className="InputItem" 
-                placeholder="请输入修改逾期金额..."
-                autoAdjustHeight={true}
-                value={this.state.pastdueFirst}
-                onChange={v => {
-                  this.setState({
-                    pastdueFirst: v
-                  })
-                }}
-              />
-            </div>
-            <div className="ModalItem">
-              <span>备注</span>
-              <InputItem className="InputItem"  placeholder="请输入备注..." value={this.state.remark} onChange={v => this.setState({remark: v})} />
-            </div>
-            <List.Item>
-              <Button 
-                type="primary"
-                onClick={async () => {
-                  const { data } = await updateOver({
-                    ...OverShow,
-                    pastdueBack: this.state.pastdueFirst,
-                    remark: this.state.remark,
-                  })
-                  if(data && data.code === 200) {
-                    Toast.success("操作成功", 2)
-                  }
-                  this.setState({
-                    visible: false
-                  })
-                }}
-              >提交</Button>
-            </List.Item>
-          </List>
+          <div className="ModalItem">
+            <span>订单编号</span>
+            <InputItem
+              className="InputItem"
+              placeholder="auto focus"
+              value={OverShow.orderSn}
+            />
+          </div>
+          <div className="ModalItem">
+            <span>逾期金额</span>
+            <InputItem
+              className="InputItem"
+              placeholder="auto focus"
+              value={OverShow.pastdueFirst}
+            />
+          </div>
+          <div className="ModalItem">
+            <span>修改逾期金额</span>
+            <InputItem
+              type="money"
+              moneyKeyboardAlign="left"
+              className="InputItem"
+              placeholder="请输入修改逾期金额..."
+              autoAdjustHeight={true}
+              value={this.state.pastdueFirst}
+              onChange={(v) => {
+                this.setState({
+                  pastdueFirst: v,
+                });
+              }}
+            />
+          </div>
+          <div className="ModalItem">
+            <span>备注</span>
+            <InputItem
+              className="InputItem"
+              placeholder="请输入备注..."
+              value={this.state.remark}
+              onChange={(v) => this.setState({ remark: v })}
+            />
+          </div>
+          <List.Item>
+            <Button
+              type="primary"
+              onClick={async () => {
+                const { data } = await updateOver({
+                  ...OverShow,
+                  pastdueBack: this.state.pastdueFirst,
+                  remark: this.state.remark,
+                });
+                if (data && data.code === 200) {
+                  Toast.success("操作成功", 2);
+                }
+                this.setState({
+                  visible: false,
+                });
+              }}
+            >
+              提交
+            </Button>
+          </List.Item>
+        </List>
       </Modal>
-    )
-  }
+    );
+  };
   renderIdCardQualified = () => {
     const { fqOrder } = this.state.orderDetails;
-    if(fqOrder && fqOrder.sh_status === 0) {
+    if (fqOrder && fqOrder.sh_status === 0) {
       return (
-        <IdCardQualified Qualified={this.state.Qualified} onChange={v => {
-          this.setState({
-            Qualified: v
-          })
-        }} />
-      )
+        <IdCardQualified
+          Qualified={this.state.Qualified}
+          onChange={(v) => {
+            this.setState({
+              Qualified: v,
+            });
+          }}
+        />
+      );
     }
-  }
+  };
   // renderChangeIdCard = () => {
   //   const { fqOrder } = this.state.orderDetails
   //   if(fqOrder && fqOrder.sh_status === 0) {
@@ -658,7 +792,7 @@ export default class Overduedetails extends React.Component {
   //           this.setState({
   //             image_fan: e
   //           })
-  //         }} 
+  //         }}
   //         ChangeIdCard1={e => {
   //           this.setState({
   //             image_front: e
@@ -673,22 +807,22 @@ export default class Overduedetails extends React.Component {
   //     )
   //   }
   // }
-  renderUploadAudio= () =>{
-    const { fqOrder } = this.state.orderDetails
-    if(fqOrder && fqOrder.sh_status === 0) {
+  renderUploadAudio = () => {
+    const { fqOrder } = this.state.orderDetails;
+    if (fqOrder && fqOrder.sh_status === 0) {
       return (
-        <UploadAudio 
-          files={e => {
+        <UploadAudio
+          files={(e) => {
             this.setState({
-              UploadAudioObj: e
-            })
-          }} 
+              UploadAudioObj: e,
+            });
+          }}
         />
-      )
+      );
     }
-  }
+  };
   render() {
-    const { history } = this.props
+    const { history } = this.props;
     return (
       <div className={style.Details}>
         <NavBar
@@ -696,7 +830,9 @@ export default class Overduedetails extends React.Component {
           mode="light"
           icon={<Icon type="left" />}
           onLeftClick={() => history.goBack()}
-        >订单详情页</NavBar>
+        >
+          订单详情页
+        </NavBar>
         {
           // 基本信息
           this.renderBasicinformation()
@@ -766,6 +902,6 @@ export default class Overduedetails extends React.Component {
           this.renderPerPayModal()
         }
       </div>
-    )
+    );
   }
 }

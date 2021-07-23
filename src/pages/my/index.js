@@ -1,5 +1,5 @@
 import React from "react";
-import style  from "./index.module.scss";
+import style from "./index.module.scss";
 import { Test } from "@/api/user";
 import { List, Button } from "antd-mobile";
 import { connect } from "react-redux";
@@ -7,17 +7,21 @@ const appIcon = require("../../static/my/appicon.png");
 
 class My extends React.Component {
   state = {
-    appIcon: require("../../static/my/appicon.png")
-  }
+    appIcon: require("../../static/my/appicon.png"),
+  };
   componentDidMount = async () => {
-    await Test()
-  }
+    await Test();
+  };
   render() {
     return (
       <div className={style.My}>
         <div className={style.Card}>
           <div className={style.appIcon}>
-            <img className={style.avatar} src={appIcon.default} alt="象上科技" />
+            <img
+              className={style.avatar}
+              src={appIcon.default}
+              alt="象上科技"
+            />
             <div className={style.Info}>
               <p>Admin</p>
               <p>管理员</p>
@@ -29,7 +33,7 @@ class My extends React.Component {
             className={style.ListItem}
             extra="More"
             arrow="horizontal"
-            onClick={e => console.log(e)}
+            onClick={(e) => console.log(e)}
           >
             个人中心
           </List.Item>
@@ -37,7 +41,7 @@ class My extends React.Component {
             className={style.ListItem}
             extra="More"
             arrow="horizontal"
-            onClick={e => console.log(e)}
+            onClick={(e) => console.log(e)}
           >
             版本信息
           </List.Item>
@@ -45,7 +49,7 @@ class My extends React.Component {
             className={style.ListItem}
             extra="More"
             arrow="horizontal"
-            onClick={e => console.log(e)}
+            onClick={(e) => console.log(e)}
           >
             联系我们
           </List.Item>
@@ -55,21 +59,23 @@ class My extends React.Component {
           type="primary"
           onClick={() => {
             sessionStorage.removeItem("token");
-            this.props.setToken("")
+            this.props.setToken("");
             this.props.history.push({
-              pathname: "/login"
-            })
+              pathname: "/login",
+            });
           }}
-        >安全退出</Button>
+        >
+          安全退出
+        </Button>
       </div>
-    )
+    );
   }
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    token: state.token
-  }
-}
+    token: state.token,
+  };
+};
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setToken: (token) => {
@@ -79,5 +85,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       });
     },
   };
-}
+};
 export default connect(mapStateToProps, mapDispatchToProps)(My);

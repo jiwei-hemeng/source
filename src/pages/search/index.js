@@ -4,33 +4,35 @@ import style from "./index.module.scss";
 const statusArr = [
   [
     {
-      label: '分期中',
-      value: '0',
+      label: "分期中",
+      value: "0",
     },
     {
-      label: '已还请',
-      value: '1',
+      label: "已还请",
+      value: "1",
     },
-  ]
-]
-const shenheArr = [[
-  {
-    label: '审核中',
-    value: '0',
-  },
-  {
-    label: '审核通过',
-    value: '1',
-  },
-  {
-    label: '审核未通过',
-    value: '2',
-  },
-  {
-    label: '等待签约',
-    value: '4',
-  },
-]]
+  ],
+];
+const shenheArr = [
+  [
+    {
+      label: "审核中",
+      value: "0",
+    },
+    {
+      label: "审核通过",
+      value: "1",
+    },
+    {
+      label: "审核未通过",
+      value: "2",
+    },
+    {
+      label: "等待签约",
+      value: "4",
+    },
+  ],
+];
 // const agentArr = [
 //   [
 //     {
@@ -45,7 +47,7 @@ const shenheArr = [[
 // ]
 export default class Overduesearch extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       keyword: "",
       student_name: "", // 卖家姓名
@@ -57,8 +59,8 @@ export default class Overduesearch extends React.Component {
       merchant: "", // 商家姓名
       fenqiStatus: 0,
       shenheStatus: 0,
-      agent: 0
-    }
+      agent: 0,
+    };
   }
   componentDidMount() {
     this.manualFocusInst.focus();
@@ -70,23 +72,23 @@ export default class Overduesearch extends React.Component {
         student_name: this.state.student_name,
         overTime: this.state.overTime,
         sValue: this.state.sValue,
-      }
-    })
-  }
+      },
+    });
+  };
   render() {
-    if(this.props.location.state.type === "overdue") {
+    if (this.props.location.state.type === "overdue") {
       return (
         <div>
-          <SearchBar 
+          <SearchBar
             className="OverdueSearch"
             placeholder="请输入卖家姓名..."
             value={this.state.student_name}
             onChange={(e) => {
               this.setState({
-                student_name: e
-              })
+                student_name: e,
+              });
             }}
-            ref={ref => this.manualFocusInst = ref}
+            ref={(ref) => (this.manualFocusInst = ref)}
           />
           <InputItem
             className={style.SearchItem}
@@ -95,47 +97,53 @@ export default class Overduesearch extends React.Component {
             value={this.state.overTime}
             onChange={(e) => {
               this.setState({
-                overTime: e
-              })
+                overTime: e,
+              });
             }}
           />
           <div>
             <Button
-              className={style.SearchItem} 
+              className={style.SearchItem}
               type="primary"
               onClick={() => {
-                this.Overdue()
+                this.Overdue();
               }}
-            >确认</Button>
+            >
+              确认
+            </Button>
             <Button
-              className={style.SearchItem} 
+              className={style.SearchItem}
               type="warning"
               onClick={() => {
-                this.setState({
-                  student_name: "",
-                  overTime: 0,
-                }, () => {
-                  this.Overdue()
-                })
+                this.setState(
+                  {
+                    student_name: "",
+                    overTime: 0,
+                  },
+                  () => {
+                    this.Overdue();
+                  }
+                );
               }}
-            >清空</Button>
+            >
+              清空
+            </Button>
           </div>
-          
         </div>
-      )
-    } 
+      );
+    }
     return (
       <>
-        <SearchBar 
+        <SearchBar
           className="OverdueSearch"
-          placeholder="请输入卖家姓名" 
+          placeholder="请输入卖家姓名"
           onChange={(e) => {
             this.setState({
-              student_name: e
-            })
-          }} 
+              student_name: e,
+            });
+          }}
           value={this.state.student_name}
-          ref={ref => this.manualFocusInst = ref}
+          ref={(ref) => (this.manualFocusInst = ref)}
         />
         <InputItem
           className={style.SearchItem}
@@ -144,8 +152,8 @@ export default class Overduesearch extends React.Component {
           value={this.state.moblie}
           onChange={(e) => {
             this.setState({
-              moblie: e
-            })
+              moblie: e,
+            });
           }}
         />
         <InputItem
@@ -155,8 +163,8 @@ export default class Overduesearch extends React.Component {
           value={this.state.orderID}
           onChange={(e) => {
             this.setState({
-              orderID: e
-            })
+              orderID: e,
+            });
           }}
         />
         <InputItem
@@ -166,8 +174,8 @@ export default class Overduesearch extends React.Component {
           value={this.state.merchant}
           onChange={(e) => {
             this.setState({
-              merchant: e
-            })
+              merchant: e,
+            });
           }}
         />
         <Picker
@@ -175,20 +183,24 @@ export default class Overduesearch extends React.Component {
           title="选择分期状态"
           cascade={false}
           value={this.state.fenqiStatus}
-          onChange={v => this.setState({ fenqiStatus: v })}
-          onOk={v => this.setState({ fenqiStatus: v })}
+          onChange={(v) => this.setState({ fenqiStatus: v })}
+          onOk={(v) => this.setState({ fenqiStatus: v })}
         >
-          <List.Item className={style.SearchItem} arrow="horizontal">选择分期状态</List.Item>
+          <List.Item className={style.SearchItem} arrow="horizontal">
+            选择分期状态
+          </List.Item>
         </Picker>
         <Picker
           data={shenheArr}
           title="选择审核状态"
           cascade={false}
           value={this.state.shenheStatus}
-          onChange={v => this.setState({ shenheStatus: v })}
-          onOk={v => this.setState({ shenheStatus: v })}
+          onChange={(v) => this.setState({ shenheStatus: v })}
+          onOk={(v) => this.setState({ shenheStatus: v })}
         >
-          <List.Item className={style.SearchItem} arrow="horizontal">选择审核状态</List.Item>
+          <List.Item className={style.SearchItem} arrow="horizontal">
+            选择审核状态
+          </List.Item>
         </Picker>
         {/* <Picker
           data={agentArr}
@@ -202,7 +214,7 @@ export default class Overduesearch extends React.Component {
         </Picker> */}
         <div>
           <Button
-            className={style.SearchItem} 
+            className={style.SearchItem}
             type="primary"
             onClick={() => {
               this.props.history.push({
@@ -214,32 +226,37 @@ export default class Overduesearch extends React.Component {
                   merchant: this.state.merchant, // 商家姓名
                   fenqiStatus: this.state.fenqiStatus[0],
                   shenheStatus: this.state.shenheStatus[0],
-                  agent: this.state.agent
-                }
-              })
+                  agent: this.state.agent,
+                },
+              });
             }}
-          >确认</Button>
+          >
+            确认
+          </Button>
           <Button
-            className={style.SearchItem} 
+            className={style.SearchItem}
             type="warning"
             onClick={() => {
-              this.setState({
-                student_name: "", // 卖家姓名
-                moblie: "", // 卖家手机号
-                orderID: "", // 订单编号
-                merchant: "", // 商家姓名
-                fenqiStatus: "",
-                shenheStatus: "",
-                agent: ""
-              }, () => {
-                this.props.history.push("/home/index")
-              })
+              this.setState(
+                {
+                  student_name: "", // 卖家姓名
+                  moblie: "", // 卖家手机号
+                  orderID: "", // 订单编号
+                  merchant: "", // 商家姓名
+                  fenqiStatus: "",
+                  shenheStatus: "",
+                  agent: "",
+                },
+                () => {
+                  this.props.history.push("/home/index");
+                }
+              );
             }}
-          >清空</Button>
+          >
+            清空
+          </Button>
         </div>
-        
       </>
-    )
+    );
   }
-    
 }

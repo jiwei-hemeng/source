@@ -4,13 +4,13 @@ export function login(data) {
   return Request({
     url: "/loginController/login",
     method: "POST",
-    data
-  })
+    data,
+  });
 }
 // 测试接口
 export function Test() {
   return Request({
     url: "/loginController/test",
     method: "GET",
-  })
+  });
 }
