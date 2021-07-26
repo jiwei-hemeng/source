@@ -4,7 +4,9 @@ const {
   addWebpackAlias,
   addWebpackExternals,
 } = require("customize-cra");
-const { resolve } = require("path");
+const {
+  resolve
+} = require("path");
 const rewirePostcss = require("react-app-rewire-postcss");
 const px2rem = require("postcss-px2rem");
 // 生产环境下cdn引入资源
@@ -13,6 +15,7 @@ if (process.env.NODE_ENV === "production") {
   externalsOption = {
     react: "React",
     "react-dom": "ReactDOM",
+    "react-router-dom": "ReactRouterDOM",
     axios: "axios",
   };
 }
