@@ -64,6 +64,11 @@
   -webkit-appearance: none;
 }
 
+img,
+a {
+  /* 禁止长按弹出菜单 */
+  -webkit-touch-callout: none;
+}
 .input::placeholder {
   color: #c0c0c0;
 }
