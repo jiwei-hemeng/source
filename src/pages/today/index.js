@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
+import GoTop from "@/component/GoTop";
 import { Card, Toast, SearchBar } from "antd-mobile";
 import { getList } from "@/api/order";
 const Today = ({ location }) => {
@@ -109,6 +110,12 @@ const Today = ({ location }) => {
             startIndex: 0,
           });
         }}
+        onCancel={() => {
+          set_student_name("");
+          loadMoreRows({
+            startIndex: 0,
+          });
+        }}
       />
       <Virtualized
         count={count}
@@ -118,6 +125,7 @@ const Today = ({ location }) => {
         rowRenderer={rowRenderer}
         loadMoreRows={loadMoreRows}
       />
+      <GoTop />
     </div>
   );
 };
