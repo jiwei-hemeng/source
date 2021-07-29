@@ -22,7 +22,6 @@ import {
 } from "@/api/overdue";
 import IdCardQualified from "./component/idCardQualified";
 import UploadAudio from "./component/uploadAudio";
-// import ChangeIdCard from "./component/changeIdCard"
 import style from "./index.module.scss";
 import axios from "axios";
 const RadioItem = Radio.RadioItem;
@@ -41,9 +40,6 @@ export default class Overduedetails extends React.Component {
     record: "", // 回访记录
     Qualified: 0, // 身份证是否合格
     UploadAudioObj: {}, // 上传的音频文件
-    // image_fan: {}, // 身份证正面照片
-    // image_front: {}, // 身份证反面照片
-    // image_hand: {}, // 手持身份证照片
   };
   componentWillUnmount = () => {
     this.setState = (state, callback) => {
@@ -453,37 +449,8 @@ export default class Overduedetails extends React.Component {
     }
   };
   renderCreditContent = () => {
-    // const { type } = this.props.location.state
-    // if(type === 1) {
-    //   return (
-    //     <>
-    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
-    //         this.props.history.push({
-    //           pathname: "/creditrecords",
-    //           state: {id: this.props.location.state.id}
-    //         })
-    //       }}>征信信息</Button>
-    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
-    //         this.setState({
-    //           course: true
-    //         })
-    //       }}>退课计算</Button>
-    //       <Button type="primary" size="small" className={style.btn} onClick={() => {
-    //         this.setState({
-    //           PerPay: true
-    //         })
-    //       }}>提前还款</Button>
-    //     </>
-    //   )
-    // }
     return (
       <>
-        {/* <Button type="primary" size="small" className={style.btn} onClick={() => {
-          this.props.history.push({
-            pathname: "/creditrecords",
-            state: {id: data.order_number}
-          })
-        }}>征信信息</Button> */}
         <Button
           type="primary"
           size="small"
@@ -497,82 +464,6 @@ export default class Overduedetails extends React.Component {
           修改逾期金
         </Button>
       </>
-    );
-  };
-  // 退课计算Modal
-  rendercourse = () => {
-    return (
-      <Modal
-        popup
-        visible={this.state.course}
-        animationType="slide-up"
-        onClose={() => {
-          this.setState({
-            course: false,
-          });
-        }}
-        footer={[
-          {
-            text: "关闭",
-            onPress: () => {
-              this.setState({ course: false });
-            },
-          },
-        ]}
-      >
-        <div style={{ height: 175, overflow: "scroll" }}>
-          <List renderHeader={() => "退课信息"}>
-            <InputItem value={6} placeholder="请输入使用天数...">
-              使用天数
-            </InputItem>
-            <InputItem value={6} placeholder="请输入使用天数...">
-              剩余未还本金
-            </InputItem>
-            <InputItem value={6} placeholder="请输入使用天数...">
-              违约金额
-            </InputItem>
-          </List>
-        </div>
-      </Modal>
-    );
-  };
-  renderPerPayModal = () => {
-    return (
-      <Modal
-        popup
-        visible={this.state.PerPay}
-        animationType="slide-up"
-        onClose={() => {
-          this.setState({
-            PerPay: false,
-          });
-        }}
-        footer={[
-          {
-            text: "关闭",
-            onPress: () => {
-              this.setState({ PerPay: false });
-            },
-          },
-        ]}
-      >
-        <div style={{ height: 220, overflow: "scroll" }}>
-          <List renderHeader={() => "提前还款信息"}>
-            <InputItem value={6} placeholder="请输入分期总额...">
-              分期总额
-            </InputItem>
-            <InputItem value={6} placeholder="请输入剩余未还本金...">
-              剩余未还本金
-            </InputItem>
-            <InputItem value={6} placeholder="请输入违约金...">
-              违约金
-            </InputItem>
-            <InputItem value={6} placeholder="请输入应还金额...">
-              应还金额
-            </InputItem>
-          </List>
-        </div>
-      </Modal>
     );
   };
   renderAuditStatus = () => {
@@ -788,30 +679,6 @@ export default class Overduedetails extends React.Component {
       );
     }
   };
-  // renderChangeIdCard = () => {
-  //   const { fqOrder } = this.state.orderDetails
-  //   if(fqOrder && fqOrder.sh_status === 0) {
-  //     return (
-  //       <ChangeIdCard
-  //         ChangeIdCard={e => {
-  //           this.setState({
-  //             image_fan: e
-  //           })
-  //         }}
-  //         ChangeIdCard1={e => {
-  //           this.setState({
-  //             image_front: e
-  //           })
-  //         }}
-  //         ChangeIdCard2={e => {
-  //           this.setState({
-  //             image_hand: e
-  //           })
-  //         }}
-  //       />
-  //     )
-  //   }
-  // }
   renderUploadAudio = () => {
     const { fqOrder } = this.state.orderDetails;
     if (fqOrder && fqOrder.sh_status === 0) {
@@ -897,14 +764,6 @@ export default class Overduedetails extends React.Component {
         {
           // 修改逾期金
           this.renderModal()
-        }
-        {
-          // 退课计算Modal
-          this.rendercourse()
-        }
-        {
-          // 提前还款计算
-          this.renderPerPayModal()
         }
       </div>
     );
