@@ -38,7 +38,7 @@ const Today = ({ location }) => {
       const { data } = await getList(params);
       Toast.hide();
       if (data && data.code === 200) {
-        const newlist = [...list, ...data.data];
+        const newlist = [...new Set([...list, ...data.data])];
         const totle = data.count;
         setList(newlist);
         setCount(totle);
