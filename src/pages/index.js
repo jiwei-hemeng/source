@@ -4,10 +4,12 @@ import { TabBar } from "antd-mobile";
 const Home = React.lazy(() => import("@/pages/home"));
 const Overdue = React.lazy(() => import("@/pages/overdue"));
 const My = React.lazy(() => import("@/pages/my"));
+const Today = React.lazy(() => import("@/pages/today"));
 
 const tabItems = [
   { title: "正常订单", icon: "iconfont icon-order", path: "/home/index" },
   { title: "逾期订单", icon: "iconfont icon-overdue", path: "/home/overdue" },
+  { title: "今日待还", icon: "iconfont icon-today", path: "/home/today" },
   { title: "我的", icon: "iconfont icon-wode", path: "/home/my" },
 ];
 class Index extends React.Component {
@@ -51,6 +53,7 @@ class Index extends React.Component {
         <Route exact path="/home/index" component={Home} />
         <Route exact path="/home/overdue" component={Overdue} />
         <Route exact path="/home/my" component={My} />
+        <Route exact path="/home/today" component={Today} />
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
