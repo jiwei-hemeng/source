@@ -5,7 +5,7 @@ import Virtualized from "@/component/virtualized";
 import GoTop from "@/component/GoTop";
 import { Card, Toast, SearchBar } from "antd-mobile";
 import { getList } from "@/api/order";
-const Today = ({ location }) => {
+const Today = () => {
   const [list, setList] = useState([]);
   const [count, setCount] = useState(1);
   const [student_name, set_student_name] = useState("");
@@ -60,7 +60,9 @@ const Today = ({ location }) => {
         className={styles.Card}
         key={item.order_number}
         onClick={() => {
-          history.push("/");
+          history.push({
+            pathname: "/",
+          });
         }}
       >
         <Card.Header
