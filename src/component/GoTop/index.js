@@ -8,6 +8,9 @@ const GoTop = ({ top }) => {
       setscrollTop(e.target.scrollingElement.scrollTop);
     };
     window.addEventListener("scroll", bindHandleScroll);
+    return () => {
+      window.addEventListener("scroll", null);
+    };
   });
   const goTop = () => {
     document.body.scrollTop = 0;
