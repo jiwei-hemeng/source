@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
-import { Card, Toast } from "antd-mobile";
+import { Card, Toast, SearchBar } from "antd-mobile";
 import { getList } from "@/api/order";
 const Today = ({ location }) => {
   const [list, setList] = useState([]);
   const [count, setCount] = useState(1);
+  const [student_name, set_student_name] = useState("");
   // 设置行高
   const rowHeight = () => {
     const clientWidth = document.body.clientWidth;
@@ -22,16 +23,16 @@ const Today = ({ location }) => {
   // 加载更多
   const loadMoreRows = ({ startIndex, stopIndex }) => {
     const pageNum = startIndex / 10 + 1;
-    const { state } = location;
+    // const { state } = location;
     let params = {
       page: pageNum,
       size: 10,
-      username: state ? state.student_name : undefined, // 买家姓名
-      mobile: state ? state.moblie : undefined, // 买家手机号
-      downOrdersn: state ? state.orderID : undefined,
-      truename: state ? state.merchant : undefined, // 商家姓名
-      fqstatus: state ? state.fenqiStatus : undefined, // 分期状态
-      isvalid: state ? state.shenheStatus : undefined, // 审核状态
+      username: student_name === "" ? undefined : student_name, // 买家姓名
+      // mobile: state ? state.moblie : undefined, // 买家手机号
+      // downOrdersn: state ? state.orderID : undefined,
+      // truename: state ? state.merchant : undefined, // 商家姓名
+      // fqstatus: state ? state.fenqiStatus : undefined, // 分期状态
+      // isvalid: state ? state.shenheStatus : undefined, // 审核状态
     };
     return new Promise(async (resolve, reject) => {
       Toast.loading("正在加载中...", 0, null, true);
@@ -99,6 +100,16 @@ const Today = ({ location }) => {
   };
   return (
     <div className={styles.Today}>
+      <SearchBar
+        value={student_name}
+        placeholder="请输入卖家姓名"
+        onChange={(v) => set_student_name(v)}
+        onSubmit={(v) => {
+          loadMoreRows({
+            startIndex: 0,
+          });
+        }}
+      />
       <Virtualized
         count={count}
         list={list}
