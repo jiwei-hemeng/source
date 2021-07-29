@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./index.scss";
 const GoTop = ({ top }) => {
   const [scrollTop, setscrollTop] = useState(0);
+  let isUnmounted = useRef(true);
   useEffect(() => {
+    isUnmounted.current = true;
     const bindHandleScroll = (e) => {
-      setscrollTop(e.target.scrollingElement.scrollTop);
+      if (isUnmounted.current) {
+        setscrollTop(e.target.scrollingElement.scrollTop);
+      }
     };
     window.addEventListener("scroll", bindHandleScroll);
     return () => {
       window.addEventListener("scroll", null);
+      isUnmounted.current = false;
     };
   });
   const goTop = () => {
