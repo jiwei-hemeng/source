@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
 import GoTop from "@/component/GoTop";
@@ -9,6 +10,7 @@ const Today = ({ location }) => {
   const [count, setCount] = useState(1);
   const [student_name, set_student_name] = useState("");
   let isUnmounted = useRef(true);
+  const history = useHistory();
   useEffect(() => {
     isUnmounted.current = true;
     return () => {
@@ -54,7 +56,13 @@ const Today = ({ location }) => {
   };
   const renderList = (item) => {
     return (
-      <Card className={styles.Card} key={item.order_number}>
+      <Card
+        className={styles.Card}
+        key={item.order_number}
+        onClick={() => {
+          history.push("/");
+        }}
+      >
         <Card.Header
           title={<span className={styles.CardTitle}>{item.order_number}</span>}
           extra={
