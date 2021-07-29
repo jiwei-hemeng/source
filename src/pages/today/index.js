@@ -60,8 +60,26 @@ const Today = ({ location }) => {
             </span>
           }
         />
+        <Card.Body>
+          <div className={styles.cardItem}>
+            <span className={styles.title}>卖家姓名</span>
+            <span>{item.student_name}</span>
+          </div>
+          <div className={styles.cardItem}>
+            <span className={styles.title}>机构名称</span>
+            <span>{item.merchant_name}</span>
+          </div>
+          <div className={styles.cardItem}>
+            <span className={styles.title}>商品名称</span>
+            <span>{item.course_name}</span>
+          </div>
+          <div className={styles.cardItem}>
+            <span className={styles.title}>商品价格</span>
+            <span>{item.money}</span>
+          </div>
+        </Card.Body>
       </Card>
-    )
+    );
   };
   const rowRenderer = ({
     key, // Unique key within array of rows
