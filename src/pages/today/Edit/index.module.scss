@@ -1,0 +1,34 @@
+.Edit {
+  box-sizing: border-box;
+  padding-top: 45px;
+  .NavBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+  }
+  .Card {
+    width: 98%;
+    display: block;
+    margin: 5px auto;
+    .title {
+      display: inline-block;
+      width: 110px;
+    }
+    .OrderInfo {
+      width: 750px;
+      border-collapse: collapse;
+      th {
+        width: 220px;
+        border: 1px solid #999;
+        background-color: #b5cfd2;
+      }
+      td {
+        border: 1px solid #999;
+        background-color: #dcddc0;
+        text-align: center;
+      }
+    }
+  }
+}
