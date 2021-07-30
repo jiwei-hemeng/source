@@ -33,7 +33,7 @@ const GoTop = ({ top }) => {
       </div>
     );
   }
-  return <div></div>;
+  return null;
 };
 GoTop.propsTypes = {
   top: PropTypes.number,
