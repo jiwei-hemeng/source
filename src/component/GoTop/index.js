@@ -4,6 +4,7 @@ import "./index.scss";
 const GoTop = ({ top }) => {
   const [scrollTop, setscrollTop] = useState(0);
   let isUnmounted = useRef(true);
+  let scroll = useRef(0);
   useEffect(() => {
     isUnmounted.current = true;
     const bindHandleScroll = (e) => {
@@ -18,8 +19,18 @@ const GoTop = ({ top }) => {
     };
   });
   const goTop = () => {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
+    scroll.current = scrollTop;
+    let timer = setInterval(() => {
+      if (Math.abs(scroll.current) < 300) {
+        clearInterval(timer);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        return;
+      }
+      scroll.current -= 300;
+      document.body.scrollTop = scroll.current;
+      document.documentElement.scrollTop = scroll.current;
+    }, 30);
   };
   if (scrollTop > top) {
     return (
