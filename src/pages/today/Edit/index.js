@@ -29,7 +29,7 @@ const MyTable = ({ title, list, RenderData }) => {
               return (
                 <tr>
                   {RenderData.map((j) => {
-                    return <td>item[j.value]</td>;
+                    return <td>{item[j.value]}</td>;
                   })}
                 </tr>
               );
