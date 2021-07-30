@@ -4,6 +4,7 @@ import Virtualized from "@/component/virtualized";
 import styles from "./index.module.scss";
 import { getList } from "@/api/order";
 import MyList from "@/component/MyList";
+import GoTop from "@/component/GoTop";
 class Index extends React.Component {
   state = {
     list: [],
@@ -174,6 +175,7 @@ class Index extends React.Component {
           rowRenderer={this.rowRenderer}
           loadMoreRows={this.loadMoreRows}
         />
+        <GoTop />
       </div>
     );
   }

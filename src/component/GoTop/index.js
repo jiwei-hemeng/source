@@ -21,16 +21,16 @@ const GoTop = ({ top }) => {
   const goTop = () => {
     scroll.current = scrollTop;
     let timer = setInterval(() => {
-      if (Math.abs(scroll.current) < 300) {
+      if (Math.abs(scroll.current) < top) {
         clearInterval(timer);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
         return;
       }
-      scroll.current -= 300;
+      scroll.current -= top;
       document.body.scrollTop = scroll.current;
       document.documentElement.scrollTop = scroll.current;
-    }, 30);
+    }, 10);
   };
   if (scrollTop > top) {
     return (
