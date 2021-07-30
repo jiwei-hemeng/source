@@ -16,6 +16,14 @@
       display: inline-block;
       width: 110px;
     }
+    .Idphoto {
+      box-sizing: border-box;
+      padding-left: 15px;
+      .title {
+        display: inline-block;
+        width: 110px;
+      }
+    }
     .OrderInfo {
       width: 750px;
       border-collapse: collapse;
