@@ -10,6 +10,7 @@ const OverdueSearch = React.lazy(() => import("@/pages/search"));
 const Periodization = React.lazy(() => import("@/pages/periodization"));
 const ReturnBack = React.lazy(() => import("@/pages/ReturnBack"));
 const leaveschool = React.lazy(() => import("@/pages/leaveschool"));
+const TodayEdit = React.lazy(() => import("@/pages/today/Edit"));
 export default class App extends React.Component {
   render() {
     return (
@@ -33,6 +34,7 @@ export default class App extends React.Component {
           <AuthRoute path="/returnBack" exact={true} Page={ReturnBack} />
           <AuthRoute path="/periodization" exact={true} Page={Periodization} />
           <AuthRoute path="/leaveschool" exact={true} Page={leaveschool} />
+          <AuthRoute path="/edit" exact={true} Page={TodayEdit} />
         </Suspense>
       </BrowserRouter>
     );

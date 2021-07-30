@@ -27,5 +27,12 @@
       border-radius: 5px;
       font-size: 14px;
     }
+    .btns {
+      display: flex;
+      align-items: center;
+      .btn {
+        margin-left: 10px;
+      }
+    }
   }
 }

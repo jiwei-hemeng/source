@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
 import GoTop from "@/component/GoTop";
-import { Card, Toast, SearchBar } from "antd-mobile";
-import { getList } from "@/api/order";
+import { Card, Toast, SearchBar, Button } from "antd-mobile";
+import { listDayOrder } from "@/api/today";
 import MyList from "@/component/MyList";
 const Today = () => {
   const [list, setList] = useState([]);
@@ -26,9 +26,9 @@ const Today = () => {
     } else if (clientWidth < 376) {
       return 165;
     } else if (clientWidth < 415) {
-      return 183;
+      return 213;
     } else {
-      return 240;
+      return 270;
     }
   };
   // 加载更多
@@ -37,11 +37,11 @@ const Today = () => {
     let params = {
       page: pageNum,
       size: 10,
-      username: student_name === "" ? undefined : student_name,
+      truename: student_name === "" ? undefined : student_name,
     };
     return new Promise(async (resolve, reject) => {
       Toast.loading("正在加载中...", 0, null, true);
-      const { data } = await getList(params);
+      const { data } = await listDayOrder(params);
       Toast.hide();
       if (data && data.code === 200) {
         const newlist = [...new Set([...list, ...data.data])];
@@ -63,15 +63,7 @@ const Today = () => {
       { title: "商品价格", value: item.money },
     ];
     return (
-      <Card
-        className={styles.Card}
-        key={item.order_number}
-        onClick={() => {
-          history.push({
-            pathname: "/",
-          });
-        }}
-      >
+      <Card className={styles.Card} key={item.order_number}>
         <Card.Header
           title={<span className={styles.CardTitle}>{item.order_number}</span>}
           extra={
@@ -84,6 +76,36 @@ const Today = () => {
         />
         <Card.Body>
           <MyList list={renderArr} />
+          <div className={styles.btns}>
+            <Button
+              type="primary"
+              className={styles.btn}
+              size="small"
+              icon={<i className="iconfont icon-dingdanxiangqingxianxing" />}
+              onClick={() => {
+                history.push({
+                  pathname: "/periodization",
+                  state: { id: item.summary_id },
+                });
+              }}
+            >
+              详情
+            </Button>
+            <Button
+              type="primary"
+              className={styles.btn}
+              size="small"
+              icon={<i className="iconfont icon-dingdanxiangqingxianxing" />}
+              onClick={() => {
+                history.push({
+                  pathname: "/edit",
+                  state: { id: item.summary_id, type: 1 },
+                });
+              }}
+            >
+              编辑
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     );
