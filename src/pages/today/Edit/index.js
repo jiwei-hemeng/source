@@ -63,7 +63,6 @@ const Edit = ({ location, history }) => {
     if (isDistory.current) {
       getList();
     }
-    console.log("list", list);
     return () => {
       isDistory.current = false;
     };
