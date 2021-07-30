@@ -3,6 +3,7 @@ import { SearchBar, Card, Button, Toast } from "antd-mobile";
 import Virtualized from "@/component/virtualized";
 import styles from "./index.module.scss";
 import { getList } from "@/api/order";
+import MyList from "@/component/MyList";
 class Index extends React.Component {
   state = {
     list: [],
@@ -72,6 +73,11 @@ class Index extends React.Component {
     }
   };
   renderList = (item) => {
+    const list = [
+      { title: "卖家姓名", value: item.student_name },
+      { title: "代理人姓名", value: item.agentName },
+      { title: "下单时间", value: item.set_up_time },
+    ];
     return (
       <Card className={styles.Card} key={item.order_number}>
         <Card.Header
@@ -85,18 +91,7 @@ class Index extends React.Component {
           }
         />
         <Card.Body>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>卖家姓名</span>
-            <span>{item.student_name}</span>
-          </div>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>代理人姓名</span>
-            <span>{item.agentName}</span>
-          </div>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>下单时间</span>
-            <span>{item.set_up_time}</span>
-          </div>
+          <MyList list={list} />
           <div className={styles.btn_group}>
             <Button
               type="primary"

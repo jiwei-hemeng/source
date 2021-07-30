@@ -5,6 +5,7 @@ import Virtualized from "@/component/virtualized";
 import GoTop from "@/component/GoTop";
 import { Card, Toast, SearchBar } from "antd-mobile";
 import { getList } from "@/api/order";
+import MyList from "@/component/MyList";
 const Today = () => {
   const [list, setList] = useState([]);
   const [count, setCount] = useState(1);
@@ -55,6 +56,12 @@ const Today = () => {
     });
   };
   const renderList = (item) => {
+    const renderArr = [
+      { title: "卖家姓名", value: item.student_name },
+      { title: "机构名称", value: item.merchant_name },
+      { title: "商品名称", value: item.course_name },
+      { title: "商品价格", value: item.money },
+    ];
     return (
       <Card
         className={styles.Card}
@@ -76,22 +83,7 @@ const Today = () => {
           }
         />
         <Card.Body>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>卖家姓名</span>
-            <span>{item.student_name}</span>
-          </div>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>机构名称</span>
-            <span>{item.merchant_name}</span>
-          </div>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>商品名称</span>
-            <span>{item.course_name}</span>
-          </div>
-          <div className={styles.cardItem}>
-            <span className={styles.title}>商品价格</span>
-            <span>{item.money}</span>
-          </div>
+          <MyList list={renderArr} />
         </Card.Body>
       </Card>
     );

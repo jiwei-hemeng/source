@@ -4,6 +4,7 @@ import { Card, SearchBar, Toast } from "antd-mobile";
 import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
 import { listOverOrder } from "@/api/overdue";
+import MyList from "@/component/MyList";
 export default class Overdue extends React.Component {
   state = {
     list: [],
@@ -49,6 +50,11 @@ export default class Overdue extends React.Component {
   }) => {
     let item = this.state.list[index];
     if (item) {
+      const renderList = [
+        { title: "卖家姓名", value: item.student_name },
+        { title: "代理人姓名", value: item.agentName },
+        { title: "下单时间", value: item.set_up_time },
+      ];
       return (
         <div key={key} style={style}>
           <Card
@@ -76,18 +82,7 @@ export default class Overdue extends React.Component {
               }
             />
             <Card.Body>
-              <div className={styles.cardItem}>
-                <span className={styles.title}>卖家姓名</span>
-                <span>{item.student_name}</span>
-              </div>
-              <div className={styles.cardItem}>
-                <span className={styles.title}>代理人姓名</span>
-                <span>{item.agentName}</span>
-              </div>
-              <div className={styles.cardItem}>
-                <span className={styles.title}>下单时间</span>
-                <span>{item.set_up_time}</span>
-              </div>
+              <MyList list={renderList} />
             </Card.Body>
           </Card>
         </div>
