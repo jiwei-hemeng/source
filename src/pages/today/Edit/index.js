@@ -11,6 +11,7 @@ import {
 import { editDay } from "@/api/today";
 import style from "./index.module.scss";
 import MyList from "@/component/MyList";
+import MyTable from "@/component/MyTable";
 const RadioItem = Radio.RadioItem;
 const Chunk = ({ title, children, list }) => {
   if (list) {
@@ -22,35 +23,35 @@ const Chunk = ({ title, children, list }) => {
     );
   }
 };
-const MyTable = ({ title, list, RenderData }) => {
-  return (
-    <Card className={style.Card}>
-      <Card.Header title={title} />
-      <Card.Body>
-        <table className={style.OrderInfo}>
-          <thead>
-            <tr>
-              {RenderData.map((item) => {
-                return <th key={item.title}>{item.title}</th>;
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((item) => {
-              return (
-                <tr>
-                  {RenderData.map((j) => {
-                    return <td>{item[j.value]}</td>;
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </Card.Body>
-    </Card>
-  );
-};
+// const MyTable = ({ title, list, RenderData }) => {
+//   return (
+//     <Card className={style.Card}>
+//       <Card.Header title={title} />
+//       <Card.Body>
+//         <table className={style.OrderInfo}>
+//           <thead>
+//             <tr>
+//               {RenderData.map((item) => {
+//                 return <th key={item.title}>{item.title}</th>;
+//               })}
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {list.map((item) => {
+//               return (
+//                 <tr>
+//                   {RenderData.map((j) => {
+//                     return <td>{item[j.value]}</td>;
+//                   })}
+//                 </tr>
+//               );
+//             })}
+//           </tbody>
+//         </table>
+//       </Card.Body>
+//     </Card>
+//   );
+// };
 const fileList = [
   {
     url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",

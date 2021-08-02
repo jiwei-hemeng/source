@@ -1,0 +1,41 @@
+.MyTable {
+  background-color: #fff;
+  width: 98%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.MyTable .am-list-content {
+  padding: 0;
+  overflow-x: auto !important;
+  width: 100%;
+}
+.MyTable .am-list-item {
+  padding: 0;
+}
+.MyTable .am-list-content::-webkit-scrollbar {
+  display: none;
+}
+.MyTable .am-list-line {
+  padding: 0;
+}
+.MyTable .OrderInfo {
+  width: 750px;
+  border-collapse: collapse;
+}
+.MyTable .OrderInfo th {
+  border: 1px solid #999;
+  background-color: #b5cfd2;
+  font-size: 14px;
+  font-weight: 700;
+}
+.MyTable .OrderInfo td {
+  border: 1px solid #999;
+  text-align: center;
+  font-size: 14px;
+}
+.MyTable .OrderInfo tr {
+  background-color: #f7f7f7;
+}
+.MyTable .OrderInfo tr:nth-child(2n) {
+  background-color: #dcddc0;
+}
