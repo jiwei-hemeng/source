@@ -98,7 +98,7 @@ class Index extends React.Component {
               type="primary"
               className={styles.btn}
               size="small"
-              icon={<i className="iconfont icon-dingdanxiangqingxianxing" />}
+              icon={<i className="iconfont icon-details" />}
               onClick={() => {
                 this.props.history.push({
                   pathname: "/overduedetails",

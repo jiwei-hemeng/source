@@ -39,25 +39,6 @@
         }
       }
     }
-    .OrderInfo {
-      width: 750px;
-      border-collapse: collapse;
-      th {
-        width: 220px;
-        border: 1px solid #999;
-        background-color: #b5cfd2;
-      }
-      td {
-        border: 1px solid #999;
-        text-align: center;
-      }
-      tr {
-        background-color: #f7f7f7;
-        &:nth-child(2n) {
-          background-color: #dcddc0;
-        }
-      }
-    }
   }
   .List {
     width: 98%;
