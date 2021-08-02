@@ -3,7 +3,6 @@ import {
   NavBar,
   Icon,
   Card,
-  ImagePicker,
   Button,
   TextareaItem,
   Modal,
@@ -318,7 +317,25 @@ export default class Overduedetails extends React.Component {
           </div>
           <div className={style.Idphoto}>
             <div className={style.title}>身份证照片</div>
-            <ImagePicker files={files} selectable={false} disableDelete />
+            <div className={style.images}>
+              {files.map((item) => {
+                if (item) {
+                  return (
+                    <div
+                      className={style.image_item}
+                      key={item.id}
+                      style={{
+                        background: `url(${item.url})`,
+                      }}
+                      onClick={() => {
+                        window.location.href = item.url;
+                      }}
+                    ></div>
+                  );
+                }
+                return null;
+              })}
+            </div>
           </div>
         </Card.Body>
       </Card>

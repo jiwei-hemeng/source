@@ -32,6 +32,18 @@
         display: inline-block;
         width: 110px;
       }
+      .images {
+        display: flex;
+        padding-top: 10px;
+        .image_item {
+          width: 32%;
+          margin-right: 2%;
+          height: 148px;
+          background-size: 100% auto !important;
+          background-repeat: no-repeat !important;
+          background-position: center !important;
+        }
+      }
     }
     .OrderInfo {
       width: 750px;
