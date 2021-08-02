@@ -325,7 +325,7 @@ export default class Overduedetails extends React.Component {
                       className={style.image_item}
                       key={item.id}
                       style={{
-                        background: `url(${item.url})`,
+                        backgroundImage: `url(${item.url})`,
                       }}
                       onClick={() => {
                         window.location.href = item.url;

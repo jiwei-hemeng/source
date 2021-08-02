@@ -18,21 +18,24 @@
     }
     .Idphoto {
       box-sizing: border-box;
-      padding-left: 10px;
+      padding: 0 10px;
       .title {
         width: 110px;
         font-size: 14px;
       }
       .images {
         display: flex;
-        padding-top: 10px;
+        padding-top: 5px;
         .image_item {
           width: 32%;
           margin-right: 2%;
           height: 148px;
-          background-size: 100% auto !important;
-          background-repeat: no-repeat !important;
-          background-position: center !important;
+          background-size: 100% auto;
+          background-repeat: no-repeat;
+          background-position: center;
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
     }
@@ -50,5 +53,11 @@
         text-align: center;
       }
     }
+  }
+  .List {
+    width: 98%;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-bottom: 5px;
   }
 }

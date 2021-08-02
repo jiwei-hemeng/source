@@ -1,8 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavBar, Icon, Card } from "antd-mobile";
+import {
+  NavBar,
+  Icon,
+  Card,
+  List,
+  Radio,
+  TextareaItem,
+  Button,
+} from "antd-mobile";
 import { editDay } from "@/api/today";
 import style from "./index.module.scss";
 import MyList from "@/component/MyList";
+const RadioItem = Radio.RadioItem;
 const Chunk = ({ title, children, list }) => {
   if (list) {
     return (
@@ -42,11 +51,25 @@ const MyTable = ({ title, list, RenderData }) => {
     </Card>
   );
 };
+const fileList = [
+  {
+    url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+    id: "身份证正面面照片",
+  },
+  {
+    url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+    id: "身份证国徽面照片",
+  },
+  {
+    url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+    id: "手持身份证照片",
+  },
+];
 const Edit = ({ location, history }) => {
   const { id } = location.state;
   const isDistory = useRef(false);
   const [list, setlist] = useState({});
-  const [files, setfiles] = useState([]);
+  const [files, setfiles] = useState([...fileList]);
   useEffect(() => {
     isDistory.current = true;
     const getList = async () => {
@@ -55,9 +78,18 @@ const Edit = ({ location, history }) => {
       });
       if (data && data.code !== 200) return;
       const fileList = [
-        { url: data.fqOrder.image_front, id: "身份证正面面照片" },
-        { url: data.fqOrder.image_fan, id: "身份证国徽面照片" },
-        { url: data.fqOrder.image_hand, id: "手持身份证照片" },
+        {
+          url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+          id: "身份证正面面照片",
+        },
+        {
+          url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+          id: "身份证国徽面照片",
+        },
+        {
+          url: "https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg",
+          id: "手持身份证照片",
+        },
       ];
       if (isDistory.current) {
         setfiles(fileList);
@@ -69,6 +101,43 @@ const Edit = ({ location, history }) => {
       isDistory.current = false;
     };
   });
+  const renderAuditStatus = () => {
+    const Radiolist = [
+      { value: 0, label: "待审核" },
+      { value: 1, label: "通过" },
+      { value: 2, label: "拒绝" },
+      { value: 4, label: "等待会员签约" },
+    ];
+    const AuditStatus = 1;
+    return (
+      <List className={style.List} renderHeader={() => "审核状态"}>
+        {Radiolist.map((item) => {
+          return (
+            <RadioItem key={item.value} checked={item.value === AuditStatus}>
+              {item.label}
+            </RadioItem>
+          );
+        })}
+      </List>
+    );
+  };
+  const renderRemark = () => {
+    return (
+      <List
+        className={style.List}
+        renderHeader={() => "回访记录"}
+        renderFooter={() => {
+          return (
+            <Button type="primary" size="small" inline>
+              提交
+            </Button>
+          );
+        }}
+      >
+        <TextareaItem autoHeight placeholder="请输入回访记录" rows={3} />
+      </List>
+    );
+  };
   return (
     <div className={style.Edit}>
       <NavBar
@@ -171,7 +240,7 @@ const Edit = ({ location, history }) => {
                           className={style.image_item}
                           key={item.id}
                           style={{
-                            background: `url(${item.url})`,
+                            backgroundImage: `url(${item.url})`,
                           }}
                           onClick={() => {
                             window.location.href = item.url;
@@ -191,11 +260,19 @@ const Edit = ({ location, history }) => {
         title="订单详情信息"
         RenderData={[
           { title: "订单Id", value: "summary_id" },
-          { title: "下单时间", value: "summary_id" },
-          { title: "下期还款日", value: "summary_id" },
+          { title: "下单时间", value: "set_up_time" },
+          { title: "下期还款日", value: "next_day" },
         ]}
-        list={[]}
+        list={[
+          {
+            summary_id: "6544",
+            set_up_time: "2021-08-02",
+            next_day: "2021-09-02",
+          },
+        ]}
       />
+      {renderAuditStatus()}
+      {renderRemark()}
     </div>
   );
 };

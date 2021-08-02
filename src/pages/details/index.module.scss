@@ -16,7 +16,7 @@
       height: 30px;
       line-height: 30px;
       box-sizing: border-box;
-      padding-left: 15px;
+      padding: 0 10px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -27,21 +27,24 @@
     }
     .Idphoto {
       box-sizing: border-box;
-      padding-left: 15px;
+      padding: 0 10px;
       .title {
         display: inline-block;
         width: 110px;
       }
       .images {
         display: flex;
-        padding-top: 10px;
+        padding-top: 5px;
         .image_item {
           width: 32%;
           margin-right: 2%;
           height: 148px;
-          background-size: 100% auto !important;
-          background-repeat: no-repeat !important;
-          background-position: center !important;
+          background-size: 100% auto;
+          background-repeat: no-repeat;
+          background-position: center;
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
     }

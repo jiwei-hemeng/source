@@ -20,6 +20,10 @@ li {
 #root .am-card-body {
   padding: 0;
   overflow-x: auto;
+  // 隐藏横向滚动条
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 .ModalItem {
   display: flex;
