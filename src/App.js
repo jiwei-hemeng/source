@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
-// import { HashRouter, Route, Redirect } from "react-router-dom";
 import AuthRoute from "@/component/AuthRoute";
 import Loadding from "@/component/loadding";
 const Index = React.lazy(() => import("./pages/"));

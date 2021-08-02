@@ -3,6 +3,7 @@ import { Toast } from "antd-mobile";
 const baseURL = process.env.REACT_APP_URL;
 let Request = axios.create({
   baseURL: baseURL,
+  timeout: 3000, // 超时时间
 });
 // 请求拦截器
 Request.interceptors.request.use((config) => {
