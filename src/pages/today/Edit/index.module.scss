@@ -18,10 +18,10 @@
     }
     .Idphoto {
       box-sizing: border-box;
-      padding-left: 15px;
+      padding-left: 10px;
       .title {
-        display: inline-block;
         width: 110px;
+        font-size: 14px;
       }
       .images {
         display: flex;

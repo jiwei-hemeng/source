@@ -4,12 +4,14 @@ import { editDay } from "@/api/today";
 import style from "./index.module.scss";
 import MyList from "@/component/MyList";
 const Chunk = ({ title, children, list }) => {
-  return (
-    <Card className={style.Card}>
-      <Card.Header title={title} />
-      <Card.Body>{children(list)}</Card.Body>
-    </Card>
-  );
+  if (list) {
+    return (
+      <Card className={style.Card}>
+        <Card.Header title={title} />
+        <Card.Body>{children(list)}</Card.Body>
+      </Card>
+    );
+  }
 };
 const MyTable = ({ title, list, RenderData }) => {
   return (
@@ -57,12 +59,12 @@ const Edit = ({ location, history }) => {
         { url: data.fqOrder.image_fan, id: "身份证国徽面照片" },
         { url: data.fqOrder.image_hand, id: "手持身份证照片" },
       ];
-      setfiles(fileList);
-      setlist(data.data);
+      if (isDistory.current) {
+        setfiles(fileList);
+        setlist(data.data);
+      }
     };
-    if (isDistory.current) {
-      getList();
-    }
+    getList();
     return () => {
       isDistory.current = false;
     };
@@ -75,7 +77,7 @@ const Edit = ({ location, history }) => {
         icon={<Icon type="left" />}
         onLeftClick={() => history.goBack()}
       >
-        回访信息
+        订单编辑
       </NavBar>
       <Chunk title="基本信息" list={list}>
         {(item) => {
@@ -124,6 +126,7 @@ const Edit = ({ location, history }) => {
       </Chunk>
       <Chunk title="用户信用信息" list={list}>
         {(item) => {
+          if (!item.fqUrgent) return null;
           const Arr = [
             { title: "买家姓名", value: item.student_name },
             { title: "买家手机号", value: item.person_phone },
@@ -184,7 +187,15 @@ const Edit = ({ location, history }) => {
           );
         }}
       </Chunk>
-      <MyTable title="订单详情信息" RenderData={[]} list={[]} />
+      <MyTable
+        title="订单详情信息"
+        RenderData={[
+          { title: "订单Id", value: "summary_id" },
+          { title: "下单时间", value: "summary_id" },
+          { title: "下期还款日", value: "summary_id" },
+        ]}
+        list={[]}
+      />
     </div>
   );
 };
