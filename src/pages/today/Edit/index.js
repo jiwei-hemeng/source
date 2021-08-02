@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavBar, Icon, Card, ImagePicker } from "antd-mobile";
+import { NavBar, Icon, Card } from "antd-mobile";
 import { editDay } from "@/api/today";
 import style from "./index.module.scss";
 import MyList from "@/component/MyList";
@@ -160,7 +160,25 @@ const Edit = ({ location, history }) => {
               <MyList list={Arr} />
               <div className={style.Idphoto}>
                 <div className={style.title}>身份证照片</div>
-                <ImagePicker files={files} selectable={false} disableDelete />
+                <div className={style.images}>
+                  {files.map((item) => {
+                    if (item) {
+                      return (
+                        <div
+                          className={style.image_item}
+                          key={item.id}
+                          style={{
+                            background: `url(${item.url})`,
+                          }}
+                          onClick={() => {
+                            window.location.href = item.url;
+                          }}
+                        ></div>
+                      );
+                    }
+                    return null;
+                  })}
+                </div>
               </div>
             </>
           );
