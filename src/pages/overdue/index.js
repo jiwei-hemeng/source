@@ -5,6 +5,7 @@ import styles from "./index.module.scss";
 import Virtualized from "@/component/virtualized";
 import { listOverOrder } from "@/api/overdue";
 import MyList from "@/component/MyList";
+import GoTop from "@/component/GoTop";
 export default class Overdue extends React.Component {
   state = {
     list: [],
@@ -121,6 +122,7 @@ export default class Overdue extends React.Component {
           rowRenderer={this.rowRenderer}
           loadMoreRows={this.loadMoreRows}
         />
+        <GoTop />
       </div>
     );
   }
