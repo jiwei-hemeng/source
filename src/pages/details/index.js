@@ -593,10 +593,6 @@ export default class Overduedetails extends React.Component {
           // 身份证是否合格
           this.renderIdCardQualified()
         }
-        {/* {
-          // 修改身份证
-          this.renderChangeIdCard()
-        } */}
         {
           // 上传音频
           this.renderUploadAudio()
