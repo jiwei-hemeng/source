@@ -19,6 +19,8 @@ import {
   orderReview,
   updateReturnInfo,
 } from "@/api/overdue";
+import MyTable from "@/component/MyTable";
+import MyList from "@/component/MyList";
 import IdCardQualified from "./component/idCardQualified";
 import UploadAudio from "./component/uploadAudio";
 import style from "./index.module.scss";
@@ -83,46 +85,22 @@ export default class Overduedetails extends React.Component {
   renderBasicinformation = () => {
     const { fqOrder } = this.state.orderDetails;
     if (fqOrder) {
+      const Arr = [
+        { title: "订单ID", value: fqOrder.summary_id },
+        { title: "订单号", value: fqOrder.order_number },
+        { title: "卖家姓名", value: fqOrder.student_name },
+        { title: "手机号", value: fqOrder.person_phone },
+        { title: "商品价格", value: fqOrder.money },
+        { title: "贷款费用", value: fqOrder.dk_money },
+        { title: "分期状态", value: fqOrder.order_status },
+        { title: "下单时间", value: fqOrder.set_up_time },
+        { title: "延期期数", value: fqOrder.delay_stages },
+      ];
       return (
         <Card className={style.Card}>
           <Card.Header title="基本信息" />
           <Card.Body>
-            <div className={style.Item}>
-              <span className={style.title}>订单ID</span>
-              <span>{fqOrder.summary_id}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>订单号</span>
-              <span>{fqOrder.order_number}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>卖家姓名</span>
-              <span>{fqOrder.student_name}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>手机号</span>
-              <span>{fqOrder.person_phone}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>商品价格</span>
-              <span>{fqOrder.money}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>贷款费用</span>
-              <span>{fqOrder.dk_money}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>分期状态</span>
-              <span>{fqOrder.order_status}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>下单时间</span>
-              <span>{fqOrder.set_up_time}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>延期期数</span>
-              <span>{fqOrder.delay_stages}</span>
-            </div>
+            <MyList list={Arr} />
           </Card.Body>
         </Card>
       );
@@ -131,30 +109,18 @@ export default class Overduedetails extends React.Component {
   renderMember = () => {
     const { fqOrder } = this.state.orderDetails;
     if (fqOrder) {
+      const Arr = [
+        { title: "剩余本金", value: fqOrder.syMoney },
+        { title: "已还本息", value: fqOrder.paidAllMoney },
+        { title: "逾期本息", value: fqOrder.overdueAllMoney },
+        { title: "罚息", value: fqOrder.faxi },
+        { title: "逾期天数", value: fqOrder.yq_day },
+      ];
       return (
         <Card className={style.Card}>
           <Card.Header title="会员还款详情" />
           <Card.Body>
-            <div className={style.Item}>
-              <span className={style.title}>剩余本金</span>
-              <span>{fqOrder.syMoney}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>已还本息</span>
-              <span>{fqOrder.paidAllMoney}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>逾期本息</span>
-              <span>{fqOrder.overdueAllMoney}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>罚息</span>
-              <span>{fqOrder.faxi}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>逾期天数</span>
-              <span>{fqOrder.yq_day}</span>
-            </div>
+            <MyList list={Arr} />
           </Card.Body>
         </Card>
       );
@@ -163,38 +129,23 @@ export default class Overduedetails extends React.Component {
   renderProductDetails = () => {
     const { fqOrder } = this.state.orderDetails;
     if (fqOrder) {
+      const Arr = [
+        { title: "商品名称", value: fqOrder.course_name },
+        { title: "期数", value: fqOrder.stages_number },
+        { title: "月供", value: fqOrder.yue_gong },
+        { title: "下期还款期数", value: fqOrder.dijiqi },
+        { title: "下期应还款时间", value: fqOrder.nexttime },
+        {
+          title: "商家是否担保",
+          value: fqOrder.deposit_status === 1 ? "是" : "否",
+        },
+        { title: "机构名称", value: fqOrder.merchant_name },
+      ];
       return (
         <Card className={style.Card}>
           <Card.Header title="商品详情" />
           <Card.Body>
-            <div className={style.Item}>
-              <span className={style.title}>商品名称</span>
-              <span>{fqOrder.course_name}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>期数</span>
-              <span>{fqOrder.stages_number}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>月供</span>
-              <span>{fqOrder.yue_gong}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>下期还款期数</span>
-              <span>{fqOrder.dijiqi}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>下期应还款时间</span>
-              <span>{fqOrder.nexttime}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>商家是否担保</span>
-              <span>{fqOrder.deposit_status === 1 ? "是" : "否"}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>机构名称</span>
-              <span>{fqOrder.merchant_name}</span>
-            </div>
+            <MyList list={Arr} />
           </Card.Body>
         </Card>
       );
@@ -203,86 +154,31 @@ export default class Overduedetails extends React.Component {
   renderUserInfo = () => {
     const { fqOrder } = this.state.orderDetails;
     if (fqOrder) {
+      const Arr = [
+        { title: "买家姓名", value: fqOrder.student_name },
+        { title: "买家手机号", value: fqOrder.person_phone },
+        { title: "现居住地址", value: fqOrder.fqUrgent.myaddress },
+        { title: "月收入额", value: fqOrder.fqUrgent.money },
+        { title: "公司名称", value: fqOrder.fqUrgent.mycompany },
+        { title: "任职部门", value: fqOrder.fqUrgent.mybumen },
+        { title: "公司地址", value: fqOrder.fqUrgent.companyAddress },
+        { title: "公司座机", value: fqOrder.fqUrgent.companyPhone },
+        { title: "亲属姓名", value: fqOrder.fqUrgent.fmname },
+        { title: "关系", value: fqOrder.fqUrgent.guanxi },
+        { title: "电话", value: fqOrder.fqUrgent.fmmobile },
+        { title: "婚姻", value: fqOrder.fqUrgent.hunyin },
+        { title: "配偶", value: fqOrder.fqUrgent.duixiang },
+        { title: "配偶电话", value: fqOrder.fqUrgent.dxmobile },
+        { title: "社会联系人", value: fqOrder.fqUrgent.friendname },
+        { title: "电话", value: fqOrder.fqUrgent.friendmobile },
+        { title: "公司联系人", value: fqOrder.fqUrgent.companyContacts },
+        { title: "电话", value: fqOrder.fqUrgent.contactsMobile },
+      ];
       return (
         <Card className={style.Card}>
           <Card.Header title="用户信用信息" />
           <Card.Body>
-            <div className={style.Item}>
-              <span className={style.title}>买家姓名</span>
-              <span>{fqOrder.student_name}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>买家手机号</span>
-              <span>{fqOrder.person_phone}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>现居住地址</span>
-              <span>{fqOrder.fqUrgent.myaddress}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>下期还款期数</span>
-              <span>{fqOrder.dijiqi}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>月收入额</span>
-              <span>{fqOrder.fqUrgent.money}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>公司名称</span>
-              <span>{fqOrder.fqUrgent.mycompany}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>任职部门</span>
-              <span>{fqOrder.fqUrgent.mybumen}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>公司地址</span>
-              <span>{fqOrder.fqUrgent.companyAddress}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>公司座机</span>
-              <span>{fqOrder.fqUrgent.companyPhone}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>亲属姓名</span>
-              <span>{fqOrder.fqUrgent.fmname}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>关系</span>
-              <span>{fqOrder.fqUrgent.guanxi}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>电话</span>
-              <span>{fqOrder.fqUrgent.fmmobile}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>婚姻</span>
-              <span>{fqOrder.fqUrgent.hunyin}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>配偶</span>
-              <span>{fqOrder.fqUrgent.duixiang}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>配偶电话</span>
-              <span>{fqOrder.fqUrgent.dxmobile}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>社会联系人</span>
-              <span>{fqOrder.fqUrgent.friendname}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>电话</span>
-              <span>{fqOrder.fqUrgent.friendmobile}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>公司联系人</span>
-              <span>{fqOrder.fqUrgent.companyContacts}</span>
-            </div>
-            <div className={style.Item}>
-              <span className={style.title}>电话</span>
-              <span>{fqOrder.fqUrgent.contactsMobile}</span>
-            </div>
+            <MyList list={Arr} />
           </Card.Body>
         </Card>
       );
@@ -295,26 +191,17 @@ export default class Overduedetails extends React.Component {
     if (this.state.orderDetails.fqOrder) {
       fqRenzheng = this.state.orderDetails.fqOrder.fqRenzheng;
     }
+    const Arr = [
+      { title: "买家姓名", value: fqRenzheng.truename },
+      { title: "性别", value: fqRenzheng.sex },
+      { title: "身份证号", value: fqRenzheng.idcard },
+      { title: "家庭地址", value: fqRenzheng.address },
+    ];
     return (
       <Card className={style.Card}>
         <Card.Header title="实名身份信息" />
         <Card.Body>
-          <div className={style.Item}>
-            <span className={style.title}>买家姓名</span>
-            <span>{fqRenzheng.truename}</span>
-          </div>
-          <div className={style.Item}>
-            <span className={style.title}>性别</span>
-            <span>{fqRenzheng.sex}</span>
-          </div>
-          <div className={style.Item}>
-            <span className={style.title}>身份证号</span>
-            <span>{fqRenzheng.idcard}</span>
-          </div>
-          <div className={style.Item}>
-            <span className={style.title}>家庭地址</span>
-            <span>{fqRenzheng.address}</span>
-          </div>
+          <MyList list={Arr} />
           <div className={style.Idphoto}>
             <div className={style.title}>身份证照片</div>
             <div className={style.images}>
@@ -345,39 +232,19 @@ export default class Overduedetails extends React.Component {
     const { fqOrderList } = this.state.orderDetails;
     if (fqOrderList) {
       return (
-        <Card className={style.Card}>
-          <Card.Header title="订单详情信息" />
-          <Card.Body>
-            <table className={style.OrderInfo}>
-              <thead>
-                <tr>
-                  <th width="120px">订单编号</th>
-                  <th width="120px">第几期</th>
-                  <th width="120px">付款状态</th>
-                  <th width="120px">应付款时间</th>
-                  <th width="120px">实际支付时间</th>
-                  <th width="120px">月供</th>
-                  <th width="120px">逾期金额</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fqOrderList.map((item) => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.orderSn}</td>
-                      <td>{item.dijiqi}</td>
-                      <td>{item.payStatus}</td>
-                      <td>{item.payDate}</td>
-                      <td>{item.truePayDate}</td>
-                      <td>{item.yuegong}</td>
-                      <td>{item.yqmoney}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Card.Body>
-        </Card>
+        <MyTable
+          title="订单详情信息"
+          list={fqOrderList}
+          RenderData={[
+            { title: "订单编号", value: "orderSn" },
+            { title: "第几期", value: "dijiqi" },
+            { title: "付款状态", value: "payStatus" },
+            { title: "应付款时间", value: "payDate" },
+            { title: "实际支付时间", value: "truePayDate" },
+            { title: "月供", value: "yuegong" },
+            { title: "逾期金额", value: "yqmoney" },
+          ]}
+        />
       );
     }
   };
@@ -385,33 +252,16 @@ export default class Overduedetails extends React.Component {
     const { fqOrderActionList } = this.state.orderDetails;
     if (fqOrderActionList) {
       return (
-        <Card className={style.Card}>
-          <Card.Header title="操作记录"></Card.Header>
-          <Card.Body>
-            <table className={style.OrderInfo}>
-              <thead>
-                <tr>
-                  <th width="120px">操作人</th>
-                  <th width="120px">操作时间</th>
-                  <th width="120px">商家担保</th>
-                  <th width="120px">备注</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fqOrderActionList.map((item) => {
-                  return (
-                    <tr key={item.actionId}>
-                      <td>{item.actionUsername}</td>
-                      <td>{item.timeString}</td>
-                      <td>{item.guarantees}</td>
-                      <td>{item.statusDesc}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Card.Body>
-        </Card>
+        <MyTable
+          title="操作记录"
+          list={fqOrderActionList}
+          RenderData={[
+            { title: "操作人", value: "actionUsername" },
+            { title: "操作时间", value: "timeString" },
+            { title: "商家担保", value: "guarantees" },
+            { title: "备注", value: "statusDesc" },
+          ]}
+        />
       );
     }
   };
@@ -419,37 +269,18 @@ export default class Overduedetails extends React.Component {
     const { fqApilogdks } = this.state.orderDetails;
     if (fqApilogdks) {
       return (
-        <Card className={style.Card}>
-          <Card.Header title="扣款记录"></Card.Header>
-          <Card.Body>
-            <table className={style.OrderInfo}>
-              <thead>
-                <tr>
-                  <th width="120px">编号</th>
-                  <th width="120px">订单编号</th>
-                  <th width="120px">支付商单号</th>
-                  <th width="120px">扣款是否成功</th>
-                  <th width="120px">信息</th>
-                  <th width="120px">扣款时间</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fqApilogdks.map((item) => {
-                  return (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.orderSn}</td>
-                      <td>{item.payorderSn}</td>
-                      <td>{item.isLokstr}</td>
-                      <td>{item.message}</td>
-                      <td>{item.timeString}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </Card.Body>
-        </Card>
+        <MyTable
+          title="扣款记录"
+          list={fqApilogdks}
+          RenderData={[
+            { title: "编号", value: "id" },
+            { title: "订单编号", value: "orderSn" },
+            { title: "支付商单号", value: "payorderSn" },
+            { title: "扣款是否成功", value: "isLokstr" },
+            { title: "信息", value: "message" },
+            { title: "扣款时间", value: "timeString" },
+          ]}
+        />
       );
     }
   };

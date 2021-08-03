@@ -12,25 +12,13 @@
     width: 98%;
     display: block;
     margin: 5px auto;
-    .Item {
-      height: 30px;
-      line-height: 30px;
-      box-sizing: border-box;
-      padding: 0 10px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      .title {
-        display: inline-block;
-        width: 110px;
-      }
-    }
     .Idphoto {
       box-sizing: border-box;
-      padding: 0 10px;
+      padding: 5px 10px 0;
       .title {
         display: inline-block;
         width: 110px;
+        font-size: 14px;
       }
       .images {
         display: flex;
@@ -46,20 +34,6 @@
             margin-right: 0;
           }
         }
-      }
-    }
-    .OrderInfo {
-      width: 750px;
-      border-collapse: collapse;
-      th {
-        width: 220px;
-        border: 1px solid #999;
-        background-color: #b5cfd2;
-      }
-      td {
-        border: 1px solid #999;
-        background-color: #dcddc0;
-        text-align: center;
       }
     }
     .CreditInformation {
