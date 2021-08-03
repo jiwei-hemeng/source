@@ -8,6 +8,7 @@ import {
   TextareaItem,
   Button,
 } from "antd-mobile";
+import { updateReturn } from "@/api/overdue";
 import { editDay } from "@/api/today";
 import style from "./index.module.scss";
 import MyList from "@/component/MyList";
@@ -27,6 +28,7 @@ const Chunk = ({ title, children, list }) => {
 const Edit = ({ location, history }) => {
   const { id } = location.state;
   const [list, setlist] = useState({});
+  const [statusDesc, setStatusDesc] = useState("");
   useEffect(() => {
     const getList = async () => {
       const { data } = await editDay({
@@ -64,13 +66,33 @@ const Edit = ({ location, history }) => {
         renderHeader={() => "回访记录"}
         renderFooter={() => {
           return (
-            <Button type="primary" size="small" inline>
+            <Button
+              type="primary"
+              size="small"
+              inline
+              onClick={async () => {
+                const res = await updateReturn({
+                  summary_id: id,
+                  sh_status: "1",
+                  statusDesc,
+                });
+                if (res.data.code === 200) {
+                  history.goBack();
+                }
+              }}
+            >
               提交
             </Button>
           );
         }}
       >
-        <TextareaItem autoHeight placeholder="请输入回访记录" rows={3} />
+        <TextareaItem
+          autoHeight
+          placeholder="请输入回访记录"
+          value={statusDesc}
+          onChange={(v) => setStatusDesc(v)}
+          rows={3}
+        />
       </List>
     );
   };
