@@ -26,7 +26,7 @@ export default class Overdue extends React.Component {
       const { data } = await listOverOrder(params);
       Toast.hide();
       if (data && data.code === 200) {
-        const newlist = [...this.state.list, ...data.data];
+        const newlist = [...new Set([...this.state.list, ...data.data])];
         const totle = data.count;
         this.setState({
           count: totle,
