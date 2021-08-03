@@ -38,7 +38,7 @@ const MyTable = ({ title, list, RenderData }) => {
 MyTable.propsTypes = {
   list: PropTypes.array,
   RenderData: PropTypes.array,
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 MyTable.defaultProps = {
   list: [],

@@ -137,11 +137,15 @@ const Today = () => {
             startIndex: 0,
           });
         }}
-        onCancel={() => {
-          set_student_name("");
-          loadMoreRows({
-            startIndex: 0,
+        onCancel={async () => {
+          const { data } = await listDayOrder({
+            page: 1,
+            size: 10,
           });
+          if (data && data.code !== 200) return;
+          setList(data.data);
+          setCount(data.count);
+          set_student_name("");
         }}
       />
       <Virtualized
