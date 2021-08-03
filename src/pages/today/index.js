@@ -89,7 +89,7 @@ const Today = () => {
                 });
               }}
             >
-              详情
+              分期详情
             </Button>
             <Button
               type="primary"
