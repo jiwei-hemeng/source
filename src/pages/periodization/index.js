@@ -1,18 +1,7 @@
 import React from "react";
-import {
-  NavBar,
-  Icon,
-  Card,
-  Modal,
-  InputItem,
-  Radio,
-  List,
-  Toast,
-} from "antd-mobile";
+import { NavBar, Icon, Card, Toast } from "antd-mobile";
 import { repayList } from "@/api/order";
 import style from "./index.module.scss";
-// const alert = Modal.alert;
-const RadioItem = Radio.RadioItem;
 export default class Periodization extends React.Component {
   state = {
     modal: false,
@@ -36,69 +25,21 @@ export default class Periodization extends React.Component {
       });
     }
   }
-  renderModal = () => {
-    const data = [
-      { value: 0, label: "月供" },
-      { value: 1, label: "服务费" },
-      { value: 2, label: "违约金" },
-    ];
-    return (
-      <Modal
-        popup
-        visible={this.state.modal}
-        transparent
-        maskClosable
-        animationType="slide-up"
-        onClose={() => {
-          this.setState({
-            modal: false,
-          });
-        }}
-        title="线下还款"
-        footer={[
-          {
-            text: "提交",
-            onPress: () => {
-              this.setState({ modal: false });
-            },
-          },
-        ]}
-      >
-        <div style={{ height: 345, overflow: "scroll" }}>
-          <InputItem
-            value={this.props.location.state.id}
-            placeholder="请输入订单编号..."
-          >
-            订单编号
-          </InputItem>
-          <InputItem
-            value={this.state.money}
-            placeholder="请输入支付金额..."
-            onChange={(v) => this.setState({ money: v })}
-          >
-            支付金额
-          </InputItem>
-          <InputItem
-            value={this.state.orderId}
-            placeholder="请输入支付单号..."
-            onChange={(v) => this.setState({ orderId: v })}
-          >
-            支付单号
-          </InputItem>
-          <List renderHeader={() => "支付类型"}>
-            {data.map((i) => (
-              <RadioItem
-                key={i.value}
-                checked={this.state.RadioV === i.value}
-                onChange={() => this.onChange(i.value)}
-              >
-                {i.label}
-              </RadioItem>
-            ))}
-          </List>
-        </div>
-      </Modal>
-    );
+  addZero(value) {
+    return value < 10 ? "0" + value : value;
+  }
+  formattime = (time) => {
+    if (time === 0) {
+      return "";
+    }
+    const date = new Date(time * 1000);
+    return `${date.getFullYear()}-${this.addZero(
+      date.getMonth() + 1
+    )}-${this.addZero(date.getDay())} ${this.addZero(
+      date.getHours()
+    )}:${this.addZero(date.getMinutes())}:${this.addZero(
+      date.getMilliseconds()
+    )}`;
   };
   renderList = () => {
     const { repayList } = this.state;
@@ -108,8 +49,8 @@ export default class Periodization extends React.Component {
           <Card.Header
             title={<span className={style.CardTitle}>{item.orderSn}</span>}
             extra={
-              <span className={item.ispay === 0 ? style.status : style.end}>
-                {item.ispay === 0 ? "未支付" : "已支付"}
+              <span className={item.status === 0 ? style.status : style.end}>
+                {item.status === 0 ? "未支付" : "已支付"}
               </span>
             }
           />
@@ -120,11 +61,11 @@ export default class Periodization extends React.Component {
             </div>
             <div className={style.CardItem}>
               <span className={style.title}>应付款时间</span>
-              <span>{item.payDate}</span>
+              <span>{this.formattime(item.paytime)}</span>
             </div>
             <div className={style.CardItem}>
               <span className={style.title}>实际支付时间</span>
-              <span>{item.payDate}</span>
+              <span>{this.formattime(item.truepaytime)}</span>
             </div>
             <div className={style.CardItem}>
               <span className={style.title}>月供</span>
@@ -134,30 +75,6 @@ export default class Periodization extends React.Component {
               <span className={style.title}>逾期金额</span>
               <span>{item.yqmoney}</span>
             </div>
-            {/* <div className={style.btn_group}>
-              <Button
-                type="ghost"
-                className={style.btn}
-                size="small" inline
-                onClick={() => {
-                  alert("扣款提醒", "您确认要扣款吗~", [
-                    { text: "取消", onPress: () => console.log('cancel') },
-                    { text: "确认", onPress: () => console.log('ok') },
-                  ])
-                }}
-              >扣款</Button>
-              <Button
-                type="ghost"
-                className={style.btn}
-                size="small"
-                inline
-                onClick={() => {
-                  this.setState({
-                    modal: true
-                  })
-                }}
-              >线下还款</Button>
-            </div> */}
           </Card.Body>
         </Card>
       );
@@ -176,7 +93,6 @@ export default class Periodization extends React.Component {
           分期详情页
         </NavBar>
         {this.renderList()}
-        {this.renderModal()}
       </div>
     );
   }
