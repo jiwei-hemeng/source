@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Toast } from "antd-mobile";
 const baseURL = process.env.REACT_APP_URL;
 let Request = axios.create({
   baseURL: baseURL,
@@ -20,7 +19,6 @@ Request.interceptors.response.use((response) => {
     response.data.code === 303
   ) {
     sessionStorage.clear("token");
-    Toast.success(response.data.msg, 2);
     window.location.href = "/login";
   }
   return response;
