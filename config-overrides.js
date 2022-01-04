@@ -8,6 +8,7 @@ const {
   resolve
 } = require("path");
 const rewirePostcss = require("react-app-rewire-postcss");
+process.env.GENERATE_SOURCEMAP = "false";
 const px2rem = require("postcss-px2rem");
 // 生产环境下cdn引入资源
 let externalsOption = {};
