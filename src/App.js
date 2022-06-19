@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import AuthRoute from "@/component/AuthRoute";
 import Loadding from "@/component/loadding";
-const Index = React.lazy(() => import("./pages/"));
+const Index = React.lazy(() => import("./pages"));
 const Login = React.lazy(() => import("@/pages/login"));
 const OverdueDetails = React.lazy(() => import("@/pages/details"));
 const OverdueSearch = React.lazy(() => import("@/pages/search"));

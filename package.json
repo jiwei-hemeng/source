@@ -11,6 +11,7 @@
     "babel-plugin-import": "^1.13.3",
     "customize-cra": "^1.0.0",
     "formik": "^2.2.9",
+    "jsencrypt": "^3.2.1",
     "lib-flexible": "^0.3.2",
     "node-sass": "^6.0.0",
     "postcss-px2rem": "^0.3.0",
