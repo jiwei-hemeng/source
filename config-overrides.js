@@ -3,6 +3,7 @@ const {
   fixBabelImports,
   addWebpackAlias,
   addWebpackExternals,
+  setWebpackPublicPath,
 } = require("customize-cra");
 const {
   resolve
@@ -25,6 +26,7 @@ module.exports = override(
     libraryName: "antd-mobile",
     style: "css",
   }),
+  setWebpackPublicPath("/source"),
   addWebpackAlias({
     "@": resolve("src"),
   }),
