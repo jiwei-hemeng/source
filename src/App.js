@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, HashRouter, Route, Redirect } from "react-router-dom";
+import { HashRouter, Route, Redirect } from "react-router-dom";
 import AuthRoute from "@/component/AuthRoute";
 import Loadding from "@/component/loadding";
 const Index = React.lazy(() => import("./pages"));
@@ -10,6 +10,16 @@ const Periodization = React.lazy(() => import("@/pages/periodization"));
 const ReturnBack = React.lazy(() => import("@/pages/ReturnBack"));
 const leaveschool = React.lazy(() => import("@/pages/leaveschool"));
 const TodayEdit = React.lazy(() => import("@/pages/today/Edit"));
+const ctx = require.context('./views/', true, /\.js$/);
+let routers = []
+ctx.keys().forEach(key => {
+  const componentName = key.substring(2).split(".")[0]
+  routers.push({
+    name: componentName,
+    component: React.lazy(() => import("@/views/" + key.substring(2))),
+    url: "/" + componentName
+  })
+});
 export default class App extends React.Component {
   render() {
     return (
@@ -24,6 +34,11 @@ export default class App extends React.Component {
           />
           <AuthRoute path="/home" exact={false} Page={Index} />
           <Route exact path="/login" component={Login} />
+          {routers.map(item => {
+            return (
+              <Route exact path={item.url} component={item.component} key={item.url} />
+            )
+          })}
           <AuthRoute
             path="/overduedetails"
             exact={true}
