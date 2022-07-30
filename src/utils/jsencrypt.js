@@ -13,5 +13,5 @@ export function encrypt(str) {
 export function decrypt(str) {
   const encryptor = new JSEncrypt();
   encryptor.setPrivateKey('-----BEGIN RSA PRIVATE KEY-----' + PRIVATE_KEY + '-----END RSA PRIVATE KEY-----');
-  return encryptor.decrypt(str); 
+  return encryptor.decrypt(str);
 }
