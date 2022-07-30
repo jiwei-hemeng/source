@@ -26,7 +26,7 @@ module.exports = override(
     libraryName: "antd-mobile",
     style: "css",
   }),
-  setWebpackPublicPath("/source"),
+  process.env.NODE_ENV === "production" && setWebpackPublicPath("/source"),
   addWebpackAlias({
     "@": resolve("src"),
   }),
