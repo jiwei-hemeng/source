@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { withFormik, ErrorMessage, Form, Field } from "formik";
 // 导入yup
 import * as Yup from "yup";
-import {decrypt, encrypt} from "@/utils/jsencrypt"
+import { decrypt, encrypt } from "@/utils/jsencrypt"
 class Login extends Component {
   render() {
     let { errors } = this.props;
@@ -91,15 +91,16 @@ export default connect(
       Toast.loading("正在登录中...", 0);
       const encryptData = encrypt(value.password);
       console.log("jsencrypt", encryptData, decrypt(encryptData))
-      const { data } = await login({
+      const { data, status } = await login({
         username: value.username,
         password: encryptData,
       });
+      console.log("status", status)
       Toast.hide();
       if (data.code === 200) {
         Toast.success("登录成功哦~~", 2);
-        sessionStorage.setItem("token", data.data);
-        props.setToken(data.data);
+        sessionStorage.setItem("token", data.token);
+        props.setToken(data.token);
         props.history.push("/");
       } else {
         Toast.fail("登录失败~~", 2);

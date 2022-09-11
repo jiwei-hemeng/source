@@ -2,7 +2,7 @@ import Request from "@/utils/request";
 // 登录系统
 export function login(data) {
   return Request({
-    url: "/loginController/login",
+    url: "/user/login",
     method: "POST",
     data,
   });
