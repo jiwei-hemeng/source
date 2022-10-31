@@ -23,6 +23,8 @@ jobs:
       - run: yarn
       # 打包构建
       - run: yarn build
+        env:
+          CI: false
       # 发布到 GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v2
