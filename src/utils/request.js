@@ -1,13 +1,14 @@
 import axios from "axios";
-const baseURL = process.env.REACT_APP_URL || "/api";
+import { Toast } from "antd-mobile";
+// const baseURL = process.env.REACT_APP_URL || "/api";
 
 let Request = axios.create({
-  baseURL: baseURL,
+  baseURL: "/",
   timeout: 30000, // 超时时间
 });
 // 请求拦截器
 Request.interceptors.request.use((config) => {
-  console.log("config", config, baseURL, process)
+  console.log("config", config, process)
   if (config.url !== "/loginController/login") {
     config.headers.Authorization = "Bearer " + sessionStorage.getItem("token");
   }
@@ -24,5 +25,8 @@ Request.interceptors.response.use((response) => {
     window.location.href = "/login";
   }
   return response;
+}, (error) => {
+  console.log(error)
+  Toast.fail("网络错误")
 });
 export default Request;
