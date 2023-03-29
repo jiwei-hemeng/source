@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { legacy_createStore as createStore } from "redux";
 import Reducer from "./reducer.js";
 const token =
   sessionStorage.getItem("token") === null
@@ -7,6 +7,7 @@ const token =
 let state = {
   num: 10,
   token,
+  joinTime: Date.now()
 };
 let store = createStore(Reducer, state);
 export default store;
