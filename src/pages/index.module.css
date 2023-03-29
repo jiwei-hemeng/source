@@ -1,7 +1,9 @@
 .root {
-  height: 100%;
+  min-height: 100vh;
   background-color: #fff;
   padding-top: 45px;
+  background: url("@/static/login/login_bj_02.jpg") no-repeat center;
+  background-attachment: fixed;
 }
 
 .navHeader {

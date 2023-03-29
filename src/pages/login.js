@@ -11,7 +11,7 @@ class Login extends Component {
   render() {
     let { errors } = this.props;
     return (
-      <div className={styles.root}>
+      <div className={[styles.root, "Login"].join(" ")}>
         <WingBlank>
           <Form>
             <div className={styles.formItem}>
