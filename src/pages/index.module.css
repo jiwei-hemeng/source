@@ -82,6 +82,7 @@ a {
 .submit {
   display: block;
   outline: 0 none;
+  appearance: none;
   -webkit-appearance: none;
   padding: 0;
   text-align: center;
