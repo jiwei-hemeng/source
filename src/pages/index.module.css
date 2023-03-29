@@ -63,6 +63,7 @@
   /* 清除移动端高亮 */
   -webkit-tap-highlight-color: transparent;
   /* 清除ios默认样式 */
+  appearance: none;
   -webkit-appearance: none;
 }
 
